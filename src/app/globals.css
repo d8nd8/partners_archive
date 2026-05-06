@@ -1,0 +1,54 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+  --accent: #E8694A;
+  --bg-light: #F5F4F2;
+  --bg-dark: #1C1C1C;
+  --card-light: #FFFFFF;
+  --card-dark: #2A2A2A;
+  --radius: 12px;
+  --badge-button-background: #ffded2;
+  --badge-button-border: #f4bda9;
+  --color-primary-background: #dedede;
+  --color-primary-background-2: #242424;
+  --color-primary-background-3: #ffffff;
+  --color-text-primary: #000000;
+  --color-text-primary2: #e37952;
+  --color-text-secondary: #8f8f8f;
+  --color-text-menu: #cecece;
+  --color-surface-card: radial-gradient(#e37952 0%, #ffffff 100%);
+  --color-border-default: #e6e6e5;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-badge-button-background: var(--badge-button-background);
+  --color-badge-button-border: var(--badge-button-border);
+  --color-primary-background: var(--color-primary-background);
+  --color-primary-background-2: var(--color-primary-background-2);
+  --color-primary-background-3: var(--color-primary-background-3);
+  --color-text-primary: var(--color-text-primary);
+  --color-text-primary2: var(--color-text-primary2);
+  --color-text-secondary: var(--color-text-secondary);
+  --color-text-menu: var(--color-text-menu);
+  --color-surface-card: var(--color-surface-card);
+  --color-border-default: var(--color-border-default);
+  --font-sans: var(--font-inter);
+  --font-mono: var(--font-geist-mono);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+}
