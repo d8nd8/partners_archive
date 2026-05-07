@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { motion, useScroll, useTransform } from "framer-motion";
+import { useEffect, useRef } from "react";
 import { HERO_CONTENT } from "@/lib/constants";
 import { fadeInUp, VIEWPORT } from "@/lib/motion";
 
@@ -11,10 +12,33 @@ import { fadeInUp, VIEWPORT } from "@/lib/motion";
 export default function Hero() {
   const { scrollY } = useScroll();
   const blobY = useTransform(scrollY, (s) => s * 0.2);
+  const glassBlobRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    const el = glassBlobRef.current;
+    if (!el) return;
+
+    const BASE_TOP_PX = 132;
+    const CARD_HEIGHT_PX = 1072;
+    const BLOB_HEIGHT_PX = 205;
+    const PARALLAX = 0.2;
+    const MAX_DRIFT_PX = 56;
+
+    const applyTop = (docScrollY: number) => {
+      const drift = Math.min(docScrollY * PARALLAX, MAX_DRIFT_PX);
+      const maxTopInCard = CARD_HEIGHT_PX - BLOB_HEIGHT_PX;
+      el.style.top = `${Math.min(BASE_TOP_PX + drift, maxTopInCard)}px`;
+    };
+
+    applyTop(window.scrollY);
+    const unsubscribe = scrollY.on("change", applyTop);
+
+    return () => unsubscribe();
+  }, [scrollY]);
 
   return (
     <section
-      className="relative isolate flex w-full items-start justify-center bg-[var(--bg-light)] pt-[40px] pb-0"
+      className="relative flex w-full items-start justify-center bg-[var(--bg-light)] pt-[40px] pb-0"
       aria-label="Hero"
     >
       <div
@@ -107,40 +131,6 @@ export default function Hero() {
           </div>
 
           <motion.div
-            className="pointer-events-none absolute left-[700px] top-[92px] z-40 select-none"
-            style={{
-              y: blobY,
-              width: 188,
-              height: 205,
-            }}
-            aria-hidden="true"
-          >
-            <div
-              className="absolute inset-0"
-              style={{
-                background: "rgba(255, 255, 255, 0.52)",
-                WebkitBackdropFilter: "blur(32px) saturate(135%)",
-                backdropFilter: "blur(32px) saturate(135%)",
-                transform: "translateZ(0)",
-                WebkitMaskImage: "url('/union2.svg')",
-                maskImage: "url('/union2.svg')",
-                WebkitMaskRepeat: "no-repeat",
-                maskRepeat: "no-repeat",
-                WebkitMaskSize: "contain",
-                maskSize: "contain",
-                WebkitMaskPosition: "center",
-                maskPosition: "center",
-              }}
-            />
-            <Image
-              src="/union2.svg"
-              alt=""
-              width={188}
-              height={205}
-              className="relative h-full w-full"
-            />
-          </motion.div>
-          <motion.div
             className="pointer-events-none absolute left-[1038px] top-[438px] select-none opacity-55"
             style={{ y: blobY }}
             aria-hidden="true"
@@ -188,6 +178,20 @@ export default function Hero() {
             <div className="pointer-events-none absolute inset-0 bg-[var(--color-text-primary2)] mix-blend-color" />
           </div>
         </div>
+      </div>
+
+      <div
+        ref={glassBlobRef}
+        className="pointer-events-none absolute left-[calc(50%+100px)] z-40 h-[205px] w-[188px] select-none max-[1200px]:left-[700px]"
+        aria-hidden="true"
+      >
+        <Image
+          src="/union2.svg"
+          alt=""
+          width={188}
+          height={205}
+          className="h-full w-full opacity-50"
+        />
       </div>
     </section>
   );
