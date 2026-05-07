@@ -12,6 +12,7 @@ import { fadeInUp, VIEWPORT } from "@/lib/motion";
 export default function Hero() {
   const { scrollY } = useScroll();
   const blobY = useTransform(scrollY, (s) => s * 0.2);
+  const leftBottomBlobY = useTransform(scrollY, (s) => s * 0.08);
   const glassBlobRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
@@ -138,8 +139,8 @@ export default function Hero() {
             <Image src="/union1.svg" alt="" width={231} height={215} />
           </motion.div>
           <motion.div
-            className="pointer-events-none absolute left-[-36px] top-[590px] z-20 select-none -rotate-90 opacity-45"
-            style={{ y: blobY }}
+            className="pointer-events-none absolute left-[-36px] top-[590px] z-20 select-none -rotate-90 opacity-[0.68]"
+            style={{ y: leftBottomBlobY }}
             aria-hidden="true"
           >
             <Image src="/union3.svg" alt="" width={178} height={165} />
