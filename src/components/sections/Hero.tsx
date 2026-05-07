@@ -4,7 +4,11 @@ import Image from "next/image";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useEffect, useRef } from "react";
 import { HERO_CONTENT } from "@/lib/constants";
-import { fadeInUp, VIEWPORT } from "@/lib/motion";
+import {
+  fadeInHeroPhraseChild,
+  heroPhraseStagger,
+  VIEWPORT_HERO,
+} from "@/lib/motion";
 
 /**
  * Hero section for the landing page.
@@ -52,30 +56,40 @@ export default function Hero() {
 
           <motion.div
             className="relative z-10 mx-auto flex max-w-[945px] flex-col items-center gap-5 px-[72.5px] text-center"
-            variants={fadeInUp}
+            variants={heroPhraseStagger}
             initial="hidden"
             whileInView="visible"
-            viewport={VIEWPORT}
+            viewport={VIEWPORT_HERO}
           >
             <h1 className="flex w-full max-w-[800px] flex-col items-center font-normal tracking-[-0.64px] text-black">
-              <span className="text-[59px] leading-[60.8px]">
+              <motion.span
+                className="text-[59px] leading-[60.8px]"
+                variants={fadeInHeroPhraseChild}
+              >
                 {HERO_CONTENT.title.top}
-              </span>
-              <span className="text-[59px] leading-[60.8px]">
+              </motion.span>
+              <motion.span
+                className="text-[59px] leading-[60.8px]"
+                variants={fadeInHeroPhraseChild}
+              >
                 <span className="text-[var(--color-text-primary2)]">
                   {HERO_CONTENT.title.accent}
                 </span>
                 <span>{HERO_CONTENT.title.bottom}</span>
-              </span>
+              </motion.span>
             </h1>
 
-            <p className="max-w-[421px] text-[19px] font-light leading-[27px] tracking-[-0.2px] text-[var(--color-text-secondary)]">
+            <motion.p
+              className="max-w-[421px] text-[19px] font-light leading-[27px] tracking-[-0.2px] text-[var(--color-text-secondary)]"
+              variants={fadeInHeroPhraseChild}
+            >
               {HERO_CONTENT.subtitle}
-            </p>
+            </motion.p>
 
             <motion.a
               href="#"
               className="inline-flex items-center gap-2 overflow-hidden rounded-[14px] bg-[var(--color-primary-background-2)] px-[17px] pb-[8.94px] pt-[9px] text-[16px] font-medium leading-[22.95px] tracking-[-0.17px] text-white shadow-[0px_4px_6px_-1px_rgba(0,0,0,0.1),0px_2px_4px_-2px_rgba(0,0,0,0.1)]"
+              variants={fadeInHeroPhraseChild}
               whileTap={{ scale: 0.97 }}
             >
               {HERO_CONTENT.cta}
