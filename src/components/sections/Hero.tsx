@@ -18,7 +18,7 @@ export default function Hero() {
     const el = glassBlobRef.current;
     if (!el) return;
 
-    const BASE_TOP_PX = 132;
+    const BASE_TOP_PX = 92;
     const CARD_HEIGHT_PX = 1072;
     const BLOB_HEIGHT_PX = 205;
     const PARALLAX = 0.2;
@@ -178,20 +178,20 @@ export default function Hero() {
             <div className="pointer-events-none absolute inset-0 bg-[var(--color-text-primary2)] mix-blend-color" />
           </div>
         </div>
-      </div>
 
-      <div
-        ref={glassBlobRef}
-        className="pointer-events-none absolute left-[calc(50%+100px)] z-40 h-[205px] w-[188px] select-none max-[1200px]:left-[700px]"
-        aria-hidden="true"
-      >
-        <Image
-          src="/union2.svg"
-          alt=""
-          width={188}
-          height={205}
-          className="h-full w-full opacity-50"
-        />
+        <div
+          ref={glassBlobRef}
+          className="pointer-events-none absolute left-[calc(50%+100px)] z-[30] h-[205px] w-[188px] select-none max-[1200px]:left-[700px]"
+          aria-hidden="true"
+        >
+          <Image
+            src="/union2.svg"
+            alt=""
+            width={188}
+            height={205}
+            className="h-full w-full opacity-50"
+          />
+        </div>
       </div>
     </section>
   );
