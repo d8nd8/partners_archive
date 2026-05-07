@@ -22,6 +22,10 @@
   --color-border-default: #e6e6e5;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);

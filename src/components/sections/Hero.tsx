@@ -51,8 +51,8 @@ export default function Hero() {
         aria-hidden="true"
       />
       <div className="relative z-10 mx-auto w-full max-w-[1200px]">
-        <div className="relative h-[1072px] overflow-hidden rounded-[24px] bg-[linear-gradient(180deg,#ffffff_0%,#fff4f0_42%,#f5f4f2_100%)] pt-[96px]">
-          <div className="pointer-events-none absolute left-1/2 top-[340px] h-[800px] w-[1400px] -translate-x-1/2 bg-[radial-gradient(ellipse_at_top,rgba(227,121,82,0.52)_0%,rgba(227,121,82,0.22)_45%,rgba(227,121,82,0)_75%)] blur-[40px]" />
+        <div className="relative h-[1072px] overflow-hidden rounded-t-[24px] bg-[linear-gradient(180deg,#ffffff_0%,#fff4f0_42%,#f5f4f2_100%)] pt-[96px]">
+          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_100%_75%_at_50%_85%,rgba(227,121,82,0.72)_0%,rgba(227,121,82,0.36)_50%,rgba(227,121,82,0)_100%)]" />
 
           <motion.div
             className="relative z-10 mx-auto flex max-w-[945px] flex-col items-center gap-5 px-[72.5px] text-center"
@@ -112,7 +112,7 @@ export default function Hero() {
             </motion.a>
           </motion.div>
 
-          <div className="absolute left-[116px] top-[384.72px] h-[472.02px] w-[968px] overflow-hidden rounded-[14px] border-[0.852px] border-[#e5e5e5] bg-white shadow-[0px_-4px_15px_-3px_rgba(0,0,0,0.1)] [filter:blur(3.5px)]">
+          <div className="absolute left-[116px] top-[384.72px] h-[472.02px] w-[968px] overflow-hidden rounded-[14px] border-[0.852px] border-[#e5e5e5] bg-white shadow-[0px_-4px_15px_-3px_rgba(0,0,0,0.1)] [filter:blur(4.5px)]">
             <Image
               src="/images/hero/contracts-1.png"
               alt=""
@@ -123,7 +123,7 @@ export default function Hero() {
             <div className="absolute left-[-9.59px] top-[-26.12px] h-[311px] w-[1112px] bg-[var(--color-text-primary2)] mix-blend-color" />
           </div>
 
-          <div className="absolute left-[91px] top-[423.79px] h-[496.89px] w-[1019px] overflow-hidden rounded-[14px] border-[0.852px] border-[#e5e5e5] bg-white shadow-[0px_-4px_15px_-3px_rgba(0,0,0,0.1)] [filter:blur(2px)]">
+          <div className="absolute left-[91px] top-[423.79px] h-[496.89px] w-[1019px] overflow-hidden rounded-[14px] border-[0.852px] border-[#e5e5e5] bg-white shadow-[0px_-4px_15px_-3px_rgba(0,0,0,0.1)] [filter:blur(3px)]">
             <Image
               src="/images/hero/photo3.png"
               alt=""
@@ -134,7 +134,7 @@ export default function Hero() {
             <div className="absolute left-[-9.59px] top-[-26.19px] h-[311px] w-[1112px] bg-[var(--color-text-primary2)] mix-blend-color" />
           </div>
 
-          <div className="absolute left-[63px] top-[467.24px] h-[523.71px] w-[1074px] overflow-hidden rounded-[14px] border-[0.852px] border-[#e5e5e5] bg-white shadow-[0px_-4px_15px_-3px_rgba(0,0,0,0.1)]">
+          <div className="absolute left-[63px] top-[467.24px] h-[523.71px] w-[1074px] overflow-hidden rounded-[14px] border-[0.852px] border-[#e5e5e5] bg-white shadow-[0px_-4px_15px_-3px_rgba(0,0,0,0.1)] [filter:blur(1px)]">
             <Image
               src="/images/hero/photo2.png"
               alt=""
@@ -146,22 +146,19 @@ export default function Hero() {
           </div>
 
           <motion.div
-            className="pointer-events-none absolute left-[1038px] top-[438px] select-none opacity-55"
+            className="pointer-events-none absolute left-[1038px] top-[438px] select-none opacity-75"
             style={{ y: blobY }}
             aria-hidden="true"
           >
             <Image src="/union1.svg" alt="" width={231} height={215} />
           </motion.div>
           <motion.div
-            className="pointer-events-none absolute left-[-36px] top-[590px] z-20 select-none -rotate-90 opacity-[0.68]"
+            className="pointer-events-none absolute left-[-36px] top-[590px] z-20 select-none -rotate-90 opacity-[0.85]"
             style={{ y: leftBottomBlobY }}
             aria-hidden="true"
           >
             <Image src="/union3.svg" alt="" width={178} height={165} />
           </motion.div>
-
-          <div className="pointer-events-none absolute bottom-0 left-0 top-[380px] w-8 bg-[linear-gradient(to_right,rgba(227,121,82,0.4),rgba(227,121,82,0))] [mask-image:linear-gradient(to_bottom,transparent_0%,black_30%,black_100%)]" aria-hidden="true" />
-          <div className="pointer-events-none absolute bottom-0 right-0 top-[380px] w-8 bg-[linear-gradient(to_left,rgba(227,121,82,0.4),rgba(227,121,82,0))] [mask-image:linear-gradient(to_bottom,transparent_0%,black_30%,black_100%)]" aria-hidden="true" />
 
           <div className="absolute bottom-0 left-8 top-[516.24px] w-[1136px] isolate overflow-hidden rounded-t-[18px] border-[0.852px] border-[#e5e5e5] border-b-0 bg-[#f5f4f2] shadow-[0px_-4px_15px_-3px_rgba(0,0,0,0.1)]">
             <div className="absolute left-[88.26px] top-[61.21px] h-[585.67px] w-[960.32px]">
@@ -171,7 +168,7 @@ export default function Hero() {
                 width={313}
                 height={630}
                 aria-hidden="true"
-                className="pointer-events-none absolute left-0 top-[-22.08px]"
+                className="pointer-events-none absolute left-0 top-[-22.08px] [filter:blur(0.8px)]"
               />
               <Image
                 src="/images/hero/phone2.png"
@@ -179,7 +176,7 @@ export default function Hero() {
                 width={313}
                 height={630}
                 aria-hidden="true"
-                className="pointer-events-none absolute left-[323.64px] top-[-22.08px]"
+                className="pointer-events-none absolute left-[323.64px] top-[-22.08px] [filter:blur(0.8px)]"
               />
               <Image
                 src="/images/hero/phone3.png"
@@ -187,7 +184,7 @@ export default function Hero() {
                 width={313}
                 height={630}
                 aria-hidden="true"
-                className="pointer-events-none absolute left-[647.28px] top-[-22.08px]"
+                className="pointer-events-none absolute left-[647.28px] top-[-22.08px] [filter:blur(0.8px)]"
               />
             </div>
             <div className="pointer-events-none absolute inset-0 bg-[var(--color-text-primary2)] mix-blend-color" />
@@ -204,7 +201,7 @@ export default function Hero() {
             alt=""
             width={188}
             height={205}
-            className="h-full w-full opacity-50"
+            className="h-full w-full opacity-70"
           />
         </div>
       </div>

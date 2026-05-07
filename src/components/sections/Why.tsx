@@ -1,8 +1,8 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, type Variants } from "framer-motion";
 import { WHY_CONTENT } from "@/lib/constants";
-import { fadeInUp, staggerContainer, VIEWPORT } from "@/lib/motion";
+import { fadeInUp, VIEWPORT } from "@/lib/motion";
 import {
   WhyIconClipboardList,
   WhyIconEyeOff,
@@ -25,12 +25,31 @@ const ICON_MAP = {
   SquareArrowOutUpRight: WhyIconSquareArrowOutUpRight,
 } as const;
 
+const ICON_OFFSET_CLASS = {
+  FileX: "translate-x-[4px]",
+  UserRoundPlus: "translate-x-[4px]",
+  Grid2X2Plus: "translate-x-[3px]",
+  EyeOff: "translate-x-[2px]",
+  UserRoundMinus: "translate-x-[4px]",
+  ClipboardList: "translate-x-[2px]",
+  SlidersVertical: "translate-x-[3px]",
+  SquareArrowOutUpRight: "",
+} as const;
+
+const SLOW_STAGGER_CONTAINER: Variants = {
+  hidden: {},
+  visible: { transition: { delayChildren: 0.12, staggerChildren: 0.22 } },
+};
+
 function CardIcon({ name }: { name: string }) {
-  const Icon = ICON_MAP[name as keyof typeof ICON_MAP];
+  const iconName = name as keyof typeof ICON_MAP;
+  const Icon = ICON_MAP[iconName];
   if (!Icon) return null;
   return (
     <div className="flex h-[48px] w-[48px] shrink-0 items-center justify-center rounded-[12px] bg-[#ffded2]">
-      <Icon className="block size-6 shrink-0 translate-x-[3px] translate-y-[2px] text-[#e37952]" />
+      <Icon
+        className={`block size-6 shrink-0 text-[#e37952] ${ICON_OFFSET_CLASS[iconName]}`}
+      />
     </div>
   );
 }
@@ -103,7 +122,7 @@ export default function Why() {
 
         <motion.div
           className="grid grid-cols-1 items-start gap-[20px] pt-[30px] sm:grid-cols-2 lg:grid-cols-4"
-          variants={staggerContainer}
+          variants={SLOW_STAGGER_CONTAINER}
           initial="hidden"
           whileInView="visible"
           viewport={VIEWPORT}
@@ -127,7 +146,7 @@ export default function Why() {
 
         <motion.div
           className="grid grid-cols-1 items-start gap-[20px] sm:grid-cols-2 lg:grid-cols-4"
-          variants={staggerContainer}
+          variants={SLOW_STAGGER_CONTAINER}
           initial="hidden"
           whileInView="visible"
           viewport={VIEWPORT}

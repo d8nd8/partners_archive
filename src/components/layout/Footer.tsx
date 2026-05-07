@@ -75,18 +75,31 @@ export default function Footer() {
             </ul>
           </nav>
 
-          <ul className="flex flex-col gap-[8px]">
-            {FOOTER_CONTENT.contacts.map((contact) => (
-              <li key={contact.label}>
-                <a
-                  href={contact.href}
+          <div className="flex gap-[40px]">
+            <ul className="flex flex-col gap-[8px]">
+              {FOOTER_CONTENT.contacts.map((contact) => (
+                <li key={contact.label}>
+                  <a
+                    href={contact.href}
+                    className="text-[16px] font-light leading-[23px] tracking-[-0.17px] text-[#303030]"
+                  >
+                    {contact.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+
+            <div className="flex flex-col gap-[8px] pt-[1px]">
+              {FOOTER_CONTENT.companyInfo.map((line) => (
+                <p
+                  key={line}
                   className="text-[16px] font-light leading-[23px] tracking-[-0.17px] text-[#303030]"
                 >
-                  {contact.label}
-                </a>
-              </li>
-            ))}
-          </ul>
+                  {line}
+                </p>
+              ))}
+            </div>
+          </div>
 
           <ul className="flex flex-col gap-[8px]">
             {FOOTER_CONTENT.legal.map((item) => (
