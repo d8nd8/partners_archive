@@ -117,6 +117,7 @@ export default function Hero() {
               src="/images/hero/contracts-1.png"
               alt=""
               fill
+              priority
               aria-hidden="true"
               className="pointer-events-none object-cover object-top"
             />
@@ -128,6 +129,7 @@ export default function Hero() {
               src="/images/hero/photo3.png"
               alt=""
               fill
+              priority
               aria-hidden="true"
               className="pointer-events-none object-cover object-top"
             />
@@ -139,6 +141,7 @@ export default function Hero() {
               src="/images/hero/photo2.png"
               alt=""
               fill
+              priority
               aria-hidden="true"
               className="pointer-events-none object-cover object-top"
             />
@@ -167,6 +170,7 @@ export default function Hero() {
                 alt=""
                 width={313}
                 height={630}
+                priority
                 aria-hidden="true"
                 className="pointer-events-none absolute left-0 top-[-22.08px] [filter:blur(0.8px)]"
               />
@@ -175,6 +179,7 @@ export default function Hero() {
                 alt=""
                 width={313}
                 height={630}
+                priority
                 aria-hidden="true"
                 className="pointer-events-none absolute left-[323.64px] top-[-22.08px] [filter:blur(0.8px)]"
               />
@@ -183,6 +188,7 @@ export default function Hero() {
                 alt=""
                 width={313}
                 height={630}
+                priority
                 aria-hidden="true"
                 className="pointer-events-none absolute left-[647.28px] top-[-22.08px] [filter:blur(0.8px)]"
               />
