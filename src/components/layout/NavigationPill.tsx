@@ -5,29 +5,37 @@ import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
 import { HEADER_CONTENT } from "@/lib/constants";
 
-const CURVE = 14;
+const CURVE = 22;
+
+/** Returns true when focus/pointer moved to a descendant of container. */
+function relatedIsInside(container: HTMLElement, related: EventTarget | null): boolean {
+  return related instanceof Node && container.contains(related);
+}
 
 /**
  * Floating navigation pill with a concave-corner dropdown for cases.
  *
- * Structural notes:
- * - The pill stays fully rounded in both states (no border-b-0 hack).
- * - The 3-section fake-border divider is replaced by two mask-based curve spans
- *   positioned at the top corners of the dropdown, giving a concave joint.
- * - Dropdown is absolute (top-full) so it does not affect pill layout.
- * - Height animates via spring; list items stagger on x + opacity.
+ * Corner rendering: CSS mask punches a quarter-circle hole at each top wing so
+ * the dropdown reads as concave against the pill. The earlier circle-fill hack
+ * drew the wrong quadrant (convex “ears”); masks match the intended silhouette.
+ * Wings overlap the body by 1px and the panel uses one background color to hide
+ * sub-pixel hairlines at the joint (motion + mask + translate rounding).
+ * Junction concave radius (CURVE) matches the pill rounded-2xl corner for a smoother blend.
+ *
+ * Dropdown items render statically to avoid animation race conditions under
+ * rapid pointer enter/leave interactions.
  */
 export default function NavigationPill() {
   const [open, setOpen] = useState(false);
 
   const handleBlur = useCallback((e: FocusEvent<HTMLDivElement>) => {
-    if (!e.currentTarget.contains(e.relatedTarget as Node | null)) {
+    if (!relatedIsInside(e.currentTarget, e.relatedTarget)) {
       setOpen(false);
     }
   }, []);
 
   const handleMouseLeave = useCallback((e: MouseEvent<HTMLDivElement>) => {
-    if (!e.currentTarget.contains(e.relatedTarget as Node | null)) {
+    if (!relatedIsInside(e.currentTarget, e.relatedTarget)) {
       setOpen(false);
     }
   }, []);
@@ -91,7 +99,7 @@ export default function NavigationPill() {
             </button>
 
             <a
-              href="#"
+              href="#footer-contacts"
               className="rounded-full px-2 py-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/70"
             >
               {HEADER_CONTENT.nav.contacts}
@@ -99,7 +107,9 @@ export default function NavigationPill() {
           </div>
 
           <a
-            href="#"
+            href={HEADER_CONTENT.ctaHref}
+            target="_blank"
+            rel="noopener noreferrer"
             className="inline-flex h-9 items-center justify-center rounded-xl bg-white px-3 text-[13px] font-medium tracking-[-0.07px] text-black focus:outline-none focus-visible:ring-2 focus-visible:ring-white/70"
           >
             {HEADER_CONTENT.cta}
@@ -111,64 +121,52 @@ export default function NavigationPill() {
           {open && HEADER_CONTENT.casesDropdown.length > 0 && (
             <motion.div
               key="dropdown"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1, transition: { duration: 0.1, ease: "easeOut" } }}
-              exit={{ opacity: 0, transition: { duration: 0.25, ease: "easeIn" } }}
-              className="absolute top-full left-1/2 z-10 w-56 -translate-x-1/2"
+              initial={{ opacity: 0, scaleY: 0.72, y: -6 }}
+              animate={{ opacity: 1, scaleY: 1, y: 0, transition: { duration: 0.28, ease: [0.22, 1, 0.36, 1] } }}
+              exit={{ opacity: 0, scaleY: 0.82, y: -3, transition: { duration: 0.18, ease: [0.55, 0, 1, 0.45] } }}
+              className="absolute top-full left-1/2 z-20 -mt-px w-56 -translate-x-1/2 rounded-b-2xl bg-[#1a1a1a]"
+              style={{ transformOrigin: "top center" }}
             >
-              {/* Concave left corner: cuts a quarter-circle from bottom-left */}
+              {/* Concave left: opaque wing minus BL quadrant (hole at pill junction). */}
               <span
                 aria-hidden
-                className="pointer-events-none absolute top-0 right-full block"
+                className="pointer-events-none absolute top-0 block bg-[#1a1a1a]"
                 style={{
                   width: CURVE,
                   height: CURVE,
-                  backgroundColor: "#1a1a1a",
-                  WebkitMaskImage: `radial-gradient(circle at 0 100%, transparent ${CURVE}px, #000 ${CURVE + 0.5}px)`,
-                  maskImage: `radial-gradient(circle at 0 100%, transparent ${CURVE}px, #000 ${CURVE + 0.5}px)`,
-                }}
-              />
-              {/* Concave right corner: cuts a quarter-circle from bottom-right */}
-              <span
-                aria-hidden
-                className="pointer-events-none absolute top-0 left-full block"
-                style={{
-                  width: CURVE,
-                  height: CURVE,
-                  backgroundColor: "#1a1a1a",
-                  WebkitMaskImage: `radial-gradient(circle at 100% 100%, transparent ${CURVE}px, #000 ${CURVE + 0.5}px)`,
-                  maskImage: `radial-gradient(circle at 100% 100%, transparent ${CURVE}px, #000 ${CURVE + 0.5}px)`,
+                  right: "calc(100% - 1px)",
+                  WebkitMaskImage: `radial-gradient(circle at 0 100%, transparent ${CURVE}px, #000 ${CURVE}px)`,
+                  maskImage: `radial-gradient(circle at 0 100%, transparent ${CURVE}px, #000 ${CURVE}px)`,
+                  WebkitMaskRepeat: "no-repeat",
+                  maskRepeat: "no-repeat",
                 }}
               />
 
-              {/* Body: smooth height tween + stagger on items */}
-              <motion.div
-                initial={{ height: 0 }}
-                animate={{ height: "auto" }}
-                exit={{ height: 0 }}
-                transition={{ duration: 0.45, ease: [0.25, 0.46, 0.45, 0.94] }}
-                className="overflow-hidden rounded-b-2xl bg-[#1a1a1a] shadow-[0_18px_28px_-12px_rgba(0,0,0,0.35)]"
-              >
-                <motion.ul
-                  role="menu"
-                  initial="closed"
-                  animate="open"
-                  exit="closed"
-                  variants={{
-                    open: { transition: { staggerChildren: 0.055, delayChildren: 0.1 } },
-                    closed: { transition: { staggerChildren: 0.025, staggerDirection: -1 } },
-                  }}
-                  className="p-2"
-                >
-                  {HEADER_CONTENT.casesDropdown.map((item) => (
-                    <motion.li
+              {/* Concave right: opaque wing minus BR quadrant. */}
+              <span
+                aria-hidden
+                className="pointer-events-none absolute top-0 block bg-[#1a1a1a]"
+                style={{
+                  width: CURVE,
+                  height: CURVE,
+                  left: "calc(100% - 1px)",
+                  WebkitMaskImage: `radial-gradient(circle at 100% 100%, transparent ${CURVE}px, #000 ${CURVE}px)`,
+                  maskImage: `radial-gradient(circle at 100% 100%, transparent ${CURVE}px, #000 ${CURVE}px)`,
+                  WebkitMaskRepeat: "no-repeat",
+                  maskRepeat: "no-repeat",
+                }}
+              />
+
+              {/* Body */}
+              <div className="overflow-hidden rounded-b-2xl bg-[#1a1a1a] shadow-[0_18px_28px_-12px_rgba(0,0,0,0.35)]">
+                <ul role="menu" className="p-2">
+                  {HEADER_CONTENT.casesDropdown.map((item, i) => (
+                    <li
                       key={`${item.href}-${item.label}`}
                       role="none"
-                      variants={{
-                        open: { opacity: 1, x: 0 },
-                        closed: { opacity: 0, x: -8 },
+                      style={{
+                        animation: `nav-item-in 0.22s ease-out ${0.06 + i * 0.045}s both`,
                       }}
-                      transition={{ duration: 0.22, ease: "easeOut" }}
                     >
                       <a
                         role="menuitem"
@@ -178,10 +176,10 @@ export default function NavigationPill() {
                       >
                         {item.label}
                       </a>
-                    </motion.li>
+                    </li>
                   ))}
-                </motion.ul>
-              </motion.div>
+                </ul>
+              </div>
             </motion.div>
           )}
         </AnimatePresence>

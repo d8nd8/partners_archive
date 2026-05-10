@@ -9,11 +9,13 @@ import {
   heroPhraseStagger,
   VIEWPORT_HERO,
 } from "@/lib/motion";
+import { useLeadModal } from "@/context/LeadModalContext";
 
 /**
  * Hero section for the landing page.
  */
 export default function Hero() {
+  const { openModal } = useLeadModal();
   const { scrollY } = useScroll();
   const blobY = useTransform(scrollY, (s) => s * 0.2);
   const leftBottomBlobY = useTransform(scrollY, (s) => s * 0.08);
@@ -86,8 +88,9 @@ export default function Hero() {
               {HERO_CONTENT.subtitle}
             </motion.p>
 
-            <motion.a
-              href="#"
+            <motion.button
+              type="button"
+              onClick={openModal}
               className="inline-flex items-center gap-2 overflow-hidden rounded-[14px] bg-[var(--color-primary-background-2)] px-[17px] pb-[8.94px] pt-[9px] text-[16px] font-medium leading-[22.95px] tracking-[-0.17px] text-white shadow-[0px_4px_6px_-1px_rgba(0,0,0,0.1),0px_2px_4px_-2px_rgba(0,0,0,0.1)]"
               variants={fadeInHeroPhraseChild}
               whileTap={{ scale: 0.97 }}
@@ -109,7 +112,7 @@ export default function Hero() {
                   strokeLinejoin="round"
                 />
               </svg>
-            </motion.a>
+            </motion.button>
           </motion.div>
 
           <div className="absolute left-[116px] top-[384.72px] h-[472.02px] w-[968px] overflow-hidden rounded-[14px] border-[0.852px] border-[#e5e5e5] bg-white shadow-[0px_-4px_15px_-3px_rgba(0,0,0,0.1)] [filter:blur(4.5px)]">

@@ -8,6 +8,7 @@ import {
   staggerContainer,
   VIEWPORT,
 } from "@/lib/motion";
+import { useLeadModal } from "@/context/LeadModalContext";
 import { useEffect, useMemo, useRef, useState } from "react";
 
 const codeFont =
@@ -261,6 +262,8 @@ function ServiceCard({
  * How we help section — hero header with code preview and service cards grid.
  */
 export default function HowWeHelp() {
+  const { openModal } = useLeadModal();
+
   return (
     <section
       id="how-we-help"
@@ -286,6 +289,8 @@ export default function HowWeHelp() {
             </div>
             <div className="flex gap-3">
               <motion.button
+                type="button"
+                onClick={openModal}
                 className="rounded-[14px] border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.04)] px-[17px] pb-[8.94px] pt-[9px] text-[16px] font-medium leading-[22.95px] tracking-[-0.17px] text-white"
                 whileTap={{ scale: 0.97 }}
               >

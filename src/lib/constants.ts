@@ -102,6 +102,7 @@ export const HEADER_CONTENT = {
     { label: "FINO+", href: "#case-fino" },
   ] as const,
   cta: "Узнать больше",
+  ctaHref: "https://t.me/archive_case",
 } as const;
 
 export const HERO_CONTENT = {
@@ -224,18 +225,9 @@ export const PROCESS_CONTENT = {
 } as const;
 
 export const FOOTER_CONTENT = {
-  copyright: "© 2026. All rights reserved.",
-  social: [
-    { label: "Twitter", href: "#", icon: "twitter" as const },
-    { label: "Discord", href: "#", icon: "discord" as const },
-    { label: "GitHub", href: "#", icon: "github" as const },
-    { label: "LinkedIn", href: "#", icon: "linkedin" as const },
-    { label: "YouTube", href: "#", icon: "youtube" as const },
-  ],
   nav: [
     { label: "О нас", href: "#how-we-help" },
     { label: "Кейсы", href: "#" },
-    { label: "Контакты", href: "#" },
   ],
   contacts: [
     { label: "info@archive.ru", href: "mailto:info@archive.ru" },
