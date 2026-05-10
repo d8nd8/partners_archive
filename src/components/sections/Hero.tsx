@@ -115,36 +115,45 @@ export default function Hero() {
             </motion.button>
           </motion.div>
 
-          <div className="absolute left-[116px] top-[384.72px] h-[472.02px] w-[968px] overflow-hidden rounded-[14px] border-[0.852px] border-[#e5e5e5] bg-white shadow-[0px_-4px_15px_-3px_rgba(0,0,0,0.1)] [filter:blur(4.5px)]">
+          <div className="absolute left-[116px] top-[384.72px] h-[472.02px] w-[968px] overflow-hidden rounded-[14px] border-[0.852px] border-[#e5e5e5] bg-white shadow-[0px_-4px_15px_-3px_rgba(0,0,0,0.1)] [filter:blur(4.5px)] [will-change:transform] [transform:translateZ(0)]">
             <Image
               src="/images/hero/contracts-1.png"
               alt=""
               fill
               priority
+              sizes="968px"
+              placeholder="blur"
+              blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8z8BQDwADhQGAWjR9awAAAABJRU5ErkJggg=="
               aria-hidden="true"
               className="pointer-events-none object-cover object-top"
             />
             <div className="absolute left-[-9.59px] top-[-26.12px] h-[311px] w-[1112px] bg-[var(--color-text-primary2)] mix-blend-color" />
           </div>
 
-          <div className="absolute left-[91px] top-[423.79px] h-[496.89px] w-[1019px] overflow-hidden rounded-[14px] border-[0.852px] border-[#e5e5e5] bg-white shadow-[0px_-4px_15px_-3px_rgba(0,0,0,0.1)] [filter:blur(3px)]">
+          <div className="absolute left-[91px] top-[423.79px] h-[496.89px] w-[1019px] overflow-hidden rounded-[14px] border-[0.852px] border-[#e5e5e5] bg-white shadow-[0px_-4px_15px_-3px_rgba(0,0,0,0.1)] [filter:blur(3px)] [will-change:transform] [transform:translateZ(0)]">
             <Image
               src="/images/hero/photo3.png"
               alt=""
               fill
               priority
+              sizes="1019px"
+              placeholder="blur"
+              blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8z8BQDwADhQGAWjR9awAAAABJRU5ErkJggg=="
               aria-hidden="true"
               className="pointer-events-none object-cover object-top"
             />
             <div className="absolute left-[-9.59px] top-[-26.19px] h-[311px] w-[1112px] bg-[var(--color-text-primary2)] mix-blend-color" />
           </div>
 
-          <div className="absolute left-[63px] top-[467.24px] h-[523.71px] w-[1074px] overflow-hidden rounded-[14px] border-[0.852px] border-[#e5e5e5] bg-white shadow-[0px_-4px_15px_-3px_rgba(0,0,0,0.1)] [filter:blur(1px)]">
+          <div className="absolute left-[63px] top-[467.24px] h-[523.71px] w-[1074px] overflow-hidden rounded-[14px] border-[0.852px] border-[#e5e5e5] bg-white shadow-[0px_-4px_15px_-3px_rgba(0,0,0,0.1)] [filter:blur(1px)] [will-change:transform] [transform:translateZ(0)]">
             <Image
               src="/images/hero/photo2.png"
               alt=""
               fill
               priority
+              sizes="1074px"
+              placeholder="blur"
+              blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8z8BQDwADhQGAWjR9awAAAABJRU5ErkJggg=="
               aria-hidden="true"
               className="pointer-events-none object-cover object-top"
             />
@@ -152,15 +161,21 @@ export default function Hero() {
           </div>
 
           <motion.div
-            className="pointer-events-none absolute left-[1038px] top-[438px] select-none opacity-75"
+            className="pointer-events-none absolute left-[1038px] top-[438px] select-none"
             style={{ y: blobY }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 0.75 }}
+            transition={{ duration: 0.7, ease: "easeOut", delay: 0.2 }}
             aria-hidden="true"
           >
             <Image src="/union1.svg" alt="" width={231} height={215} />
           </motion.div>
           <motion.div
-            className="pointer-events-none absolute left-[-36px] top-[590px] z-20 select-none -rotate-90 opacity-[0.85]"
+            className="pointer-events-none absolute left-[-36px] top-[590px] z-20 select-none -rotate-90"
             style={{ y: leftBottomBlobY }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 0.85 }}
+            transition={{ duration: 0.7, ease: "easeOut", delay: 0.3 }}
             aria-hidden="true"
           >
             <Image src="/union3.svg" alt="" width={178} height={165} />
@@ -200,9 +215,12 @@ export default function Hero() {
           </div>
         </div>
 
-        <div
+        <motion.div
           ref={glassBlobRef}
           className="pointer-events-none absolute left-[calc(50%+100px)] z-[30] h-[205px] w-[188px] select-none max-[1200px]:left-[700px]"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 0.7 }}
+          transition={{ duration: 0.7, ease: "easeOut", delay: 0.25 }}
           aria-hidden="true"
         >
           <Image
@@ -210,9 +228,9 @@ export default function Hero() {
             alt=""
             width={188}
             height={205}
-            className="h-full w-full opacity-70"
+            className="h-full w-full"
           />
-        </div>
+        </motion.div>
       </div>
     </section>
   );

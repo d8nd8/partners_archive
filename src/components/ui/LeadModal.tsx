@@ -102,8 +102,8 @@ const CONTACT_OPTIONS: { id: ContactMethod; label: string; icon: React.ReactNode
 
 const backdropVariants = {
   hidden: { opacity: 0 },
-  visible: { opacity: 1, transition: { duration: 0.22, ease: "easeOut" } },
-  exit: { opacity: 0, transition: { duration: 0.18, ease: "easeIn" } },
+  visible: { opacity: 1, transition: { duration: 0.22, ease: "easeOut" as const } },
+  exit: { opacity: 0, transition: { duration: 0.18, ease: "easeIn" as const } },
 };
 
 const cardVariants = {
@@ -112,13 +112,13 @@ const cardVariants = {
     opacity: 1,
     scale: 1,
     y: 0,
-    transition: { duration: 0.28, ease: [0.22, 1, 0.36, 1] },
+    transition: { duration: 0.28, ease: [0.22, 1, 0.36, 1] as const },
   },
   exit: {
     opacity: 0,
     scale: 0.96,
     y: 8,
-    transition: { duration: 0.18, ease: [0.55, 0, 1, 0.45] },
+    transition: { duration: 0.18, ease: [0.55, 0, 1, 0.45] as const },
   },
 };
 
