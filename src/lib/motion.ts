@@ -41,6 +41,15 @@ export const codeBlockStagger: Variants = {
   visible: { transition: { staggerChildren: 0.05 } },
 };
 
+export const heroCardReveal: Variants = {
+  hidden: { opacity: 0, y: 52 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.6, ease: [0.22, 0.61, 0.36, 1] },
+  },
+};
+
 export const VIEWPORT = { once: true, amount: 0.2 } as const;
 
 export const VIEWPORT_HERO = { once: true, amount: 0.25, margin: "0px 0px 80px 0px" } as const;

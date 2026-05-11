@@ -28,12 +28,12 @@ export default function Process() {
 
   return (
     <section
-      className="w-full overflow-hidden rounded-b-[36px] bg-[#f5f5f5] px-[36px] py-[90px]"
+      className="w-full overflow-hidden rounded-b-[36px] bg-[#f5f5f5] px-4 py-[60px] md:px-[36px] md:py-[90px]"
       aria-label="Как мы работаем"
     >
       <div className="mx-auto flex max-w-[1200px] flex-col gap-[40px]">
         <motion.h2
-          className="text-center text-[45px] font-light leading-[50px] tracking-[-0.64px] text-black"
+          className="text-center text-[28px] font-light leading-[34px] tracking-[-0.5px] text-black md:text-[45px] md:leading-[50px] md:tracking-[-0.64px]"
           variants={fadeInUp}
           initial="hidden"
           whileInView="visible"
@@ -58,7 +58,7 @@ export default function Process() {
                 variants={fadeInUp}
               >
                 <button
-                  className="flex h-[78px] w-full cursor-pointer items-center justify-between px-[32px]"
+                  className="flex h-[78px] w-full cursor-pointer items-center justify-between px-4 md:px-[32px]"
                   onClick={() => setOpenIndex(isOpen ? null : i)}
                   aria-expanded={isOpen}
                 >
@@ -83,7 +83,7 @@ export default function Process() {
                       transition={{ duration: 0.3, ease: "easeInOut" }}
                       style={{ overflow: "hidden" }}
                     >
-                      <div className="px-[32px] pb-[26px]">
+                      <div className="px-4 pb-[26px] md:px-[32px]">
                         <p className="whitespace-pre-line text-[16px] font-light leading-[22.95px] tracking-[-0.17px] text-[#afafaf]">
                           {item.description}
                         </p>

@@ -65,18 +65,18 @@ function ProblemCard({
 }) {
   return (
     <motion.div
-      className="flex h-[406px] w-full flex-col gap-4 rounded-[20px] border border-b-2 border-[#e6e6e5] bg-white pb-[18px] pt-[17px] px-[17px]"
+      className="flex h-[325px] w-full flex-col gap-3 rounded-[20px] border border-b-2 border-[#e6e6e5] bg-white px-[14px] pb-[16px] pt-[14px] md:h-[406px] md:gap-4 md:px-[17px] md:pb-[18px] md:pt-[17px]"
       variants={fadeInUp}
     >
       <CardIcon name={icon} />
       <div className="flex flex-col gap-[6.88px]">
-        <p className="pb-[10px] text-[19px] font-medium leading-[27px] tracking-[-0.2px] text-black">
+        <p className="pb-[10px] text-[16px] font-medium leading-[22px] tracking-[-0.2px] text-black md:text-[19px] md:leading-[27px]">
           {title}
         </p>
         {items.map((item) => (
           <p
             key={item}
-            className="border-b border-[#e6e6e5] pb-[7px] text-[16px] font-light leading-[23px] tracking-[-0.17px] text-[#8f8f8f]"
+            className="border-b border-[#e6e6e5] pb-[7px] text-[14px] font-light leading-[19px] tracking-[-0.17px] text-[#8f8f8f] md:text-[16px] md:leading-[23px]"
           >
             {item}
           </p>
@@ -89,11 +89,11 @@ function ProblemCard({
 function SolutionCard({ icon, title }: { icon: string; title: string }) {
   return (
     <motion.div
-      className="flex h-[171px] w-full flex-col gap-[27px] rounded-[20px] border border-b-2 border-[#e6e6e5] bg-white pb-[18px] pt-[17px] px-[17px]"
+      className="flex h-[137px] w-full flex-col gap-[14px] rounded-[20px] border border-b-2 border-[#e6e6e5] bg-white px-[14px] pb-[16px] pt-[14px] md:h-[171px] md:gap-[27px] md:px-[17px] md:pb-[18px] md:pt-[17px]"
       variants={fadeInUp}
     >
       <CardIcon name={icon} />
-      <p className="text-[19px] font-medium leading-[27px] tracking-[-0.2px] text-black">
+      <p className="text-[16px] font-medium leading-[22px] tracking-[-0.2px] text-black md:text-[19px] md:leading-[27px]">
         {title}
       </p>
     </motion.div>
@@ -106,12 +106,12 @@ function SolutionCard({ icon, title }: { icon: string; title: string }) {
 export default function Why() {
   return (
     <section
-      className="w-full border-t border-[#e6e6e5] bg-[#f5f5f5] py-[75px] px-5 min-[1440px]:px-[120px]"
+      className="w-full border-t border-[#e6e6e5] bg-[#f5f5f5] px-5 py-[50px] md:pb-[75px] md:pt-[35px] min-[1440px]:px-[120px]"
       aria-label="Почему к нам приходят"
     >
       <div className="mx-auto flex w-full max-w-[1200px] flex-col gap-[40px]">
         <motion.h2
-          className="text-center text-[45px] font-light leading-[50px] tracking-[-0.64px] text-black"
+          className="text-center text-[28px] font-light leading-[34px] tracking-[-0.5px] text-black md:text-[45px] md:leading-[50px] md:tracking-[-0.64px]"
           variants={fadeInUp}
           initial="hidden"
           whileInView="visible"
@@ -121,7 +121,22 @@ export default function Why() {
         </motion.h2>
 
         <motion.div
-          className="grid grid-cols-1 items-start gap-[20px] pt-[30px] sm:grid-cols-2 lg:grid-cols-4"
+          className="md:hidden -mx-5 overflow-x-auto pt-6"
+          initial="visible"
+          animate="visible"
+        >
+          <div className="flex gap-4 px-5 pb-4 snap-x snap-mandatory">
+            {WHY_CONTENT.problems.map((card) => (
+              <div key={card.title} className="w-[280px] shrink-0 snap-start">
+                <ProblemCard {...card} />
+              </div>
+            ))}
+          </div>
+        </motion.div>
+
+        {/* Desktop: grid */}
+        <motion.div
+          className="hidden md:grid md:grid-cols-2 lg:grid-cols-4 items-start gap-[20px] pt-[30px]"
           variants={SLOW_STAGGER_CONTAINER}
           initial="hidden"
           whileInView="visible"
@@ -133,7 +148,7 @@ export default function Why() {
         </motion.div>
 
         <motion.p
-          className="text-center text-[33px] font-light leading-[43.2px] text-[#3e3e3e]"
+          className="text-center text-[20px] font-light leading-[28px] text-[#3e3e3e] md:text-[33px] md:leading-[43.2px]"
           variants={fadeInUp}
           initial="hidden"
           whileInView="visible"
@@ -144,8 +159,15 @@ export default function Why() {
           {WHY_CONTENT.subheading.after}
         </motion.p>
 
+        <motion.div className="md:hidden flex flex-col gap-4 pb-2">
+          {WHY_CONTENT.solutions.map((card) => (
+            <SolutionCard key={card.title} {...card} />
+          ))}
+        </motion.div>
+
+        {/* Desktop: grid (solutions) */}
         <motion.div
-          className="grid grid-cols-1 items-start gap-[20px] sm:grid-cols-2 lg:grid-cols-4"
+          className="hidden md:grid md:grid-cols-2 lg:grid-cols-4 items-start gap-[20px]"
           variants={SLOW_STAGGER_CONTAINER}
           initial="hidden"
           whileInView="visible"

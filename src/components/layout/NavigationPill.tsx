@@ -14,23 +14,16 @@ function relatedIsInside(container: HTMLElement, related: EventTarget | null): b
 
 /**
  * Floating navigation pill with a concave-corner dropdown for cases.
- *
- * Corner rendering: CSS mask punches a quarter-circle hole at each top wing so
- * the dropdown reads as concave against the pill. The earlier circle-fill hack
- * drew the wrong quadrant (convex “ears”); masks match the intended silhouette.
- * Wings overlap the body by 1px and the panel uses one background color to hide
- * sub-pixel hairlines at the joint (motion + mask + translate rounding).
- * Junction concave radius (CURVE) matches the pill rounded-2xl corner for a smoother blend.
- *
- * Dropdown items render statically to avoid animation race conditions under
- * rapid pointer enter/leave interactions.
+ * On mobile shows logo + hamburger; nav links appear in a slide-down panel.
  */
 export default function NavigationPill() {
   const [open, setOpen] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const handleBlur = useCallback((e: FocusEvent<HTMLDivElement>) => {
     if (!relatedIsInside(e.currentTarget, e.relatedTarget)) {
       setOpen(false);
+      setMobileMenuOpen(false);
     }
   }, []);
 
@@ -42,16 +35,18 @@ export default function NavigationPill() {
 
   return (
     <div
-      className="fixed top-5 left-1/2 z-50 w-[min(700px,calc(100vw-24px))] -translate-x-1/2"
+      className="fixed left-0 right-0 top-[57px] z-50 flex justify-center px-4 md:px-6"
       onMouseLeave={handleMouseLeave}
       onBlur={handleBlur}
     >
-      <div className="relative flex flex-col items-center">
-        {/* PILL — always fully rounded */}
-        <div className="relative z-20 flex h-[46px] w-full items-center gap-4 rounded-2xl bg-[#1a1a1a] px-[15px] text-white shadow-[0_10px_30px_rgba(0,0,0,0.22)]">
+      <div className="relative w-full max-w-[363px] md:max-w-[700px]">
+      <div className="relative flex w-full flex-col items-stretch md:items-center">
+        {/* PILL — mobile: Figma 2139:6413; desktop: unchanged */}
+        <div className="relative z-20 w-full overflow-clip rounded-[11.533px] border-[0.721px] border-solid border-[#505050] bg-[#242424] p-[3.604px] shadow-[0px_14.416px_18.02px_-3.604px_rgba(0,0,0,0.1),0px_5.766px_7.208px_-4.325px_rgba(0,0,0,0.1)] md:flex md:h-[46px] md:items-center md:gap-4 md:overflow-visible md:rounded-2xl md:border-0 md:bg-[#1a1a1a] md:p-0 md:px-[15px] md:shadow-[0_10px_30px_rgba(0,0,0,0.22)]">
+          <div className="relative h-[36px] w-full shrink-0 md:contents md:h-auto">
           <a
             href="#"
-            className="inline-flex items-center px-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/70"
+            className="absolute left-[10.81px] top-1/2 z-10 inline-flex -translate-y-1/2 items-center focus:outline-none focus-visible:ring-2 focus-visible:ring-white/70 md:static md:z-auto md:translate-y-0 md:px-1"
           >
             <Image
               src="/logo.svg"
@@ -59,11 +54,12 @@ export default function NavigationPill() {
               width={92}
               height={24}
               priority
-              className="h-7 w-auto"
+              className="h-[26px] w-auto md:h-7"
             />
           </a>
 
-          <div className="flex flex-1 items-center justify-center gap-5 text-[14px] font-light tracking-[-0.07px] text-[#CECECE]">
+          {/* Desktop nav links */}
+          <div className="hidden md:flex flex-1 items-center justify-center gap-5 text-[14px] font-light tracking-[-0.07px] text-[#CECECE]">
             <a
               href="#how-we-help"
               className="rounded-full px-2 py-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/70"
@@ -106,17 +102,63 @@ export default function NavigationPill() {
             </a>
           </div>
 
+          {/* Desktop CTA */}
           <a
             href={HEADER_CONTENT.ctaHref}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex h-9 items-center justify-center rounded-xl bg-white px-3 text-[13px] font-medium tracking-[-0.07px] text-black focus:outline-none focus-visible:ring-2 focus-visible:ring-white/70"
+            className="hidden md:inline-flex h-9 items-center justify-center rounded-xl bg-white px-3 text-[13px] font-medium tracking-[-0.07px] text-black focus:outline-none focus-visible:ring-2 focus-visible:ring-white/70"
           >
             {HEADER_CONTENT.cta}
           </a>
+
+          {/* Mobile menu trigger — Figma bars #CECECE */}
+          <button
+            type="button"
+            className="absolute right-[10.81px] top-1/2 z-10 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-md text-[#cecece] focus:outline-none focus-visible:ring-2 focus-visible:ring-white/70 md:hidden"
+            onClick={() => setMobileMenuOpen((v) => !v)}
+            aria-expanded={mobileMenuOpen}
+            aria-label="Меню"
+          >
+            <AnimatePresence mode="wait" initial={false}>
+              {mobileMenuOpen ? (
+                <motion.svg
+                  key="close"
+                  initial={{ rotate: -45, opacity: 0 }}
+                  animate={{ rotate: 0, opacity: 1 }}
+                  exit={{ rotate: 45, opacity: 0 }}
+                  transition={{ duration: 0.15 }}
+                  width="18" height="18" viewBox="0 0 18 18" fill="none"
+                  aria-hidden="true"
+                  className="text-white"
+                >
+                  <path d="M4 4L14 14M14 4L4 14" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+                </motion.svg>
+              ) : (
+                <motion.div
+                  key="open"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.12 }}
+                  className="flex items-center justify-center"
+                  aria-hidden="true"
+                >
+                  <Image
+                    src="/icons/menu-burger.svg"
+                    width={26}
+                    height={18}
+                    alt=""
+                    className="h-[18px] w-[26px]"
+                  />
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </button>
+          </div>
         </div>
 
-        {/* DROPDOWN — absolute, does not shift pill */}
+        {/* Desktop dropdown */}
         <AnimatePresence>
           {open && HEADER_CONTENT.casesDropdown.length > 0 && (
             <motion.div
@@ -124,10 +166,9 @@ export default function NavigationPill() {
               initial={{ opacity: 0, scaleY: 0.72, y: -6 }}
               animate={{ opacity: 1, scaleY: 1, y: 0, transition: { duration: 0.28, ease: [0.22, 1, 0.36, 1] } }}
               exit={{ opacity: 0, scaleY: 0.82, y: -3, transition: { duration: 0.18, ease: [0.55, 0, 1, 0.45] } }}
-              className="absolute top-full left-1/2 z-20 -mt-px w-56 -translate-x-1/2 rounded-b-2xl bg-[#1a1a1a]"
+              className="hidden md:block absolute top-full left-1/2 z-20 -mt-px w-56 -translate-x-1/2 rounded-b-2xl bg-[#1a1a1a]"
               style={{ transformOrigin: "top center" }}
             >
-              {/* Concave left: opaque wing minus BL quadrant (hole at pill junction). */}
               <span
                 aria-hidden
                 className="pointer-events-none absolute top-0 block bg-[#1a1a1a]"
@@ -141,8 +182,6 @@ export default function NavigationPill() {
                   maskRepeat: "no-repeat",
                 }}
               />
-
-              {/* Concave right: opaque wing minus BR quadrant. */}
               <span
                 aria-hidden
                 className="pointer-events-none absolute top-0 block bg-[#1a1a1a]"
@@ -156,17 +195,13 @@ export default function NavigationPill() {
                   maskRepeat: "no-repeat",
                 }}
               />
-
-              {/* Body */}
               <div className="overflow-hidden rounded-b-2xl bg-[#1a1a1a] shadow-[0_18px_28px_-12px_rgba(0,0,0,0.35)]">
                 <ul role="menu" className="p-2">
                   {HEADER_CONTENT.casesDropdown.map((item, i) => (
                     <li
                       key={`${item.href}-${item.label}`}
                       role="none"
-                      style={{
-                        animation: `nav-item-in 0.22s ease-out ${0.06 + i * 0.045}s both`,
-                      }}
+                      style={{ animation: `nav-item-in 0.22s ease-out ${0.06 + i * 0.045}s both` }}
                     >
                       <a
                         role="menuitem"
@@ -183,6 +218,67 @@ export default function NavigationPill() {
             </motion.div>
           )}
         </AnimatePresence>
+
+        {/* Mobile menu panel */}
+        <AnimatePresence>
+          {mobileMenuOpen && (
+            <motion.div
+              key="mobile-menu"
+              initial={{ opacity: 0, scaleY: 0.88, y: -6 }}
+              animate={{ opacity: 1, scaleY: 1, y: 0, transition: { duration: 0.22, ease: [0.22, 1, 0.36, 1] } }}
+              exit={{ opacity: 0, scaleY: 0.92, y: -4, transition: { duration: 0.16, ease: [0.55, 0, 1, 0.45] } }}
+              className="md:hidden absolute top-full left-0 right-0 z-10 mt-2 overflow-hidden rounded-2xl bg-[#1a1a1a] shadow-[0_18px_28px_-12px_rgba(0,0,0,0.45)]"
+              style={{ transformOrigin: "top center" }}
+            >
+              <div className="flex flex-col gap-1 p-3">
+                <a
+                  href="#how-we-help"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="rounded-xl px-4 py-3 text-[15px] font-light text-[#CECECE] transition-colors hover:bg-white/5 active:bg-white/10"
+                >
+                  {HEADER_CONTENT.nav.about}
+                </a>
+
+                <div className="mx-4 h-px bg-white/8" />
+
+                <p className="px-4 pb-1 pt-2 text-[12px] font-light uppercase tracking-[0.06em] text-[#646464]">
+                  {HEADER_CONTENT.nav.cases}
+                </p>
+                {HEADER_CONTENT.casesDropdown.map((item) => (
+                  <a
+                    key={item.label}
+                    href={item.href}
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="rounded-xl px-4 py-2.5 text-[15px] font-light text-[#CECECE] transition-colors hover:bg-white/5 active:bg-white/10"
+                  >
+                    {item.label}
+                  </a>
+                ))}
+
+                <div className="mx-4 h-px bg-white/8" />
+
+                <a
+                  href="#footer-contacts"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="rounded-xl px-4 py-3 text-[15px] font-light text-[#CECECE] transition-colors hover:bg-white/5 active:bg-white/10"
+                >
+                  {HEADER_CONTENT.nav.contacts}
+                </a>
+
+                <a
+                  href={HEADER_CONTENT.ctaHref}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="mt-1 rounded-xl bg-white px-4 py-3 text-center text-[15px] font-medium text-black transition-opacity active:opacity-80"
+                >
+                  {HEADER_CONTENT.cta}
+                </a>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
       </div>
     </div>
   );

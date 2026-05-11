@@ -361,13 +361,13 @@ export default function Cases() {
   return (
     <section
       id="cases"
-      className="w-full bg-[#f5f5f5] px-5 pb-[75px] min-[1440px]:px-[120px]"
+      className="w-full bg-[#f5f5f5] px-4 pb-[60px] md:px-5 md:pb-[75px] min-[1440px]:px-[120px]"
       aria-label="Наши кейсы"
     >
       <div className="mx-auto flex max-w-[1200px] flex-col">
         <div className="flex items-center justify-center py-[30px]">
           <motion.h2
-            className="text-center text-[45px] font-light leading-[50px] tracking-[-0.64px] text-black"
+            className="text-center text-[28px] font-light leading-[34px] tracking-[-0.5px] text-black md:text-[45px] md:leading-[50px] md:tracking-[-0.64px]"
             variants={fadeInUp}
             initial="hidden"
             whileInView="visible"
@@ -390,7 +390,7 @@ export default function Cases() {
 
           <motion.div
             id="case-fino"
-            className="grid grid-cols-2 gap-[20px]"
+            className="grid grid-cols-1 gap-[20px] md:grid-cols-2"
             variants={fadeInUp}
           >
             <CaseFino title={fino.title} description={fino.description} />
