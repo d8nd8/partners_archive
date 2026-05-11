@@ -43,3 +43,6 @@ next-env.d.ts
 # cursor / claude
 .cursor/
 .claude/
+
+# local scratch (e.g. Figma exports)
+/tmp/
