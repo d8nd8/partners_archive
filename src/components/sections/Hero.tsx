@@ -92,14 +92,20 @@ export default function Hero() {
             <Image src="/union1.svg" alt="" width={120} height={112} />
           </motion.div>
           <motion.div
-            className="pointer-events-none absolute left-0 top-[332px] md:hidden"
+            className="pointer-events-none absolute left-0 top-[300px] md:hidden"
             style={{ y: leftBottomBlobY }}
             initial={{ opacity: 0 }}
-            animate={heroPhraseDone ? { opacity: 0.5 } : { opacity: 0 }}
+            animate={heroPhraseDone ? { opacity: 0.62 } : { opacity: 0 }}
             transition={{ duration: 0.5, ease: "easeOut", delay: 0.06 }}
             aria-hidden="true"
           >
-            <Image src="/union3.svg" alt="" width={112} height={104} />
+            <Image
+              src="/union3.svg"
+              alt=""
+              width={112}
+              height={104}
+              className="[filter:brightness(0.88)]"
+            />
           </motion.div>
           <div className="w-full px-[21.48px] md:contents">
           <motion.div
@@ -224,7 +230,7 @@ export default function Hero() {
                 setHeroStackRevealDone(true);
               }}
             >
-              <div className="absolute inset-x-[28px] bottom-5 top-0 flex items-end justify-center gap-1.5">
+              <div className="absolute inset-x-[40px] bottom-6 top-0 flex items-end justify-center gap-2">
                 <Image
                   src="/images/hero/phone1.png"
                   alt=""
@@ -232,7 +238,7 @@ export default function Hero() {
                   height={364}
                   priority
                   aria-hidden="true"
-                  className="relative z-0 h-[128px] w-auto shrink-0 object-contain"
+                  className="relative z-0 h-[166px] w-auto shrink-0 object-contain"
                 />
                 <Image
                   src="/images/hero/phone2.png"
@@ -241,7 +247,7 @@ export default function Hero() {
                   height={364}
                   priority
                   aria-hidden="true"
-                  className="relative z-0 h-[128px] w-auto shrink-0 object-contain"
+                  className="relative z-0 h-[166px] w-auto shrink-0 object-contain"
                 />
                 <Image
                   src="/images/hero/phone3.png"
@@ -250,7 +256,7 @@ export default function Hero() {
                   height={364}
                   priority
                   aria-hidden="true"
-                  className="relative z-0 h-[128px] w-auto shrink-0 object-contain"
+                  className="relative z-0 h-[166px] w-auto shrink-0 object-contain"
                 />
               </div>
               <div className="pointer-events-none absolute inset-0 z-[1] bg-[var(--color-text-primary2)] mix-blend-color" />
