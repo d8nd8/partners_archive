@@ -2,11 +2,13 @@
 
 import Image from "next/image";
 import {
+  animate,
   motion,
+  type MotionValue,
   useInView,
   useMotionValue,
+  useReducedMotion,
   useTransform,
-  animate,
   type PanInfo,
 } from "framer-motion";
 import { HOW_WE_HELP_CONTENT } from "@/lib/constants";
@@ -270,8 +272,8 @@ function MobileServiceCard({
   image: string;
 }) {
   return (
-    <div className="relative h-[400px] w-full overflow-hidden rounded-[20px] border border-[#464646] bg-[#303030]">
-      <div className="absolute left-[20px] right-[20px] top-[20px]">
+    <div className="relative flex h-[400px] w-full flex-col overflow-hidden rounded-[20px] border border-[#464646] bg-[#303030]">
+      <div className="shrink-0 px-5 pt-5">
         <p className="text-[19px] font-medium leading-[27px] tracking-[-0.2px] text-white">
           {title}
         </p>
@@ -279,118 +281,212 @@ function MobileServiceCard({
           {description}
         </p>
       </div>
-      <div className="absolute bottom-0 left-0 right-0 top-[115px]">
-        <Image
-          src={image}
-          alt=""
-          fill
-          className="object-contain object-bottom"
-        />
+      <div className="flex min-h-0 w-full flex-1 flex-col px-[var(--help-card-mobile-svg-inline)] pb-[var(--help-card-mobile-svg-bottom)] pt-2">
+        <div className="relative min-h-0 w-full flex-1">
+          <Image
+            src={image}
+            alt=""
+            fill
+            sizes="(max-width: 768px) 100vw, 400px"
+            className="object-contain object-bottom"
+          />
+        </div>
       </div>
     </div>
   );
 }
 
-function SwipeableCard({
+type HelpCard = (typeof HOW_WE_HELP_CONTENT.cards)[number];
+
+const DECK_HEIGHT_PX = 400;
+const SWIPE_OUT_PX = 520;
+
+const SWIPE_EXIT_EASE = [0.22, 0.93, 0.36, 1] as const;
+const SWIPE_EXIT_DURATION_SEC = 0.44;
+
+function StackLayer({
   card,
-  onNext,
+  depth,
 }: {
-  card: (typeof HOW_WE_HELP_CONTENT.cards)[number];
-  onNext: () => void;
+  card: HelpCard;
+  depth: number;
 }) {
-  const x = useMotionValue(0);
-  const rotate = useTransform(x, [-200, 0, 200], [-5, 0, 5]);
-  const cardOpacity = useTransform(x, [-220, -130, 0, 130, 220], [0, 1, 1, 1, 0]);
-
-  const handleDragEnd = useCallback(
-    async (_: unknown, info: PanInfo) => {
-      const THRESHOLD = 90;
-      const VELOCITY = 450;
-
-      if (info.offset.x < -THRESHOLD || info.velocity.x < -VELOCITY) {
-        await animate(x, -700, { duration: 0.2, ease: "easeIn" });
-        onNext();
-      } else if (info.offset.x > THRESHOLD || info.velocity.x > VELOCITY) {
-        await animate(x, 700, { duration: 0.2, ease: "easeIn" });
-        onNext();
-      } else {
-        animate(x, 0, { type: "spring", stiffness: 400, damping: 35 });
-      }
-    },
-    [x, onNext],
-  );
+  const blurPx = 1.4 + depth * 3.4;
+  const scale = 1 - depth * 0.042;
+  const y = depth * 15;
+  const opacity = 1 - depth * 0.068;
+  const zIndex = 3 - depth;
 
   return (
     <motion.div
-      className="absolute inset-0 z-10 cursor-grab active:cursor-grabbing"
-      style={{ x, rotate, opacity: cardOpacity }}
-      drag="x"
-      dragConstraints={{ left: 0, right: 0 }}
-      dragElastic={0.55}
-      onDragEnd={handleDragEnd}
-      initial={{ opacity: 0, scale: 0.95 }}
-      animate={{ opacity: 1, scale: 1, transition: { duration: 0.22, ease: "easeOut" } }}
+      className="pointer-events-none absolute inset-x-0 top-0"
+      style={{ height: DECK_HEIGHT_PX, zIndex }}
+      initial={false}
+      animate={{
+        y,
+        scale,
+        opacity,
+        filter: `blur(${blurPx}px)`,
+      }}
+      transition={{
+        type: "spring",
+        stiffness: 260,
+        damping: 40,
+        mass: 1.05,
+      }}
     >
       <MobileServiceCard {...card} />
     </motion.div>
   );
 }
 
-function MobileCardDeck() {
+function TopDeckCard({
+  card,
+  x,
+  onDragEndAction,
+}: {
+  card: HelpCard;
+  x: MotionValue<number>;
+  onDragEndAction: (_: unknown, info: PanInfo) => void;
+}) {
+  const rotate = useTransform(x, [-260, 0, 260], [-13, 0, 13]);
+
+  return (
+    <motion.div
+      className="absolute inset-0 z-[20] cursor-grab active:cursor-grabbing"
+      style={{
+        transformStyle: "preserve-3d",
+        x,
+        rotate,
+      }}
+      drag="x"
+      dragConstraints={{ left: 0, right: 0 }}
+      dragElastic={0.58}
+      onDragEnd={onDragEndAction}
+      initial={{ opacity: 0, scale: 0.935, rotateX: 10, filter: "blur(12px)" }}
+      animate={{
+        opacity: 1,
+        scale: 1,
+        rotateX: 0,
+        filter: "blur(0px)",
+        transition: { type: "spring", stiffness: 260, damping: 36, mass: 1.08 },
+      }}
+    >
+      <MobileServiceCard {...card} />
+    </motion.div>
+  );
+}
+
+function MobileHelpCardDeck() {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const prefersReducedMotion = useReducedMotion();
+  const x = useMotionValue(0);
+  const busyRef = useRef(false);
+
   const cards = HOW_WE_HELP_CONTENT.cards;
   const total = cards.length;
 
-  const handleNext = useCallback(
-    () => setCurrentIndex((i) => (i + 1) % total),
-    [total],
+  const goNext = useCallback(() => {
+    setCurrentIndex((i) => (i + 1) % total);
+  }, [total]);
+
+  const goPrev = useCallback(() => {
+    setCurrentIndex((i) => (i - 1 + total) % total);
+  }, [total]);
+
+  useEffect(() => {
+    x.set(0);
+  }, [currentIndex, x]);
+
+  const handleDragEnd = useCallback(
+    async (_: unknown, info: PanInfo) => {
+      const THRESHOLD = 88;
+      const VELOCITY = 340;
+
+      if (busyRef.current) return;
+
+      if (info.offset.x < -THRESHOLD || info.velocity.x < -VELOCITY) {
+        busyRef.current = true;
+        try {
+          if (prefersReducedMotion) goNext();
+          else {
+            await animate(x, -SWIPE_OUT_PX, {
+              duration: SWIPE_EXIT_DURATION_SEC,
+              ease: SWIPE_EXIT_EASE,
+            });
+            x.set(0);
+            goNext();
+          }
+        } finally {
+          busyRef.current = false;
+        }
+        return;
+      }
+
+      if (info.offset.x > THRESHOLD || info.velocity.x > VELOCITY) {
+        busyRef.current = true;
+        try {
+          if (prefersReducedMotion) goPrev();
+          else {
+            await animate(x, SWIPE_OUT_PX, {
+              duration: SWIPE_EXIT_DURATION_SEC,
+              ease: SWIPE_EXIT_EASE,
+            });
+            x.set(0);
+            goPrev();
+          }
+        } finally {
+          busyRef.current = false;
+        }
+        return;
+      }
+
+      animate(x, 0, { type: "spring", stiffness: 280, damping: 38, mass: 0.95 });
+    },
+    [goNext, goPrev, prefersReducedMotion, x],
   );
+
+  const stackLayers = prefersReducedMotion
+    ? []
+    : ([3, 2, 1] as const).map((depth) => ({
+        depth,
+        card: cards[(currentIndex + depth) % total],
+      }));
 
   return (
     <div className="flex flex-col gap-4 px-4 pb-6">
-      <div className="relative" style={{ height: 440 }}>
-        <div
-          className="absolute inset-x-0 top-0"
-          style={{
-            height: 400,
-            transform: "translateY(20px) scale(0.88)",
-            transformOrigin: "top center",
-            zIndex: 1,
-          }}
-        >
-          <MobileServiceCard {...cards[(currentIndex + 2) % total]} />
-        </div>
+      <div
+        aria-roledescription="carousel"
+        aria-label="Карточки уровней консалтинга"
+        className="outline-none"
+        style={{
+          perspective: prefersReducedMotion ? undefined : "1100px",
+          perspectiveOrigin: "50% 20%",
+        }}
+      >
+        <div className="relative mx-auto w-full" style={{ height: DECK_HEIGHT_PX + 40 }}>
+          {stackLayers.map(({ depth, card }) => (
+            <StackLayer key={`layer-${depth}-${card.title}-${currentIndex}`} card={card} depth={depth} />
+          ))}
 
-        <div
-          className="absolute inset-x-0 top-0"
-          style={{
-            height: 400,
-            transform: "translateY(10px) scale(0.94)",
-            transformOrigin: "top center",
-            zIndex: 2,
-          }}
-        >
-          <MobileServiceCard {...cards[(currentIndex + 1) % total]} />
+          <TopDeckCard
+            key={cards[currentIndex]?.title ?? String(currentIndex)}
+            card={cards[currentIndex]}
+            x={x}
+            onDragEndAction={handleDragEnd}
+          />
         </div>
-
-        <SwipeableCard
-          key={currentIndex}
-          card={cards[currentIndex]}
-          onNext={handleNext}
-        />
       </div>
 
       <div className="flex items-center justify-between px-1">
-        <div className="flex gap-[6px]">
-          {cards.map((_, i) => (
+        <div className="flex gap-[7px]">
+          {cards.map((c, i) => (
             <button
-              key={i}
+              key={c.title}
               type="button"
               onClick={() => setCurrentIndex(i)}
               className={`rounded-full transition-all duration-300 ${
-                i === currentIndex
-                  ? "h-[6px] w-[22px] bg-[#e37952]"
-                  : "h-[6px] w-[6px] bg-[#464646]"
+                i === currentIndex ? "h-[7px] w-[22px] bg-[#e37952]" : "h-[7px] w-[7px] bg-[#464646]"
               }`}
               aria-label={`Перейти к карточке ${i + 1}`}
             />
@@ -404,44 +500,8 @@ function MobileCardDeck() {
   );
 }
 
-function MobileCardsStack() {
-  const cards = HOW_WE_HELP_CONTENT.cards;
-  return (
-    <div className="relative h-[722px] px-4 pb-6">
-      <div className="absolute inset-x-4 bottom-0 top-0 overflow-hidden rounded-[20px]">
-        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[220px] bg-[linear-gradient(180deg,rgba(36,36,36,0)_0%,rgba(36,36,36,0.65)_42%,rgba(36,36,36,1)_100%)]" />
-      </div>
-
-      {cards.map((card, i) => (
-        <div
-          key={card.title}
-          className="absolute left-4 right-4"
-          style={{
-            top: i * 87,
-            zIndex: cards.length - i,
-          }}
-        >
-          <div className="overflow-hidden rounded-[20px] border border-[#464646] bg-[#303030]">
-            <div className="px-[16px] pt-[16px]">
-              <p className="text-[16px] font-medium leading-[22px] tracking-[-0.2px] text-white">
-                {card.title}
-              </p>
-              <p className="mt-2 text-[14px] font-light leading-[18px] tracking-[-0.17px] text-[#cfcfcf]">
-                {card.description}
-              </p>
-            </div>
-            <div className="relative mt-1 h-[176px] w-full">
-              <Image src={card.image} alt="" fill className="object-contain object-bottom" />
-            </div>
-          </div>
-        </div>
-      ))}
-    </div>
-  );
-}
-
 /**
- * How we help section — hero header with code preview and service cards grid.
+ * How we help section — hero header with code preview, desktop service grid, and mobile card deck.
  */
 export default function HowWeHelp() {
   const { openModal } = useLeadModal();
@@ -486,7 +546,6 @@ export default function HowWeHelp() {
           </div>
         </motion.div>
 
-        {/* Desktop grid */}
         <motion.div
           className="hidden p-[40px] pt-0 md:grid md:grid-cols-2 md:gap-[20px]"
           variants={staggerContainer}
@@ -510,9 +569,14 @@ export default function HowWeHelp() {
           </div>
         </div>
 
-        {/* Mobile: stacked cards */}
-        <motion.div variants={fadeInUp} initial="hidden" whileInView="visible" viewport={VIEWPORT} className="md:hidden">
-          <MobileCardsStack />
+        <motion.div
+          variants={fadeInUp}
+          initial="hidden"
+          whileInView="visible"
+          viewport={VIEWPORT}
+          className="md:hidden"
+        >
+          <MobileHelpCardDeck />
         </motion.div>
       </div>
     </section>

@@ -7,6 +7,15 @@ import { HEADER_CONTENT } from "@/lib/constants";
 
 const CURVE = 22;
 
+const DESKTOP_DROPDOWN_LINK_CLASS =
+  "block rounded-xl px-3 py-2 text-[14px] font-light tracking-[-0.07px] text-[#CECECE] transition-colors duration-150 ease-out hover:bg-[#e37952]/10 hover:text-[#e37952] focus:outline-none focus-visible:ring-2 focus-visible:ring-white/70";
+
+const MOBILE_NAV_LINK_CLASS =
+  "block rounded-xl px-4 py-3 text-[15px] font-light tracking-[-0.07px] text-[#CECECE] transition-colors duration-150 ease-out hover:bg-[#e37952]/10 hover:text-[#e37952] focus:outline-none focus-visible:ring-2 focus-visible:ring-white/70 active:bg-[#e37952]/10 active:text-[#e37952]";
+
+const MOBILE_CASE_LINK_CLASS =
+  "block rounded-xl px-4 py-2.5 text-[15px] font-light tracking-[-0.07px] text-[#CECECE] transition-colors duration-150 ease-out hover:bg-[#e37952]/10 hover:text-[#e37952] focus:outline-none focus-visible:ring-2 focus-visible:ring-white/70 active:bg-[#e37952]/10 active:text-[#e37952]";
+
 /** Returns true when focus/pointer moved to a descendant of container. */
 function relatedIsInside(container: HTMLElement, related: EventTarget | null): boolean {
   return related instanceof Node && container.contains(related);
@@ -35,7 +44,7 @@ export default function NavigationPill() {
 
   return (
     <div
-      className="fixed left-0 right-0 top-[57px] z-50 flex justify-center px-4 md:px-6"
+      className="fixed left-0 right-0 top-[57px] z-50 flex justify-center px-4 md:top-10 md:px-6"
       onMouseLeave={handleMouseLeave}
       onBlur={handleBlur}
     >
@@ -207,7 +216,7 @@ export default function NavigationPill() {
                         role="menuitem"
                         href={item.href}
                         tabIndex={open ? 0 : -1}
-                        className="block rounded-xl px-3 py-2 text-[14px] font-light tracking-[-0.07px] text-[#CECECE] transition-colors duration-150 ease-out hover:bg-[#e37952]/10 hover:text-[#e37952] focus:outline-none focus-visible:ring-2 focus-visible:ring-white/70"
+                        className={DESKTOP_DROPDOWN_LINK_CLASS}
                       >
                         {item.label}
                       </a>
@@ -234,36 +243,42 @@ export default function NavigationPill() {
                 <a
                   href="#how-we-help"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="rounded-xl px-4 py-3 text-[15px] font-light text-[#CECECE] transition-colors hover:bg-white/5 active:bg-white/10"
+                  className={MOBILE_NAV_LINK_CLASS}
+                  style={{ animation: "nav-item-in 0.22s ease-out 0.06s both" }}
                 >
                   {HEADER_CONTENT.nav.about}
                 </a>
 
-                <div className="mx-4 h-px bg-white/8" />
+                <a
+                  href="#footer-contacts"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className={MOBILE_NAV_LINK_CLASS}
+                  style={{ animation: "nav-item-in 0.22s ease-out 0.105s both" }}
+                >
+                  {HEADER_CONTENT.nav.contacts}
+                </a>
 
-                <p className="px-4 pb-1 pt-2 text-[12px] font-light uppercase tracking-[0.06em] text-[#646464]">
+                <div className="mx-4 my-1 h-px bg-white/8" />
+
+                <p
+                  className="px-4 pb-1 pt-2 text-[12px] font-light uppercase tracking-[0.06em] text-[#646464]"
+                  style={{ animation: "nav-item-in 0.22s ease-out 0.15s both" }}
+                >
                   {HEADER_CONTENT.nav.cases}
                 </p>
-                {HEADER_CONTENT.casesDropdown.map((item) => (
+                {HEADER_CONTENT.casesDropdown.map((item, i) => (
                   <a
                     key={item.label}
                     href={item.href}
                     onClick={() => setMobileMenuOpen(false)}
-                    className="rounded-xl px-4 py-2.5 text-[15px] font-light text-[#CECECE] transition-colors hover:bg-white/5 active:bg-white/10"
+                    className={MOBILE_CASE_LINK_CLASS}
+                    style={{
+                      animation: `nav-item-in 0.22s ease-out ${0.195 + i * 0.045}s both`,
+                    }}
                   >
                     {item.label}
                   </a>
                 ))}
-
-                <div className="mx-4 h-px bg-white/8" />
-
-                <a
-                  href="#footer-contacts"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="rounded-xl px-4 py-3 text-[15px] font-light text-[#CECECE] transition-colors hover:bg-white/5 active:bg-white/10"
-                >
-                  {HEADER_CONTENT.nav.contacts}
-                </a>
 
                 <a
                   href={HEADER_CONTENT.ctaHref}

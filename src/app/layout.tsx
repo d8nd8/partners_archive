@@ -38,7 +38,7 @@ export default function RootLayout({
               {children}
             </div>
 
-            <div className="-mt-[52px] pt-[52px] relative z-0 bg-[#dedede]">
+            <div className="relative z-0 -mt-[52px] bg-[#dedede] pt-[52px]">
               <Footer />
             </div>
           </div>

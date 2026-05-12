@@ -7,7 +7,7 @@ import Process from "@/components/sections/Process";
 
 export default function Home() {
   return (
-    <main className="flex flex-1 flex-col rounded-b-[36px]">
+    <main className="flex flex-1 flex-col">
       <Hero />
       <Why />
       <HowWeHelp />

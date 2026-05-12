@@ -20,6 +20,8 @@
   --color-text-menu: #cecece;
   --color-surface-card: radial-gradient(#e37952 0%, #ffffff 100%);
   --color-border-default: #e6e6e5;
+  --help-card-mobile-svg-inline: 0.8125rem;
+  --help-card-mobile-svg-bottom: 1.25rem;
 }
 
 html {

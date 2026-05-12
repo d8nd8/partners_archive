@@ -50,16 +50,7 @@ const shotRuqiForm: Variants = {
   },
 };
 
-const shotCenterFloatCentred: Variants = {
-  rest: { x: "-50%", y: 0, rotate: 0, scale: 1 },
-  hover: {
-    x: "-50%",
-    y: -14,
-    rotate: 1.85,
-    scale: 1.028,
-    transition: springPop,
-  },
-};
+
 
 const shotFullBleedFloat: Variants = {
   rest: { x: 0, y: 0, rotate: 0, scale: 1 },
@@ -158,19 +149,21 @@ function CaseCardShell({
   description,
   textMaxWidth,
   className,
+  heightClass = "h-[520px]",
   children,
 }: {
   title: string;
   description: string;
   textMaxWidth: string;
   className?: string;
+  heightClass?: string;
   children?: React.ReactNode;
 }) {
   const reduceMotion = useReducedMotion();
 
   return (
     <motion.article
-      className={`relative isolate h-[520px] cursor-pointer overflow-hidden rounded-[20px] border border-b-2 border-[#e6e6e5] bg-[#fafaf9] ${className ?? ""}`}
+      className={`relative isolate ${heightClass} cursor-pointer overflow-hidden rounded-[20px] border border-b-2 border-[#e6e6e5] bg-[#fafaf9] ${className ?? ""}`}
       variants={caseCardVariants}
       initial="rest"
       animate="rest"
@@ -212,6 +205,18 @@ function ScreenshotFrame({
   );
 }
 
+function RuqiMainShot() {
+  return (
+    <Image
+      src="/cases/ruqi-main.png"
+      alt="RUQI — список исполнителей"
+      fill
+      sizes="(max-width: 767px) 100vw, (max-width: 1440px) 70vw, 968px"
+      className="object-cover object-left md:object-left-top"
+    />
+  );
+}
+
 function CaseRuqi({
   title,
   description,
@@ -220,36 +225,44 @@ function CaseRuqi({
   description: string;
 }) {
   return (
-    <CaseCardShell
-      title={title}
-      description={description}
-      textMaxWidth="max-w-[544px]"
-    >
+    <CaseCardShell title={title} description={description} textMaxWidth="max-w-[544px]">
+      <ScreenshotFrame
+        shotVariants={shotFullBleedFloat}
+        className="bottom-0 left-[28px] right-[-32px] top-[225px] shadow-[-5px_10px_15px_0px_rgba(0,0,0,0.22)] md:hidden"
+      >
+        <RuqiMainShot />
+      </ScreenshotFrame>
       <ScreenshotFrame
         shotVariants={shotRuqiMain}
-        className="bottom-0 left-[28px] right-[204px] top-[207px] shadow-[-5px_10px_15px_0px_rgba(0,0,0,0.22)]"
+        className="bottom-0 left-[28px] right-[28px] top-[207px] hidden shadow-[-5px_10px_15px_0px_rgba(0,0,0,0.22)] md:block"
       >
-        <Image
-          src="/cases/ruqi-main.png"
-          alt="RUQI — список исполнителей"
-          fill
-          sizes="(max-width: 1440px) 70vw, 968px"
-          className="object-cover object-left-top"
-        />
+        <RuqiMainShot />
       </ScreenshotFrame>
       <ScreenshotFrame
         shotVariants={shotRuqiForm}
-        className="bottom-0 left-[620px] right-[28px] top-[107px] shadow-[-5px_10px_15px_-3px_rgba(0,0,0,0.22)]"
+        className="bottom-0 left-[620px] right-[28px] top-[107px] hidden shadow-[-5px_10px_15px_-3px_rgba(0,0,0,0.22)] md:block"
       >
         <Image
           src="/cases/ruqi-form.png"
           alt="RUQI — форма вакансии"
           fill
           sizes="(max-width: 1440px) 40vw, 552px"
-          className="object-cover object-top"
+          className="object-cover object-left-top"
         />
       </ScreenshotFrame>
     </CaseCardShell>
+  );
+}
+
+function FinoCaseShot() {
+  return (
+    <Image
+      src="/cases/fino.png"
+      alt="FINO+ — договоры"
+      fill
+      sizes="(max-width: 767px) 100vw, 531px"
+      className="object-cover object-left md:object-left-top"
+    />
   );
 }
 
@@ -267,16 +280,10 @@ function CaseFino({
       textMaxWidth="max-w-[534px]"
     >
       <ScreenshotFrame
-        shotVariants={shotCenterFloatCentred}
-        className="bottom-0 left-1/2 top-[225px] w-[531px] shadow-[-5px_10px_15px_-3px_rgba(0,0,0,0.08)]"
+        shotVariants={shotFullBleedFloat}
+        className="bottom-0 left-[28px] right-[-32px] top-[225px] shadow-[-5px_10px_15px_-3px_rgba(0,0,0,0.08)]"
       >
-        <Image
-          src="/cases/fino.png"
-          alt="FINO+ — договоры"
-          fill
-          sizes="531px"
-          className="object-cover object-top"
-        />
+        <FinoCaseShot />
       </ScreenshotFrame>
     </CaseCardShell>
   );
@@ -304,7 +311,7 @@ function CaseIfeelgood({
           alt="ifeelgood — профиль"
           fill
           sizes="(max-width: 1440px) 44vw, 534px"
-          className="object-cover object-top"
+          className="object-cover"
         />
       </ScreenshotFrame>
     </CaseCardShell>
@@ -323,30 +330,84 @@ function CaseAstrakh({
       title={title}
       description={description}
       textMaxWidth="max-w-[544px]"
+      heightClass="h-[656px] md:h-[520px]"
     >
       <ScreenshotFrame
-        shotVariants={shotWideTilt}
-        className="bottom-0 left-1/2 top-[229px] w-[1141px] shadow-[-5px_10px_15px_0px_rgba(0,0,0,0.08)]"
+        shotVariants={shotStatic}
+        className="absolute bottom-0 left-[8px] top-[308px] z-0 w-[246%] shadow-[-5px_10px_15px_0px_rgba(0,0,0,0.08)] md:hidden"
       >
-        <Image
-          src="/cases/astrakh.png"
-          alt="АСтрахование — главная"
-          fill
-          sizes="(max-width: 1440px) 90vw, 1141px"
-          className="object-cover object-top"
-        />
+        <div className="pointer-events-none absolute inset-0 overflow-hidden rounded-[inherit]">
+          <Image
+            src="/cases/astrakh.png"
+            alt="АСтрахование — главная"
+            width={1333}
+            height={4096}
+            sizes="(max-width: 767px) 260vw, 1141px"
+            className="absolute left-0 top-0 max-w-none object-cover"
+            style={{
+              width: "100%",
+              height: "246%",
+              objectFit: "cover",
+              objectPosition: "left top",
+            }}
+          />
+        </div>
       </ScreenshotFrame>
       <ScreenshotFrame
         shotVariants={shotStackAccent}
-        className="bottom-0 left-[calc(50%+78px)] top-[52px] w-[383px] shadow-[-5px_10px_15px_-3px_rgba(0,0,0,0.08)]"
+        className="absolute left-[39.7%] top-[247px] z-10 aspect-[282/425] w-[78%] max-w-[282px] shadow-[-5px_10px_15px_-3px_rgba(0,0,0,0.08)] md:hidden"
       >
-        <Image
-          src="/cases/astrakh.png"
-          alt="АСтрахование — сервисы"
-          fill
-          sizes="383px"
-          className="object-cover object-[0%_60%]"
-        />
+        <div className="pointer-events-none absolute inset-0 overflow-hidden rounded-[inherit]">
+          <Image
+            src="/cases/astrakh.png"
+            alt="АСтрахование — сервисы"
+            width={283}
+            height={425}
+            sizes="(max-width: 767px) 78vw, 383px"
+            className="absolute left-0 max-w-none object-cover"
+            style={{
+              width: "100%",
+              height: "203.86%",
+              top: "-59.12%",
+            }}
+          />
+        </div>
+      </ScreenshotFrame>
+      <ScreenshotFrame
+        shotVariants={shotWideTilt}
+        className="bottom-0 left-1/2 top-[229px] hidden w-[1141px] shadow-[-5px_10px_15px_0px_rgba(0,0,0,0.08)] md:block"
+      >
+        <div className="pointer-events-none absolute inset-0 overflow-hidden rounded-[inherit]">
+          <Image
+            src="/cases/astrakh.png"
+            alt="АСтрахование — главная"
+            width={1141}
+            height={1142}
+            sizes="(max-width: 1440px) 90vw, 1141px"
+            className="absolute left-0 top-0 max-w-none object-cover object-left-top"
+            style={{ width: "100%", height: "296%" }}
+          />
+        </div>
+      </ScreenshotFrame>
+      <ScreenshotFrame
+        shotVariants={shotStackAccent}
+        className="bottom-0 left-[calc(50%+269.33px)] top-[52px] hidden w-[383px] shadow-[-5px_10px_15px_-3px_rgba(0,0,0,0.08)] md:block"
+      >
+        <div className="pointer-events-none absolute inset-0 overflow-hidden rounded-[inherit]">
+          <Image
+            src="/cases/astrakh.png"
+            alt="АСтрахование — сервисы"
+            width={383}
+            height={577}
+            sizes="383px"
+            className="absolute left-0 max-w-none object-cover object-left-top"
+            style={{
+              width: "100%",
+              height: "203.86%",
+              top: "-59.12%",
+            }}
+          />
+        </div>
       </ScreenshotFrame>
     </CaseCardShell>
   );

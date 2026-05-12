@@ -44,7 +44,7 @@ export default function Hero() {
     if (!el) return;
 
     const BASE_TOP_PX = 92;
-    const CARD_HEIGHT_PX = 1032;
+    const CARD_HEIGHT_PX = 1080;
     const BLOB_HEIGHT_PX = 205;
     const PARALLAX = 0.2;
     const MAX_DRIFT_PX = 56;
@@ -63,7 +63,7 @@ export default function Hero() {
 
   return (
     <section
-      className="relative flex w-full items-start justify-center bg-[var(--bg-light)] pb-8 pt-[calc(57px+44px+34px)] md:pb-0 md:pt-[40px]"
+      className="relative flex w-full items-start justify-center bg-[var(--bg-light)] pb-8 pt-[calc(57px+44px+34px)] md:min-h-[1080px] md:pb-0 md:pt-8"
       aria-label="Hero"
     >
       <div
@@ -77,7 +77,7 @@ export default function Hero() {
         <div className="h-full min-h-full w-full bg-[url('/grid.svg')] bg-no-repeat bg-[length:520%_auto] bg-[position:calc(720px-2520*100vw/1440)_top] opacity-[0.78]" />
       </div>
       <div className="relative z-10 mx-auto w-full max-w-[1200px] px-4 md:px-0">
-        <div className="relative mx-auto flex min-h-[598px] w-full max-w-[363px] flex-col overflow-hidden rounded-[22px] bg-[linear-gradient(180deg,#ffffff_0%,#fff4f0_42%,#f5f4f2_100%)] pb-0 pt-0 shadow-[0_10px_50px_-18px_rgba(0,0,0,0.14)] md:mx-0 md:block md:h-[1032px] md:min-h-0 md:max-w-none md:overflow-hidden md:rounded-none md:rounded-t-[24px] md:pb-0 md:pt-[96px] md:shadow-none">
+        <div className="relative mx-auto flex min-h-[598px] w-full max-w-[363px] flex-col overflow-hidden rounded-[22px] bg-[linear-gradient(180deg,#ffffff_0%,#fff4f0_42%,#f5f4f2_100%)] pb-0 pt-0 shadow-[0_10px_50px_-18px_rgba(0,0,0,0.14)] md:mx-0 md:block md:h-[1080px] md:min-h-0 md:max-w-none md:overflow-hidden md:rounded-none md:rounded-t-[24px] md:pb-0 md:pt-[96px] md:shadow-none">
           <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_100%_48%_at_50%_90%,rgba(227,121,82,0.72)_0%,rgba(227,121,82,0.36)_50%,rgba(227,121,82,0)_100%)] md:bg-[radial-gradient(ellipse_100%_75%_at_50%_85%,rgba(227,121,82,0.72)_0%,rgba(227,121,82,0.36)_50%,rgba(227,121,82,0)_100%)]" />
 
           <div className="relative z-10 flex w-full min-h-[464px] flex-1 flex-col items-center justify-between gap-0 pt-[62px] pb-0 md:min-h-0 md:flex-none md:gap-0 md:px-0 md:pb-0 md:pt-0 md:block">
@@ -143,7 +143,7 @@ export default function Hero() {
             <motion.button
               type="button"
               onClick={openModal}
-              className="inline-flex items-center gap-1 overflow-hidden rounded-[9.113px] bg-[#000000] px-[9px] pb-[5.34px] pt-[5.34px] text-[13px] font-medium leading-[16px] tracking-[-0.13px] text-white shadow-[0px_2px_4px_-1px_rgba(0,0,0,0.12)] md:gap-2 md:bg-[var(--color-primary-background-2)] md:px-[17px] md:pb-[8.94px] md:pt-[9px] md:text-[16px] md:leading-[22.95px] md:tracking-[-0.17px] md:shadow-[0px_4px_6px_-1px_rgba(0,0,0,0.1),0px_2px_4px_-2px_rgba(0,0,0,0.1)]"
+              className="inline-flex items-center gap-[6.4px] overflow-hidden rounded-[7.29px] bg-black px-[13.6px] pb-[7.15px] pt-[7.2px] text-[12.8px] font-medium leading-[18.36px] tracking-[-0.136px] text-white shadow-[0px_4px_6px_-1px_rgba(0,0,0,0.1),0px_2px_4px_-2px_rgba(0,0,0,0.1)] md:gap-2 md:rounded-[9.113px] md:px-[17px] md:pb-[8.94px] md:pt-[9px] md:text-[16px] md:leading-[22.95px] md:tracking-[-0.17px]"
               variants={fadeInHeroPhraseChild}
               whileTap={{ scale: 0.97 }}
               onAnimationStart={() => {
@@ -155,7 +155,7 @@ export default function Hero() {
               <span>{HERO_CONTENT.cta}</span>
               <span
                 aria-hidden
-                className="inline-flex h-[14px] w-3 shrink-0 items-center justify-center text-[12px] font-normal leading-none md:h-[17px] md:w-4 md:text-[16px]"
+                className="inline-flex h-[13.6px] w-[12.8px] shrink-0 items-center justify-center text-[12.8px] font-normal leading-none md:h-[17px] md:w-4 md:text-[16px]"
               >
                 →
               </span>
@@ -273,7 +273,7 @@ export default function Hero() {
           >
             <motion.div
               variants={heroCardReveal}
-              className="absolute left-[116px] top-[344.72px] h-[472.02px] w-[968px] overflow-hidden rounded-[14px] border-[0.852px] border-[#e5e5e5] bg-white shadow-[0px_-4px_15px_-3px_rgba(0,0,0,0.1)] [filter:blur(4.5px)] [will-change:transform]"
+              className="absolute left-[116px] top-[392.72px] h-[472.02px] w-[968px] overflow-hidden rounded-[14px] border-[0.852px] border-[#e5e5e5] bg-white shadow-[0px_-4px_15px_-3px_rgba(0,0,0,0.1)] [filter:blur(4.5px)] [will-change:transform]"
             >
               <Image
                 src="/images/hero/contracts-1.png"
@@ -291,7 +291,7 @@ export default function Hero() {
 
             <motion.div
               variants={heroCardReveal}
-              className="absolute left-[91px] top-[383.79px] h-[496.89px] w-[1019px] overflow-hidden rounded-[14px] border-[0.852px] border-[#e5e5e5] bg-white shadow-[0px_-4px_15px_-3px_rgba(0,0,0,0.1)] [filter:blur(3px)] [will-change:transform]"
+              className="absolute left-[91px] top-[431.79px] h-[496.89px] w-[1019px] overflow-hidden rounded-[14px] border-[0.852px] border-[#e5e5e5] bg-white shadow-[0px_-4px_15px_-3px_rgba(0,0,0,0.1)] [filter:blur(3px)] [will-change:transform]"
             >
               <Image
                 src="/images/hero/photo3.png"
@@ -309,7 +309,7 @@ export default function Hero() {
 
             <motion.div
               variants={heroCardReveal}
-              className="absolute left-[63px] top-[427.24px] h-[523.71px] w-[1074px] overflow-hidden rounded-[14px] border-[0.852px] border-[#e5e5e5] bg-white shadow-[0px_-4px_15px_-3px_rgba(0,0,0,0.1)] [filter:blur(1px)] [will-change:transform]"
+              className="absolute left-[63px] top-[475.24px] h-[523.71px] w-[1074px] overflow-hidden rounded-[14px] border-[0.852px] border-[#e5e5e5] bg-white shadow-[0px_-4px_15px_-3px_rgba(0,0,0,0.1)] [filter:blur(1px)] [will-change:transform]"
             >
               <Image
                 src="/images/hero/photo2.png"
@@ -327,7 +327,7 @@ export default function Hero() {
 
             <motion.div
               variants={heroCardReveal}
-              className="absolute bottom-0 left-8 top-[476.24px] w-[1136px] isolate overflow-hidden rounded-t-[18px] border-[0.852px] border-[#e5e5e5] border-b-0 bg-[#f5f4f2] shadow-[0px_-4px_15px_-3px_rgba(0,0,0,0.1)] [will-change:transform]"
+              className="absolute bottom-0 left-8 top-[524.24px] w-[1136px] isolate overflow-hidden rounded-t-[18px] border-[0.852px] border-[#e5e5e5] border-b-0 bg-[#f5f4f2] shadow-[0px_-4px_15px_-3px_rgba(0,0,0,0.1)] [will-change:transform]"
               onAnimationComplete={() => {
                 if (stackDoneGateRef.current) return;
                 stackDoneGateRef.current = true;
@@ -368,7 +368,7 @@ export default function Hero() {
           </motion.div>
 
           <motion.div
-            className="pointer-events-none absolute left-[1038px] top-[398px] z-0 hidden select-none md:block"
+            className="pointer-events-none absolute left-[1038px] top-[446px] z-0 hidden select-none md:block"
             style={{ y: blobY }}
             initial={{ opacity: 0 }}
             animate={
@@ -380,7 +380,7 @@ export default function Hero() {
             <Image src="/union1.svg" alt="" width={231} height={215} />
           </motion.div>
           <motion.div
-            className="pointer-events-none absolute left-[-36px] top-[550px] z-20 hidden select-none -rotate-90 md:block"
+            className="pointer-events-none absolute left-[-36px] top-[598px] z-20 hidden select-none -rotate-90 md:block"
             style={{ y: leftBottomBlobY }}
             initial={{ opacity: 0 }}
             animate={

@@ -12,12 +12,13 @@ export default function ExpertiseTagline() {
 
   return (
     <section
-      className="w-full bg-[#f5f5f5] px-5 py-[75px] min-[1440px]:px-[120px]"
+      className="w-full bg-[#f5f5f5] px-4 py-[75px] sm:px-6 min-[1440px]:px-[120px]"
       aria-label="Экспертиза команды"
     >
       <div className="mx-auto max-w-[1200px]">
         <motion.p
-          className="text-center text-[33px] font-normal leading-[43.2px] text-[#3e3e3e]"
+          lang="ru"
+          className="hyphens-auto text-pretty text-center text-[28px] font-normal leading-[1.35] text-[#3e3e3e] sm:text-[26px] sm:leading-[1.38] md:text-[33px] md:leading-[43.2px]"
           variants={fadeInUp}
           initial="hidden"
           whileInView="visible"

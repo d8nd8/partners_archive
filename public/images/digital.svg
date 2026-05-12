@@ -39,4 +39,22 @@
 <path d="M496.427 241.453V369.799" stroke="#303030" stroke-width="0.802168" stroke-dasharray="3.21 3.21"/>
 <path d="M536.192 241.453V369.799" stroke="#303030" stroke-width="0.802168" stroke-dasharray="3.21 3.21"/>
 <path d="M575.905 241.453V369.8" stroke="#303030" stroke-width="0.802168"/>
+<rect x="16" y="255" width="202" height="10" rx="5" fill="#2A2A2A"/>
+<rect x="16" y="255" width="144" height="10" rx="5" fill="#E37952"/>
+<rect x="16" y="273" width="202" height="10" rx="5" fill="#2A2A2A"/>
+<rect x="16" y="273" width="82" height="10" rx="5" fill="#3D3D3D"/>
+<rect x="16" y="291" width="202" height="10" rx="5" fill="#2A2A2A"/>
+<rect x="16" y="291" width="170" height="10" rx="5" fill="#3D3D3D"/>
+<rect x="16" y="309" width="202" height="10" rx="5" fill="#2A2A2A"/>
+<rect x="16" y="309" width="50" height="10" rx="5" fill="#3D3D3D"/>
+<rect x="16" y="327" width="202" height="10" rx="5" fill="#2A2A2A"/>
+<rect x="16" y="327" width="118" height="10" rx="5" fill="#E37952"/>
+<rect x="16" y="350" width="120" height="8" rx="4" fill="#363636"/>
+<rect x="305" y="295" width="16" height="74" rx="4" fill="#E37952"/>
+<rect x="345" y="320" width="16" height="49" rx="4" fill="#363636"/>
+<rect x="385" y="280" width="16" height="89" rx="4" fill="#3D3D3D"/>
+<rect x="425" y="335" width="16" height="34" rx="4" fill="#363636"/>
+<rect x="464" y="300" width="16" height="69" rx="4" fill="#3D3D3D"/>
+<rect x="504" y="315" width="16" height="54" rx="4" fill="#363636"/>
+<rect x="544" y="265" width="16" height="104" rx="4" fill="#3D3D3D"/>
 </svg>

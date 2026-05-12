@@ -20,6 +20,23 @@ function AccordionIcon({ open }: AccordionIconProps) {
   );
 }
 
+type StageBadgeProps = {
+  stageNumber: number;
+};
+
+function StageBadge({ stageNumber }: StageBadgeProps) {
+  return (
+    <div
+      className="inline-flex shrink-0 items-center rounded-[4px] border border-solid border-[#f4bda9] bg-[#ffded2] pb-[1.19px] pl-[4px] pr-[4.67px] pt-[2px] text-[#e37952]"
+      aria-hidden="true"
+    >
+      <span className="whitespace-nowrap text-[14px] font-light uppercase leading-[18.2px] tracking-[-0.07px]">
+        {stageNumber} этап
+      </span>
+    </div>
+  );
+}
+
 /**
  * Process section — accordion showing the stages of engagement.
  */
@@ -28,7 +45,7 @@ export default function Process() {
 
   return (
     <section
-      className="w-full overflow-hidden rounded-b-[36px] bg-[#f5f5f5] px-4 py-[60px] md:px-[36px] md:py-[90px]"
+      className="w-full overflow-hidden bg-[#f5f5f5] px-4 py-[60px] md:px-[36px] md:py-[90px]"
       aria-label="Как мы работаем"
     >
       <div className="mx-auto flex max-w-[1200px] flex-col gap-[40px]">
@@ -51,31 +68,38 @@ export default function Process() {
         >
           {PROCESS_CONTENT.items.map((item, i) => {
             const isOpen = openIndex === i;
+            const stageNumber = i + 1;
             return (
               <motion.div
-                key={item.stage}
-                className="overflow-hidden rounded-[20px] bg-white shadow-[0px_0px_1px_0px_rgba(31,34,41,0.24),0px_2px_6px_0px_rgba(31,34,41,0.04)]"
+                key={item.title}
+                className="overflow-hidden rounded-[20px] border border-[rgba(31,34,41,0.08)] bg-white shadow-[0px_0px_1px_0px_rgba(31,34,41,0.24),0px_2px_6px_0px_rgba(31,34,41,0.04)]"
                 variants={fadeInUp}
               >
                 <button
-                  className="flex h-[78px] w-full cursor-pointer items-center justify-between px-4 md:px-[32px]"
+                  type="button"
+                  className="grid w-full grid-cols-[1fr_auto] grid-rows-[auto_auto] gap-x-3 gap-y-[9px] px-[27px] pb-5 pt-6 text-left md:grid-cols-[auto_1fr_auto] md:grid-rows-1 md:items-center md:gap-x-5 md:gap-y-0 md:px-8 md:pb-6 md:pt-8 md:pr-[30px]"
                   onClick={() => setOpenIndex(isOpen ? null : i)}
                   aria-expanded={isOpen}
+                  aria-controls={`process-panel-${i}`}
+                  id={`process-heading-${i}`}
                 >
-                  <div className="flex items-center gap-[20px]">
-                    <span className="rounded-[4px] border border-[#f4bda9] bg-[#ffded2] px-[4px] pb-[1.19px] pt-[2px] text-[14px] font-light uppercase leading-[18.2px] tracking-[-0.07px] text-[#e37952]">
-                      {item.stage}
-                    </span>
-                    <span className="text-[19px] font-medium leading-[27px] tracking-[-0.2px] text-[#1a1d23]">
-                      {item.title}
-                    </span>
+                  <div className="col-start-1 row-start-1 self-start md:self-center">
+                    <StageBadge stageNumber={stageNumber} />
                   </div>
-                  <AccordionIcon open={isOpen} />
+                  <div className="col-start-2 row-start-1 justify-self-end self-start md:col-start-3 md:row-start-1 md:self-center md:justify-self-end">
+                    <AccordionIcon open={isOpen} />
+                  </div>
+                  <span className="col-span-2 col-start-1 row-start-2 min-w-0 text-[15px] font-medium leading-[22px] tracking-[-0.16px] text-[#1a1d23] md:col-span-1 md:col-start-2 md:row-start-1 md:text-[19px] md:leading-[27px] md:tracking-[-0.2px]">
+                    {item.title}
+                  </span>
                 </button>
 
                 <AnimatePresence initial={false}>
                   {isOpen && item.description && (
                     <motion.div
+                      id={`process-panel-${i}`}
+                      role="region"
+                      aria-labelledby={`process-heading-${i}`}
                       key="content"
                       initial={{ height: 0, opacity: 0 }}
                       animate={{ height: "auto", opacity: 1 }}
@@ -83,8 +107,8 @@ export default function Process() {
                       transition={{ duration: 0.3, ease: "easeInOut" }}
                       style={{ overflow: "hidden" }}
                     >
-                      <div className="px-4 pb-[26px] md:px-[32px]">
-                        <p className="whitespace-pre-line text-[16px] font-light leading-[22.95px] tracking-[-0.17px] text-[#afafaf]">
+                      <div className="px-[27px] pb-6 pt-0 md:px-8 md:pb-8 md:pt-0">
+                        <p className="whitespace-pre-line text-[13px] font-light leading-[18.4px] tracking-[-0.14px] text-[#afafaf] md:text-[16px] md:leading-[23px] md:tracking-[-0.17px]">
                           {item.description}
                         </p>
                       </div>
