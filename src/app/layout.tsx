@@ -1,9 +1,13 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist_Mono, Inter } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import Providers from "./Providers";
+import { COLORS, SITE_METADATA } from "@/lib/constants";
+import { getSiteUrl } from "@/lib/site-url";
+
+const siteUrl = getSiteUrl();
 
 const inter = Inter({
   variable: "--font-inter",
@@ -16,8 +20,25 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Partners Archive",
-  description: "Partners Archive landing page",
+  metadataBase: new URL(siteUrl),
+  title: SITE_METADATA.title,
+  description: SITE_METADATA.description,
+  alternates: {
+    canonical: "/",
+  },
+};
+
+const pageChromeBackground = COLORS.color.primary.background;
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: pageChromeBackground },
+    { media: "(prefers-color-scheme: dark)", color: pageChromeBackground },
+  ],
+  colorScheme: "light",
 };
 
 export default function RootLayout({
@@ -27,10 +48,10 @@ export default function RootLayout({
 }>) {
   return (
     <html
-      lang="en"
+      lang="ru"
       className={`${inter.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col bg-[#dedede]">
+      <body className="flex min-h-[100dvh] flex-col bg-[#dedede] pb-[env(safe-area-inset-bottom)]">
         <Providers>
           <Header />
           <div className="relative flex flex-1 flex-col bg-[#dedede]">

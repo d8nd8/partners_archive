@@ -508,7 +508,7 @@ export default function HowWeHelp() {
 
   return (
     <section
-      id="how-we-help"
+      id="about-us"
       className="w-full bg-[#f5f5f5] px-3 py-[6px] md:px-[36px] md:py-[10px]"
       aria-label="Как именно мы помогаем"
     >

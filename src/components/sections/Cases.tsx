@@ -129,6 +129,7 @@ function CaseBadge() {
   );
 }
 
+/*
 function CaseArrow() {
   return (
     <div className="pointer-events-none absolute right-[8px] top-[8px] flex h-[36px] w-[36px] items-center justify-center rounded-full border border-[rgba(0,0,0,0.08)] bg-white">
@@ -143,6 +144,7 @@ function CaseArrow() {
     </div>
   );
 }
+*/
 
 function CaseCardShell({
   title,
@@ -180,7 +182,7 @@ function CaseCardShell({
           {description}
         </p>
       </div>
-      <CaseArrow />
+      {/* <CaseArrow /> */}
       {children}
     </motion.article>
   );

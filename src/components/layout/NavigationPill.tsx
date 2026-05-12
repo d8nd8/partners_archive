@@ -44,7 +44,7 @@ export default function NavigationPill() {
 
   return (
     <div
-      className="fixed left-0 right-0 top-[57px] z-50 flex justify-center px-4 md:top-10 md:px-6"
+      className="fixed left-0 right-0 top-[max(57px,calc(env(safe-area-inset-top)+10px))] z-50 flex justify-center px-4 md:top-10 md:px-6"
       onMouseLeave={handleMouseLeave}
       onBlur={handleBlur}
     >
@@ -70,7 +70,7 @@ export default function NavigationPill() {
           {/* Desktop nav links */}
           <div className="hidden md:flex flex-1 items-center justify-center gap-5 text-[14px] font-light tracking-[-0.07px] text-[#CECECE]">
             <a
-              href="#how-we-help"
+              href="#about-us"
               className="rounded-full px-2 py-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/70"
             >
               {HEADER_CONTENT.nav.about}
@@ -104,7 +104,7 @@ export default function NavigationPill() {
             </button>
 
             <a
-              href="#footer-contacts"
+              href="#contacts"
               className="rounded-full px-2 py-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/70"
             >
               {HEADER_CONTENT.nav.contacts}
@@ -241,7 +241,7 @@ export default function NavigationPill() {
             >
               <div className="flex flex-col gap-1 p-3">
                 <a
-                  href="#how-we-help"
+                  href="#about-us"
                   onClick={() => setMobileMenuOpen(false)}
                   className={MOBILE_NAV_LINK_CLASS}
                   style={{ animation: "nav-item-in 0.22s ease-out 0.06s both" }}
@@ -250,7 +250,7 @@ export default function NavigationPill() {
                 </a>
 
                 <a
-                  href="#footer-contacts"
+                  href="#contacts"
                   onClick={() => setMobileMenuOpen(false)}
                   className={MOBILE_NAV_LINK_CLASS}
                   style={{ animation: "nav-item-in 0.22s ease-out 0.105s both" }}

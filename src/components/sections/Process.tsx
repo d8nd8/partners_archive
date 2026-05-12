@@ -95,7 +95,7 @@ export default function Process() {
                 </button>
 
                 <AnimatePresence initial={false}>
-                  {isOpen && item.description && (
+                  {isOpen && item.sections.length > 0 && (
                     <motion.div
                       id={`process-panel-${i}`}
                       role="region"
@@ -107,10 +107,17 @@ export default function Process() {
                       transition={{ duration: 0.3, ease: "easeInOut" }}
                       style={{ overflow: "hidden" }}
                     >
-                      <div className="px-[27px] pb-6 pt-0 md:px-8 md:pb-8 md:pt-0">
-                        <p className="whitespace-pre-line text-[13px] font-light leading-[18.4px] tracking-[-0.14px] text-[#afafaf] md:text-[16px] md:leading-[23px] md:tracking-[-0.17px]">
-                          {item.description}
-                        </p>
+                      <div className="flex flex-col gap-4 px-[27px] pb-6 pt-0 md:px-8 md:pb-8 md:pt-0">
+                        {item.sections.map((section, j) => (
+                          <div key={`${section.heading}-${j}`}>
+                            <p className="text-[13px] font-medium leading-[18.4px] tracking-[-0.14px] text-[#8a8a8a] md:text-[16px] md:leading-[23px] md:tracking-[-0.17px]">
+                              {section.heading}
+                            </p>
+                            <p className="mt-1 whitespace-pre-line text-[13px] font-light leading-[18.4px] tracking-[-0.14px] text-[#afafaf] md:mt-1.5 md:text-[16px] md:leading-[23px] md:tracking-[-0.17px]">
+                              {section.body}
+                            </p>
+                          </div>
+                        ))}
                       </div>
                     </motion.div>
                   )}
