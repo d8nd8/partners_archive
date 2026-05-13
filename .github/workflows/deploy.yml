@@ -1,0 +1,57 @@
+name: Deploy to server
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    name: SSH deploy
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Deploy over SSH
+        uses: appleboy/ssh-action@v1.2.5
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          port: ${{ secrets.SSH_PORT }}
+          username: ${{ secrets.SSH_USERNAME }}
+          password: ${{ secrets.SSH_PASSWORD }}
+          script_stop: true
+          command_timeout: 20m
+          script: |
+            set -eo pipefail
+
+            cd "${{ secrets.DEPLOY_PATH }}"
+
+            echo "==> git pull"
+            git pull
+
+            echo "==> npm run build"
+            BUILD_LOG=$(mktemp)
+            npm run build 2>&1 | tee "$BUILD_LOG"
+
+            if ! grep -q "Compiled successfully" "$BUILD_LOG"; then
+              echo "Build check failed: 'Compiled successfully' not found"
+              exit 1
+            fi
+            if ! grep -q "Finalizing page optimization" "$BUILD_LOG"; then
+              echo "Build check failed: 'Finalizing page optimization' not found"
+              exit 1
+            fi
+
+            echo "==> pm2 restart partners_archive"
+            PM2_LOG=$(mktemp)
+            pm2 restart partners_archive 2>&1 | tee "$PM2_LOG"
+
+            if ! grep -q "partners_archive" "$PM2_LOG"; then
+              echo "PM2 check failed: process name not found in output"
+              exit 1
+            fi
+            if ! grep -q "online" "$PM2_LOG"; then
+              echo "PM2 check failed: process is not online"
+              exit 1
+            fi
+
+            echo "==> Deployment successful"
