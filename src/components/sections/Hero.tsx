@@ -26,7 +26,7 @@ const heroCardsStackRoot: Variants = {
 /**
  * Hero section for the landing page.
  * Cards begin their stagger when the CTA entrance animation starts.
- * Decorative splats fade in only after the card stack entrance finishes.
+ * Decorative splats fade in only after the card stack entrance finishes (mobile and desktop).
  */
 export default function Hero() {
   const { openModal } = useLeadModal();
@@ -63,7 +63,7 @@ export default function Hero() {
 
   return (
     <section
-      className="relative flex w-full items-start justify-center bg-[var(--bg-light)] pb-8 pt-[calc(57px+44px+34px)] md:min-h-[1080px] md:pb-0 md:pt-8"
+      className="relative flex w-full items-start justify-center bg-[var(--bg-light)] pb-8 pt-[calc(27px+44px+34px)] md:min-h-[1080px] md:pb-0 md:pt-8"
       aria-label="Hero"
     >
       <div
@@ -85,8 +85,10 @@ export default function Hero() {
             className="pointer-events-none absolute right-0 top-[100px] md:hidden"
             style={{ y: blobY }}
             initial={{ opacity: 0 }}
-            animate={heroPhraseDone ? { opacity: 0.32 } : { opacity: 0 }}
-            transition={{ duration: 0.5, ease: "easeOut" }}
+            animate={
+              heroStackRevealDone ? { opacity: 0.75 } : { opacity: 0 }
+            }
+            transition={{ duration: 0.7, ease: "easeOut", delay: 0.2 }}
             aria-hidden="true"
           >
             <Image src="/union1.svg" alt="" width={120} height={112} />
@@ -95,8 +97,10 @@ export default function Hero() {
             className="pointer-events-none absolute left-0 top-[300px] md:hidden"
             style={{ y: leftBottomBlobY }}
             initial={{ opacity: 0 }}
-            animate={heroPhraseDone ? { opacity: 0.62 } : { opacity: 0 }}
-            transition={{ duration: 0.5, ease: "easeOut", delay: 0.06 }}
+            animate={
+              heroStackRevealDone ? { opacity: 0.85 } : { opacity: 0 }
+            }
+            transition={{ duration: 0.7, ease: "easeOut", delay: 0.3 }}
             aria-hidden="true"
           >
             <Image

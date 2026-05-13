@@ -2,13 +2,10 @@
 
 import Image from "next/image";
 import {
-  animate,
+  AnimatePresence,
   motion,
-  type MotionValue,
   useInView,
-  useMotionValue,
   useReducedMotion,
-  useTransform,
   type PanInfo,
 } from "framer-motion";
 import { HOW_WE_HELP_CONTENT } from "@/lib/constants";
@@ -299,151 +296,117 @@ function MobileServiceCard({
 type HelpCard = (typeof HOW_WE_HELP_CONTENT.cards)[number];
 
 const DECK_HEIGHT_PX = 400;
-const SWIPE_OUT_PX = 520;
+const DECK_STACK_GAP_PX = 44;
+const SWIPE_OUT_PX = 480;
+const SWIPE_THRESHOLD_PX = 80;
+const SWIPE_VELOCITY = 320;
 
-const SWIPE_EXIT_EASE = [0.22, 0.93, 0.36, 1] as const;
-const SWIPE_EXIT_DURATION_SEC = 0.44;
+const SWIPE_EXIT_EASE = [0.32, 0, 0.2, 1] as const;
+const SWIPE_EXIT_DURATION_SEC = 0.6;
+const SWIPE_ENTRANCE_EASE = [0.22, 0.61, 0.36, 1] as const;
+const SWIPE_ENTRANCE_DURATION_SEC = 0.58;
 
-function StackLayer({
-  card,
-  depth,
-}: {
-  card: HelpCard;
-  depth: number;
-}) {
-  const blurPx = 1.4 + depth * 3.4;
-  const scale = 1 - depth * 0.042;
-  const y = depth * 15;
-  const opacity = 1 - depth * 0.068;
-  const zIndex = 3 - depth;
+function StackLayer({ card, depth }: { card: HelpCard; depth: number }) {
+  const blurPx = 1 + depth * 2;
+  const scale = 1 - depth * 0.045;
+  const y = depth * 14;
+  const opacity = 1 - depth * 0.085;
 
   return (
-    <motion.div
+    <div
+      aria-hidden="true"
       className="pointer-events-none absolute inset-x-0 top-0"
-      style={{ height: DECK_HEIGHT_PX, zIndex }}
-      initial={false}
-      animate={{
-        y,
-        scale,
+      style={{
+        height: DECK_HEIGHT_PX,
+        zIndex: 0,
+        transform: `translate3d(0, ${y}px, 0) scale(${scale})`,
         opacity,
         filter: `blur(${blurPx}px)`,
-      }}
-      transition={{
-        type: "spring",
-        stiffness: 260,
-        damping: 40,
-        mass: 1.05,
+        willChange: "transform, filter, opacity",
       }}
     >
       <MobileServiceCard {...card} />
-    </motion.div>
+    </div>
   );
 }
 
-function TopDeckCard({
-  card,
-  x,
-  onDragEndAction,
-}: {
-  card: HelpCard;
-  x: MotionValue<number>;
-  onDragEndAction: (_: unknown, info: PanInfo) => void;
-}) {
-  const rotate = useTransform(x, [-260, 0, 260], [-13, 0, 13]);
-
-  return (
-    <motion.div
-      className="absolute inset-0 z-[20] cursor-grab active:cursor-grabbing"
-      style={{
-        transformStyle: "preserve-3d",
-        x,
-        rotate,
-      }}
-      drag="x"
-      dragConstraints={{ left: 0, right: 0 }}
-      dragElastic={0.58}
-      onDragEnd={onDragEndAction}
-      initial={{ opacity: 0, scale: 0.935, rotateX: 10, filter: "blur(12px)" }}
-      animate={{
-        opacity: 1,
-        scale: 1,
-        rotateX: 0,
-        filter: "blur(0px)",
-        transition: { type: "spring", stiffness: 260, damping: 36, mass: 1.08 },
-      }}
-    >
-      <MobileServiceCard {...card} />
-    </motion.div>
-  );
-}
+const cardVariants = {
+  enter: {
+    x: 0,
+    opacity: 0,
+    scale: 0.94,
+    filter: "blur(10px)",
+    zIndex: 1,
+  },
+  center: {
+    x: 0,
+    opacity: 1,
+    scale: 1,
+    filter: "blur(0px)",
+    zIndex: 1,
+    transition: {
+      duration: SWIPE_ENTRANCE_DURATION_SEC,
+      ease: SWIPE_ENTRANCE_EASE,
+    },
+  },
+  exit: (direction: number) => ({
+    x: -direction * SWIPE_OUT_PX,
+    opacity: 0,
+    scale: 0.96,
+    filter: "blur(10px)",
+    rotate: -direction * 8,
+    zIndex: 2,
+    transition: {
+      duration: SWIPE_EXIT_DURATION_SEC,
+      ease: SWIPE_EXIT_EASE,
+    },
+  }),
+};
 
 function MobileHelpCardDeck() {
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const [[currentIndex, direction], setState] = useState<[number, 1 | -1]>([0, 1]);
   const prefersReducedMotion = useReducedMotion();
-  const x = useMotionValue(0);
   const busyRef = useRef(false);
 
   const cards = HOW_WE_HELP_CONTENT.cards;
   const total = cards.length;
 
-  const goNext = useCallback(() => {
-    setCurrentIndex((i) => (i + 1) % total);
-  }, [total]);
+  const paginate = useCallback(
+    (dir: 1 | -1) => {
+      if (busyRef.current) return;
+      busyRef.current = true;
+      setState(([i]) => [(i + dir + total) % total, dir]);
+      window.setTimeout(() => {
+        busyRef.current = false;
+      }, SWIPE_EXIT_DURATION_SEC * 1000);
+    },
+    [total],
+  );
 
-  const goPrev = useCallback(() => {
-    setCurrentIndex((i) => (i - 1 + total) % total);
-  }, [total]);
-
-  useEffect(() => {
-    x.set(0);
-  }, [currentIndex, x]);
+  const goToIndex = useCallback(
+    (target: number) => {
+      if (busyRef.current || target === currentIndex) return;
+      busyRef.current = true;
+      const dir: 1 | -1 = target > currentIndex ? 1 : -1;
+      setState([target, dir]);
+      window.setTimeout(() => {
+        busyRef.current = false;
+      }, SWIPE_EXIT_DURATION_SEC * 1000);
+    },
+    [currentIndex],
+  );
 
   const handleDragEnd = useCallback(
-    async (_: unknown, info: PanInfo) => {
-      const THRESHOLD = 88;
-      const VELOCITY = 340;
-
-      if (busyRef.current) return;
-
-      if (info.offset.x < -THRESHOLD || info.velocity.x < -VELOCITY) {
-        busyRef.current = true;
-        try {
-          if (prefersReducedMotion) goNext();
-          else {
-            await animate(x, -SWIPE_OUT_PX, {
-              duration: SWIPE_EXIT_DURATION_SEC,
-              ease: SWIPE_EXIT_EASE,
-            });
-            x.set(0);
-            goNext();
-          }
-        } finally {
-          busyRef.current = false;
-        }
+    (_: unknown, info: PanInfo) => {
+      if (info.offset.x < -SWIPE_THRESHOLD_PX || info.velocity.x < -SWIPE_VELOCITY) {
+        paginate(1);
         return;
       }
-
-      if (info.offset.x > THRESHOLD || info.velocity.x > VELOCITY) {
-        busyRef.current = true;
-        try {
-          if (prefersReducedMotion) goPrev();
-          else {
-            await animate(x, SWIPE_OUT_PX, {
-              duration: SWIPE_EXIT_DURATION_SEC,
-              ease: SWIPE_EXIT_EASE,
-            });
-            x.set(0);
-            goPrev();
-          }
-        } finally {
-          busyRef.current = false;
-        }
-        return;
+      if (info.offset.x > SWIPE_THRESHOLD_PX || info.velocity.x > SWIPE_VELOCITY) {
+        paginate(-1);
       }
-
-      animate(x, 0, { type: "spring", stiffness: 280, damping: 38, mass: 0.95 });
     },
-    [goNext, goPrev, prefersReducedMotion, x],
+    [paginate],
   );
 
   const stackLayers = prefersReducedMotion
@@ -459,22 +422,40 @@ function MobileHelpCardDeck() {
         aria-roledescription="carousel"
         aria-label="Карточки уровней консалтинга"
         className="outline-none"
-        style={{
-          perspective: prefersReducedMotion ? undefined : "1100px",
-          perspectiveOrigin: "50% 20%",
-        }}
       >
-        <div className="relative mx-auto w-full" style={{ height: DECK_HEIGHT_PX + 40 }}>
+        <div
+          className="relative mx-auto w-full"
+          style={{ height: DECK_HEIGHT_PX + DECK_STACK_GAP_PX }}
+        >
           {stackLayers.map(({ depth, card }) => (
-            <StackLayer key={`layer-${depth}-${card.title}-${currentIndex}`} card={card} depth={depth} />
+            <StackLayer
+              key={`stack-${depth}-${card.title}`}
+              card={card}
+              depth={depth}
+            />
           ))}
 
-          <TopDeckCard
-            key={cards[currentIndex]?.title ?? String(currentIndex)}
-            card={cards[currentIndex]}
-            x={x}
-            onDragEndAction={handleDragEnd}
-          />
+          <AnimatePresence custom={direction} initial={false} mode="sync">
+            <motion.div
+              key={currentIndex}
+              custom={direction}
+              variants={prefersReducedMotion ? undefined : cardVariants}
+              initial={prefersReducedMotion ? false : "enter"}
+              animate={prefersReducedMotion ? undefined : "center"}
+              exit={prefersReducedMotion ? undefined : "exit"}
+              drag={prefersReducedMotion ? false : "x"}
+              dragConstraints={{ left: 0, right: 0 }}
+              dragElastic={0.55}
+              onDragEnd={handleDragEnd}
+              className="absolute inset-x-0 top-0 cursor-grab active:cursor-grabbing"
+              style={{
+                height: DECK_HEIGHT_PX,
+                willChange: "transform, filter, opacity",
+              }}
+            >
+              <MobileServiceCard {...cards[currentIndex]} />
+            </motion.div>
+          </AnimatePresence>
         </div>
       </div>
 
@@ -484,7 +465,7 @@ function MobileHelpCardDeck() {
             <button
               key={c.title}
               type="button"
-              onClick={() => setCurrentIndex(i)}
+              onClick={() => goToIndex(i)}
               className={`rounded-full transition-all duration-300 ${
                 i === currentIndex ? "h-[7px] w-[22px] bg-[#e37952]" : "h-[7px] w-[7px] bg-[#464646]"
               }`}

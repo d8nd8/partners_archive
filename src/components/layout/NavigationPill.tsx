@@ -44,7 +44,7 @@ export default function NavigationPill() {
 
   return (
     <div
-      className="fixed left-0 right-0 top-[max(57px,calc(env(safe-area-inset-top)+10px))] z-50 flex justify-center px-4 md:top-10 md:px-6"
+      className="fixed left-0 right-0 top-[max(27px,calc(env(safe-area-inset-top)+10px))] z-50 flex justify-center px-4 md:top-10 md:px-6"
       onMouseLeave={handleMouseLeave}
       onBlur={handleBlur}
     >
@@ -144,23 +144,23 @@ export default function NavigationPill() {
                   <path d="M4 4L14 14M14 4L4 14" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
                 </motion.svg>
               ) : (
-                <motion.div
+                <motion.svg
                   key="open"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
+                  initial={false}
                   exit={{ opacity: 0 }}
                   transition={{ duration: 0.12 }}
-                  className="flex items-center justify-center"
+                  width="26"
+                  height="18"
+                  viewBox="0 0 26 18"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
                   aria-hidden="true"
+                  className="shrink-0 text-[#cecece]"
                 >
-                  <Image
-                    src="/icons/menu-burger.svg"
-                    width={26}
-                    height={18}
-                    alt=""
-                    className="h-[18px] w-[26px]"
-                  />
-                </motion.div>
+                  <rect width="26" height="2.47619" rx="1.2381" fill="currentColor" />
+                  <rect y="7.42857" width="26" height="2.47619" rx="1.2381" fill="currentColor" />
+                  <rect y="14.8571" width="26" height="2.47619" rx="1.2381" fill="currentColor" />
+                </motion.svg>
               )}
             </AnimatePresence>
           </button>

@@ -357,21 +357,16 @@ function CaseAstrakh({
       </ScreenshotFrame>
       <ScreenshotFrame
         shotVariants={shotStackAccent}
-        className="absolute left-[39.7%] top-[247px] z-10 aspect-[282/425] w-[78%] max-w-[282px] shadow-[-5px_10px_15px_-3px_rgba(0,0,0,0.08)] md:hidden"
+        className="absolute bottom-0 left-[39.7%] top-[247px] z-10 w-[78%] max-w-[282px] shadow-[-5px_10px_15px_-3px_rgba(0,0,0,0.08)] md:hidden"
       >
         <div className="pointer-events-none absolute inset-0 overflow-hidden rounded-[inherit]">
           <Image
             src="/cases/astrakh.png"
             alt="АСтрахование — сервисы"
-            width={283}
-            height={425}
+            fill
             sizes="(max-width: 767px) 78vw, 383px"
-            className="absolute left-0 max-w-none object-cover"
-            style={{
-              width: "100%",
-              height: "203.86%",
-              top: "-59.12%",
-            }}
+            className="object-cover"
+            style={{ objectPosition: "left center" }}
           />
         </div>
       </ScreenshotFrame>
@@ -399,15 +394,10 @@ function CaseAstrakh({
           <Image
             src="/cases/astrakh.png"
             alt="АСтрахование — сервисы"
-            width={383}
-            height={577}
+            fill
             sizes="383px"
-            className="absolute left-0 max-w-none object-cover object-left-top"
-            style={{
-              width: "100%",
-              height: "203.86%",
-              top: "-59.12%",
-            }}
+            className="object-cover"
+            style={{ objectPosition: "left center" }}
           />
         </div>
       </ScreenshotFrame>
