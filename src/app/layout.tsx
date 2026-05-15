@@ -5,9 +5,16 @@ import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import Providers from "./Providers";
 import { COLORS, SITE_METADATA } from "@/lib/constants";
+import {
+  buildStructuredDataGraph,
+  serializeStructuredData,
+} from "@/lib/structured-data";
 import { getSiteUrl } from "@/lib/site-url";
 
 const siteUrl = getSiteUrl();
+const structuredDataJson = serializeStructuredData(
+  buildStructuredDataGraph(siteUrl),
+);
 
 const inter = Inter({
   variable: "--font-inter",
@@ -74,6 +81,10 @@ export default function RootLayout({
       className={`${inter.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="flex min-h-[100dvh] flex-col bg-[#dedede] pb-[env(safe-area-inset-bottom)]">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: structuredDataJson }}
+        />
         <Providers>
           <Header />
           <div className="relative flex flex-1 flex-col bg-[#dedede]">
