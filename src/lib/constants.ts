@@ -118,7 +118,7 @@ export const SITE_METADATA = {
   title: "АРХИВ — digital-консалтинг нового поколения",
   description:
     "Технологии с понятной рентабельностью. Digital-консалтинг для бизнеса: стратегия, внедрение и измеримый результат.",
-  ogImage: "/og-banner.png",
+  ogImage: "/og-banner.jpg",
 } as const;
 
 export const HOW_WE_HELP_CONTENT = {
