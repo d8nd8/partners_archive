@@ -26,6 +26,27 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "/",
   },
+  openGraph: {
+    title: SITE_METADATA.title,
+    description: SITE_METADATA.description,
+    url: "/",
+    type: "website",
+    locale: "ru_RU",
+    images: [
+      {
+        url: SITE_METADATA.ogImage,
+        width: 2400,
+        height: 1260,
+        alt: SITE_METADATA.title,
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: SITE_METADATA.title,
+    description: SITE_METADATA.description,
+    images: [SITE_METADATA.ogImage],
+  },
 };
 
 const pageChromeBackground = COLORS.color.primary.background;
