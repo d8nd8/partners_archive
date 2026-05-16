@@ -265,10 +265,14 @@ export const FOOTER_CONTENT = {
     { label: "Кейсы", href: "#cases" },
   ],
   contacts: [
-    { label: "info@archive.ru", href: "mailto:info@archive.ru" },
+    { label: "hello@archive-it.ru", href: "mailto:hello@archive-it.ru" },
     { label: "+7 (963) 696-71-70", href: "tel:+79636967170" },
   ],
   companyInfo: ['ООО "АРХИВ"', "ИНН 9703210801"],
+  privacyPolicy: {
+    label: "Политика конфиденциальности и обработки персональных данных",
+    href: "/documents/privacy.docx",
+  },
 } as const;
 
 export const WHY_CONTENT = {
