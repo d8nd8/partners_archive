@@ -63,28 +63,6 @@ const shotFullBleedFloat: Variants = {
   },
 };
 
-const shotWideTilt: Variants = {
-  rest: { x: "-50%", y: 0, rotate: 0, scale: 1 },
-  hover: {
-    x: "-50%",
-    y: -10,
-    rotate: -0.9,
-    scale: 1.014,
-    transition: springPop,
-  },
-};
-
-const shotStackAccent: Variants = {
-  rest: { x: 0, y: 0, rotate: 0, scale: 1 },
-  hover: {
-    x: 18,
-    y: -10,
-    rotate: 5.25,
-    scale: 1.045,
-    transition: springPop,
-  },
-};
-
 const shotStatic: Variants = {
   rest: {},
   hover: {},
@@ -320,6 +298,108 @@ function CaseIfeelgood({
   );
 }
 
+function AlvaCaseShot() {
+  return (
+    <Image
+      src="/cases/alva.png"
+      alt="Альва — новая заявка"
+      fill
+      sizes="(max-width: 767px) 100vw, 531px"
+      className="object-cover object-left md:object-left-top"
+    />
+  );
+}
+
+function CaseAlva({
+  title,
+  description,
+}: {
+  title: string;
+  description: string;
+}) {
+  return (
+    <CaseCardShell
+      title={title}
+      description={description}
+      textMaxWidth="max-w-[534px]"
+    >
+      <ScreenshotFrame
+        shotVariants={shotFullBleedFloat}
+        className="bottom-0 left-[28px] right-[-32px] top-[225px] shadow-[-5px_10px_15px_-3px_rgba(0,0,0,0.08)]"
+      >
+        <AlvaCaseShot />
+      </ScreenshotFrame>
+    </CaseCardShell>
+  );
+}
+
+function RzdErrorsShot() {
+  return (
+    <Image
+      src="/cases/rzd-errors.png"
+      alt="РЖД — замечания"
+      fill
+      sizes="(max-width: 767px) 100vw, (max-width: 1440px) 70vw, 968px"
+      className="object-cover object-left-top"
+    />
+  );
+}
+
+function RzdHomeShot() {
+  return (
+    <Image
+      src="/cases/rzd-home.png"
+      alt="РЖД — панель мониторинга"
+      fill
+      sizes="(max-width: 1440px) 40vw, 552px"
+      className="object-cover object-left-top"
+    />
+  );
+}
+
+function CaseRzd({
+  title,
+  description,
+}: {
+  title: string;
+  description: string;
+}) {
+  return (
+    <CaseCardShell title={title} description={description} textMaxWidth="max-w-[544px]">
+      <ScreenshotFrame
+        shotVariants={shotFullBleedFloat}
+        className="bottom-0 left-[28px] right-[-32px] top-[225px] shadow-[-5px_10px_15px_0px_rgba(0,0,0,0.08)] md:hidden"
+      >
+        <RzdErrorsShot />
+      </ScreenshotFrame>
+      <ScreenshotFrame
+        shotVariants={shotRuqiMain}
+        className="bottom-0 left-[28px] right-[28px] top-[207px] hidden shadow-[-5px_10px_15px_0px_rgba(0,0,0,0.08)] md:block"
+      >
+        <RzdErrorsShot />
+      </ScreenshotFrame>
+      <ScreenshotFrame
+        shotVariants={shotRuqiForm}
+        className="bottom-0 left-[620px] right-[28px] top-[107px] hidden shadow-[-5px_10px_15px_-3px_rgba(0,0,0,0.08)] md:block"
+      >
+        <RzdHomeShot />
+      </ScreenshotFrame>
+    </CaseCardShell>
+  );
+}
+
+function AstrakhCaseShot() {
+  return (
+    <Image
+      src="/cases/astrakh.png"
+      alt="АСтрахование — услуги"
+      fill
+      sizes="(max-width: 767px) 100vw, (max-width: 1440px) 44vw, 534px"
+      className="object-contain object-center md:object-cover md:object-left-top"
+    />
+  );
+}
+
 function CaseAstrakh({
   title,
   description,
@@ -331,85 +411,23 @@ function CaseAstrakh({
     <CaseCardShell
       title={title}
       description={description}
-      textMaxWidth="max-w-[544px]"
-      heightClass="h-[656px] md:h-[520px]"
+      textMaxWidth="max-w-[534px]"
     >
       <ScreenshotFrame
-        shotVariants={shotStatic}
-        className="absolute bottom-0 left-[8px] top-[308px] z-0 w-[246%] shadow-[-5px_10px_15px_0px_rgba(0,0,0,0.08)] md:hidden"
+        shotVariants={shotFullBleedFloat}
+        className="bottom-0 left-[28px] right-[-32px] top-[206px] shadow-[-5px_10px_15px_0px_rgba(0,0,0,0.08)] md:right-[28px]"
       >
-        <div className="pointer-events-none absolute inset-0 overflow-hidden rounded-[inherit]">
-          <Image
-            src="/cases/astrakh.png"
-            alt="АСтрахование — главная"
-            width={1333}
-            height={4096}
-            sizes="(max-width: 767px) 260vw, 1141px"
-            className="absolute left-0 top-0 max-w-none object-cover"
-            style={{
-              width: "100%",
-              height: "246%",
-              objectFit: "cover",
-              objectPosition: "left top",
-            }}
-          />
-        </div>
-      </ScreenshotFrame>
-      <ScreenshotFrame
-        shotVariants={shotStackAccent}
-        className="absolute bottom-0 left-[39.7%] top-[247px] z-10 w-[78%] max-w-[282px] shadow-[-5px_10px_15px_-3px_rgba(0,0,0,0.08)] md:hidden"
-      >
-        <div className="pointer-events-none absolute inset-0 overflow-hidden rounded-[inherit]">
-          <Image
-            src="/cases/astrakh.png"
-            alt="АСтрахование — сервисы"
-            fill
-            sizes="(max-width: 767px) 78vw, 383px"
-            className="object-cover"
-            style={{ objectPosition: "left center" }}
-          />
-        </div>
-      </ScreenshotFrame>
-      <ScreenshotFrame
-        shotVariants={shotWideTilt}
-        className="bottom-0 left-1/2 top-[229px] hidden w-[1141px] shadow-[-5px_10px_15px_0px_rgba(0,0,0,0.08)] md:block"
-      >
-        <div className="pointer-events-none absolute inset-0 overflow-hidden rounded-[inherit]">
-          <Image
-            src="/cases/astrakh.png"
-            alt="АСтрахование — главная"
-            width={1141}
-            height={1142}
-            sizes="(max-width: 1440px) 90vw, 1141px"
-            className="absolute left-0 top-0 max-w-none object-cover object-left-top"
-            style={{ width: "100%", height: "296%" }}
-          />
-        </div>
-      </ScreenshotFrame>
-      <ScreenshotFrame
-        shotVariants={shotStackAccent}
-        className="bottom-0 left-[calc(50%+269.33px)] top-[52px] hidden w-[383px] shadow-[-5px_10px_15px_-3px_rgba(0,0,0,0.08)] md:block"
-      >
-        <div className="pointer-events-none absolute inset-0 overflow-hidden rounded-[inherit]">
-          <Image
-            src="/cases/astrakh.png"
-            alt="АСтрахование — сервисы"
-            fill
-            sizes="383px"
-            className="object-cover"
-            style={{ objectPosition: "left center" }}
-          />
-        </div>
+        <AstrakhCaseShot />
       </ScreenshotFrame>
     </CaseCardShell>
   );
 }
 
 /**
- * Cases section — grid of four client case study cards.
+ * Cases section — grid of client case study cards.
  */
 export default function Cases() {
-  const [ruqi, fino, ifeelgood, astrakh] = CASES_CONTENT.items;
+  const [ruqi, fino, ifeelgood, rzd, alva, astrakh] = CASES_CONTENT.items;
 
   return (
     <section
@@ -455,11 +473,22 @@ export default function Cases() {
             </div>
           </motion.div>
 
-          <motion.div id="case-astrakh" variants={fadeInUp}>
-            <CaseAstrakh
-              title={astrakh.title}
-              description={astrakh.description}
-            />
+          <motion.div id="case-rzd" variants={fadeInUp}>
+            <CaseRzd title={rzd.title} description={rzd.description} />
+          </motion.div>
+
+          <motion.div
+            id="case-alva"
+            className="grid grid-cols-1 gap-[20px] md:grid-cols-2"
+            variants={fadeInUp}
+          >
+            <CaseAlva title={alva.title} description={alva.description} />
+            <div id="case-astrakh">
+              <CaseAstrakh
+                title={astrakh.title}
+                description={astrakh.description}
+              />
+            </div>
           </motion.div>
         </motion.div>
       </div>
