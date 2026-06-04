@@ -2,6 +2,9 @@
 
 import { LeadModalProvider } from "@/context/LeadModalContext";
 import LeadModal from "@/components/ui/LeadModal";
+import SmoothScroller from "@/components/layout/SmoothScroller";
+import ScrollRestorationControl from "@/components/layout/ScrollRestorationControl";
+import BackNavigationReload from "@/components/layout/BackNavigationReload";
 
 /**
  * Client-side providers wrapper — mounts context and portal-level components.
@@ -9,7 +12,9 @@ import LeadModal from "@/components/ui/LeadModal";
 export default function Providers({ children }: { children: React.ReactNode }) {
   return (
     <LeadModalProvider>
-      {children}
+      <ScrollRestorationControl />
+      <BackNavigationReload />
+      <SmoothScroller>{children}</SmoothScroller>
       <LeadModal />
     </LeadModalProvider>
   );

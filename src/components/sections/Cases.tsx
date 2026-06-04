@@ -1,7 +1,9 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { motion, useReducedMotion, type Variants } from "framer-motion";
+import CaseArrowIcon from "@/components/case-study/ui/CaseArrowIcon";
 import { CASES_CONTENT } from "@/lib/constants";
 import { fadeInUp, staggerContainer, VIEWPORT } from "@/lib/motion";
 
@@ -107,24 +109,22 @@ function CaseBadge() {
   );
 }
 
-/*
 function CaseArrow() {
   return (
-    <div className="pointer-events-none absolute right-[8px] top-[8px] flex h-[36px] w-[36px] items-center justify-center rounded-full border border-[rgba(0,0,0,0.08)] bg-white">
-      <Image
-        src="/cases/arrow.svg"
-        alt=""
-        width={16}
-        height={16}
-        className="block max-h-[18px] max-w-[18px] object-contain"
-        aria-hidden
-      />
-    </div>
+    <motion.div
+      variants={{
+        rest: { scale: 1 },
+        hover: { scale: 1.08, transition: springPop },
+      }}
+      className="absolute right-[8px] top-[8px] z-10 flex h-[36px] w-[36px] items-center justify-center rounded-full border border-[rgba(0,0,0,0.08)] bg-white"
+    >
+      <CaseArrowIcon />
+    </motion.div>
   );
 }
-*/
 
 function CaseCardShell({
+  href,
   title,
   description,
   textMaxWidth,
@@ -132,6 +132,7 @@ function CaseCardShell({
   heightClass = "h-[520px]",
   children,
 }: {
+  href: string;
   title: string;
   description: string;
   textMaxWidth: string;
@@ -142,27 +143,29 @@ function CaseCardShell({
   const reduceMotion = useReducedMotion();
 
   return (
-    <motion.article
-      className={`relative isolate ${heightClass} cursor-pointer overflow-hidden rounded-[20px] border border-b-2 border-[#e6e6e5] bg-[#fafaf9] ${className ?? ""}`}
-      variants={caseCardVariants}
-      initial="rest"
-      animate="rest"
-      whileHover={reduceMotion ? undefined : "hover"}
-    >
-      <div
-        className={`absolute left-[28px] top-[28px] z-10 flex flex-col items-start gap-[8px] ${textMaxWidth}`}
+    <Link href={href} className="block">
+      <motion.article
+        className={`relative isolate ${heightClass} cursor-pointer overflow-hidden rounded-[20px] border border-b-2 border-[#e6e6e5] bg-[#fafaf9] ${className ?? ""}`}
+        variants={caseCardVariants}
+        initial="rest"
+        animate="rest"
+        whileHover={reduceMotion ? undefined : "hover"}
       >
-        <CaseBadge />
-        <p className="w-full text-[33px] font-medium leading-[43.2px] text-black">
-          {title}
-        </p>
-        <p className="w-full text-[16px] font-light leading-[22.95px] tracking-[-0.17px] text-[#afafaf]">
-          {description}
-        </p>
-      </div>
-      {/* <CaseArrow /> */}
-      {children}
-    </motion.article>
+        <div
+          className={`absolute left-[28px] top-[28px] z-10 flex flex-col items-start gap-[8px] ${textMaxWidth}`}
+        >
+          <CaseBadge />
+          <p className="w-full text-[33px] font-medium leading-[43.2px] text-black">
+            {title}
+          </p>
+          <p className="w-full text-[16px] font-light leading-[22.95px] tracking-[-0.17px] text-[#afafaf]">
+            {description}
+          </p>
+        </div>
+        <CaseArrow />
+        {children}
+      </motion.article>
+    </Link>
   );
 }
 
@@ -205,7 +208,12 @@ function CaseRuqi({
   description: string;
 }) {
   return (
-    <CaseCardShell title={title} description={description} textMaxWidth="max-w-[544px]">
+    <CaseCardShell
+      href="/cases/ruqi"
+      title={title}
+      description={description}
+      textMaxWidth="max-w-[544px]"
+    >
       <ScreenshotFrame
         shotVariants={shotFullBleedFloat}
         className="bottom-0 left-[28px] right-[-32px] top-[225px] shadow-[-5px_10px_15px_0px_rgba(0,0,0,0.22)] md:hidden"
@@ -241,7 +249,7 @@ function FinoCaseShot() {
       alt="FINO+ — договоры"
       fill
       sizes="(max-width: 767px) 100vw, 531px"
-      className="object-cover object-left md:object-left-top"
+      className="object-cover object-left-top"
     />
   );
 }
@@ -255,6 +263,7 @@ function CaseFino({
 }) {
   return (
     <CaseCardShell
+      href="/cases/fino"
       title={title}
       description={description}
       textMaxWidth="max-w-[534px]"
@@ -278,6 +287,7 @@ function CaseIfeelgood({
 }) {
   return (
     <CaseCardShell
+      href="/cases/ifeelgood"
       title={title}
       description={description}
       textMaxWidth="max-w-[534px]"
@@ -301,11 +311,11 @@ function CaseIfeelgood({
 function AlvaCaseShot() {
   return (
     <Image
-      src="/cases/alva.png"
+      src="/cases/alva/mockup/screen-content.png"
       alt="Альва — новая заявка"
       fill
       sizes="(max-width: 767px) 100vw, 531px"
-      className="object-cover object-left md:object-left-top"
+      className="object-cover object-top"
     />
   );
 }
@@ -319,6 +329,7 @@ function CaseAlva({
 }) {
   return (
     <CaseCardShell
+      href="/cases/alva"
       title={title}
       description={description}
       textMaxWidth="max-w-[534px]"
@@ -348,11 +359,11 @@ function RzdErrorsShot() {
 function RzdHomeShot() {
   return (
     <Image
-      src="/cases/rzd-home.png"
+      src="/cases/rzd/mockup/screen-content.png"
       alt="РЖД — панель мониторинга"
       fill
       sizes="(max-width: 1440px) 40vw, 552px"
-      className="object-cover object-left-top"
+      className="object-cover object-top"
     />
   );
 }
@@ -365,7 +376,12 @@ function CaseRzd({
   description: string;
 }) {
   return (
-    <CaseCardShell title={title} description={description} textMaxWidth="max-w-[544px]">
+    <CaseCardShell
+      href="/cases/rzd"
+      title={title}
+      description={description}
+      textMaxWidth="max-w-[544px]"
+    >
       <ScreenshotFrame
         shotVariants={shotFullBleedFloat}
         className="bottom-0 left-[28px] right-[-32px] top-[225px] shadow-[-5px_10px_15px_0px_rgba(0,0,0,0.08)] md:hidden"
@@ -391,11 +407,11 @@ function CaseRzd({
 function AstrakhCaseShot() {
   return (
     <Image
-      src="/cases/astrakh.png"
+      src="/cases/astrakh/mockup/screen-content.png"
       alt="АСтрахование — услуги"
       fill
       sizes="(max-width: 767px) 100vw, (max-width: 1440px) 44vw, 534px"
-      className="object-contain object-center md:object-cover md:object-left-top"
+      className="object-cover object-top"
     />
   );
 }
@@ -409,6 +425,7 @@ function CaseAstrakh({
 }) {
   return (
     <CaseCardShell
+      href="/cases/astrakh"
       title={title}
       description={description}
       textMaxWidth="max-w-[534px]"
@@ -460,15 +477,16 @@ export default function Cases() {
           </motion.div>
 
           <motion.div
-            id="case-fino"
             className="grid grid-cols-1 gap-[20px] md:grid-cols-2"
             variants={fadeInUp}
           >
-            <CaseFino title={fino.title} description={fino.description} />
-            <div id="case-ifeelgood">
-              <CaseIfeelgood
-                title={ifeelgood.title}
-                description={ifeelgood.description}
+            <div id="case-alva">
+              <CaseAlva title={alva.title} description={alva.description} />
+            </div>
+            <div id="case-astrakh">
+              <CaseAstrakh
+                title={astrakh.title}
+                description={astrakh.description}
               />
             </div>
           </motion.div>
@@ -478,16 +496,17 @@ export default function Cases() {
           </motion.div>
 
           <motion.div
-            id="case-alva"
             className="grid grid-cols-1 gap-[20px] md:grid-cols-2"
             variants={fadeInUp}
           >
-            <CaseAlva title={alva.title} description={alva.description} />
-            <div id="case-astrakh">
-              <CaseAstrakh
-                title={astrakh.title}
-                description={astrakh.description}
+            <div id="case-ifeelgood">
+              <CaseIfeelgood
+                title={ifeelgood.title}
+                description={ifeelgood.description}
               />
+            </div>
+            <div id="case-fino">
+              <CaseFino title={fino.title} description={fino.description} />
             </div>
           </motion.div>
         </motion.div>

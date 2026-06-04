@@ -8,7 +8,6 @@ import {
   fadeInHeroPhraseChild,
   heroCardReveal,
   heroPhraseStagger,
-  VIEWPORT_HERO,
 } from "@/lib/motion";
 import { useLeadModal } from "@/context/LeadModalContext";
 
@@ -116,8 +115,7 @@ export default function Hero() {
             className="relative mx-auto flex w-full max-w-[320px] flex-col items-center gap-5 px-0 text-center md:max-w-[945px] md:px-[72.5px]"
             variants={heroPhraseStagger}
             initial="hidden"
-            whileInView="visible"
-            viewport={VIEWPORT_HERO}
+            animate="visible"
           >
             <h1 className="flex w-full max-w-[320px] flex-col items-center font-normal tracking-[-0.42px] text-black md:max-w-[800px] md:tracking-[-0.64px]">
               <motion.span
@@ -176,7 +174,7 @@ export default function Hero() {
             >
             <motion.div
               variants={heroCardReveal}
-              className="absolute bottom-[145px] left-0 right-0 h-[132px] overflow-hidden rounded-[14px] border border-[#e5e5e5] bg-white shadow-[0px_-4px_15px_-3px_rgba(0,0,0,0.1)] [filter:blur(4px)] [will-change:transform]"
+              className="pointer-events-none absolute bottom-[145px] left-0 right-0 h-[132px] overflow-hidden rounded-[14px] border border-[#e5e5e5] bg-white shadow-[0px_-4px_15px_-3px_rgba(0,0,0,0.1)] [filter:blur(4px)] [will-change:transform]"
             >
               <Image
                 src="/images/hero/contracts-1.png"
@@ -193,7 +191,7 @@ export default function Hero() {
             </motion.div>
             <motion.div
               variants={heroCardReveal}
-              className="absolute bottom-[98px] left-0 right-0 h-[156px] overflow-hidden rounded-[14px] border border-[#e5e5e5] bg-white shadow-[0px_-4px_15px_-3px_rgba(0,0,0,0.1)] [filter:blur(2.5px)] [will-change:transform]"
+              className="pointer-events-none absolute bottom-[98px] left-0 right-0 h-[156px] overflow-hidden rounded-[14px] border border-[#e5e5e5] bg-white shadow-[0px_-4px_15px_-3px_rgba(0,0,0,0.1)] [filter:blur(2.5px)] [will-change:transform]"
             >
               <Image
                 src="/images/hero/photo3.png"
@@ -210,7 +208,7 @@ export default function Hero() {
             </motion.div>
             <motion.div
               variants={heroCardReveal}
-              className="absolute bottom-[56px] left-0 right-0 h-[177px] overflow-hidden rounded-[14px] border border-[#e5e5e5] bg-white shadow-[0px_-4px_15px_-3px_rgba(0,0,0,0.1)] [filter:blur(1px)] [will-change:transform]"
+              className="pointer-events-none absolute bottom-[56px] left-0 right-0 h-[177px] overflow-hidden rounded-[14px] border border-[#e5e5e5] bg-white shadow-[0px_-4px_15px_-3px_rgba(0,0,0,0.1)] [filter:blur(1px)] [will-change:transform]"
             >
               <Image
                 src="/images/hero/photo2.png"
@@ -277,7 +275,7 @@ export default function Hero() {
           >
             <motion.div
               variants={heroCardReveal}
-              className="absolute left-[116px] top-[392.72px] h-[472.02px] w-[968px] overflow-hidden rounded-[14px] border-[0.852px] border-[#e5e5e5] bg-white shadow-[0px_-4px_15px_-3px_rgba(0,0,0,0.1)] [filter:blur(4.5px)] [will-change:transform]"
+              className="pointer-events-none absolute left-[116px] top-[392.72px] h-[472.02px] w-[968px] overflow-hidden rounded-[14px] border-[0.852px] border-[#e5e5e5] bg-white shadow-[0px_-4px_15px_-3px_rgba(0,0,0,0.1)] [filter:blur(4.5px)] [will-change:transform]"
             >
               <Image
                 src="/images/hero/contracts-1.png"
@@ -295,7 +293,7 @@ export default function Hero() {
 
             <motion.div
               variants={heroCardReveal}
-              className="absolute left-[91px] top-[431.79px] h-[496.89px] w-[1019px] overflow-hidden rounded-[14px] border-[0.852px] border-[#e5e5e5] bg-white shadow-[0px_-4px_15px_-3px_rgba(0,0,0,0.1)] [filter:blur(3px)] [will-change:transform]"
+              className="pointer-events-none absolute left-[91px] top-[431.79px] h-[496.89px] w-[1019px] overflow-hidden rounded-[14px] border-[0.852px] border-[#e5e5e5] bg-white shadow-[0px_-4px_15px_-3px_rgba(0,0,0,0.1)] [filter:blur(3px)] [will-change:transform]"
             >
               <Image
                 src="/images/hero/photo3.png"
@@ -313,7 +311,7 @@ export default function Hero() {
 
             <motion.div
               variants={heroCardReveal}
-              className="absolute left-[63px] top-[475.24px] h-[523.71px] w-[1074px] overflow-hidden rounded-[14px] border-[0.852px] border-[#e5e5e5] bg-white shadow-[0px_-4px_15px_-3px_rgba(0,0,0,0.1)] [filter:blur(1px)] [will-change:transform]"
+              className="pointer-events-none absolute left-[63px] top-[475.24px] h-[523.71px] w-[1074px] overflow-hidden rounded-[14px] border-[0.852px] border-[#e5e5e5] bg-white shadow-[0px_-4px_15px_-3px_rgba(0,0,0,0.1)] [filter:blur(1px)] [will-change:transform]"
             >
               <Image
                 src="/images/hero/photo2.png"
@@ -331,7 +329,7 @@ export default function Hero() {
 
             <motion.div
               variants={heroCardReveal}
-              className="absolute bottom-0 left-8 top-[524.24px] w-[1136px] isolate overflow-hidden rounded-t-[18px] border-[0.852px] border-[#e5e5e5] border-b-0 bg-[#f5f4f2] shadow-[0px_-4px_15px_-3px_rgba(0,0,0,0.1)] [will-change:transform]"
+              className="pointer-events-none absolute bottom-0 left-8 top-[524.24px] w-[1136px] isolate overflow-hidden rounded-t-[18px] border-[0.852px] border-[#e5e5e5] border-b-0 bg-[#f5f4f2] shadow-[0px_-4px_15px_-3px_rgba(0,0,0,0.1)] [will-change:transform]"
               onAnimationComplete={() => {
                 if (stackDoneGateRef.current) return;
                 stackDoneGateRef.current = true;

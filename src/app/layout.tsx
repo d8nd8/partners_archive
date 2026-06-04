@@ -1,8 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Geist_Mono, Inter } from "next/font/google";
 import "./globals.css";
-import Header from "@/components/layout/Header";
-import Footer from "@/components/layout/Footer";
 import Providers from "./Providers";
 import { COLORS, SITE_METADATA } from "@/lib/constants";
 import {
@@ -85,18 +83,7 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: structuredDataJson }}
         />
-        <Providers>
-          <Header />
-          <div className="relative flex flex-1 flex-col bg-[#dedede]">
-            <div className="relative z-10 overflow-hidden rounded-b-[36px] bg-[#f5f5f5]">
-              {children}
-            </div>
-
-            <div className="relative z-0 -mt-[52px] bg-[#dedede] pt-[52px]">
-              <Footer />
-            </div>
-          </div>
-        </Providers>
+        <Providers>{children}</Providers>
       </body>
     </html>
   );

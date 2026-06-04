@@ -95,12 +95,12 @@ export const HEADER_CONTENT = {
     contacts: "Контакты",
   },
   casesDropdown: [
-    { label: "ifeelgood", href: "#case-ifeelgood" },
-    { label: "RUQI", href: "#case-ruqi" },
-    { label: "АСтрахование", href: "#case-astrakh" },
-    { label: "FINO+", href: "#case-fino" },
-    { label: "Альва", href: "#case-alva" },
-    { label: "РЖД", href: "#case-rzd" },
+    { label: "ifeelgood", href: "/cases/ifeelgood" },
+    { label: "RUQI", href: "/cases/ruqi" },
+    { label: "АСтрахование", href: "/cases/astrakh" },
+    { label: "FINO+", href: "/cases/fino" },
+    { label: "Альва", href: "/cases/alva" },
+    { label: "РЖД", href: "/cases/rzd" },
   ] as const,
   cta: "Узнать больше",
   ctaHref: "https://t.me/archive_case",
@@ -197,19 +197,19 @@ export const CASES_CONTENT = {
       id: "ifeelgood",
       title: "ifeelgood",
       description:
-        "Приложение о ЗОЖ с программами по привычкам, рекомендациями и ИИ-ассистентом.",
+        "Мобильное приложение, ИИ-ассистент и редизайн платформы — портал о ЗОЖ, переосмысленный как полноценный продукт",
     },
     {
       id: "rzd",
-      title: "РЖД",
+      title: "РЖД / ПАК «Точность»",
       description:
-        "Панель мониторинга качества рельсошпальной решётки — телеметрия с оборудования, учёт замечаний, чек-листы сборки и аналитика для смен на объекте.",
+        "Промышленная система цифрового контроля качества рельсошпальной решётки в реальном времени",
     },
     {
       id: "alva",
       title: "Альва",
       description:
-        "Операционная панель для компании по обращению с отходами: заявки, справочники и контроль на весовой с компьютерным зрением.",
+        "Автоматизация полного цикла приёма и учёта вторсырья — от въезда на территорию до счёта клиенту без диспетчера",
     },
     {
       id: "astrakh",
