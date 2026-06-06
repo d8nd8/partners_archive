@@ -217,6 +217,9 @@ export default function NavigationPill() {
                         href={item.href}
                         tabIndex={open ? 0 : -1}
                         className={DESKTOP_DROPDOWN_LINK_CLASS}
+                        {...(item.href.startsWith("http")
+                          ? { target: "_blank", rel: "noopener noreferrer" }
+                          : {})}
                       >
                         {item.label}
                       </a>
@@ -275,6 +278,9 @@ export default function NavigationPill() {
                     style={{
                       animation: `nav-item-in 0.22s ease-out ${0.195 + i * 0.045}s both`,
                     }}
+                    {...(item.href.startsWith("http")
+                      ? { target: "_blank", rel: "noopener noreferrer" }
+                      : {})}
                   >
                     {item.label}
                   </a>

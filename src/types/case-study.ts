@@ -8,6 +8,8 @@ export type CaseStudyImage = {
   mockupDir?: string;
   /** MacBook screen slot override when the screenshot matches the physical screen mask (1440×900). */
   screenArea?: MacbookScreenArea;
+  /** Slide in from the right edge (like MacBook) instead of fading up; also disables scroll parallax. */
+  slideFromRight?: boolean;
 };
 
 export type MacbookScreenArea = {
@@ -75,6 +77,7 @@ export type CaseStudyAbout = {
 export type CaseStudyContent = {
   slug: string;
   title: string;
+  subtitle?: string;
   description: string;
   metaDescription: string;
   heroImage: CaseStudyImage;

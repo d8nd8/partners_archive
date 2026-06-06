@@ -221,7 +221,7 @@ export default function CaseStudyChallenges({ pairs }: CaseStudyChallengesProps)
 
           <div
             ref={scrollRef}
-            className="relative max-h-[720px] overflow-y-auto px-4 pb-8 pt-2 md:px-[21px] md:pb-10 md:pt-[35px] lg:max-h-[1295px]"
+            className="relative px-4 pb-8 pt-2 md:px-[21px] md:pb-10 md:pt-[35px]"
           >
             <div className="flex flex-col gap-5">
               {pairs.map((pair, pairIndex) => {

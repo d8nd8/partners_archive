@@ -67,14 +67,17 @@ export default function CaseStudySteps({ steps }: CaseStudyStepsProps) {
             const lineFilled = index < activeIndex;
 
             return (
-              <div key={`step-${index}`} className="flex items-stretch">
-                {/* ── Timeline rail ── */}
-                <div className="flex shrink-0 flex-col items-center">
+              <div
+                key={`step-${index}`}
+                ref={(node) => {
+                  stepRefs.current[index] = node;
+                }}
+                className="flex flex-col items-center md:flex-row md:items-stretch"
+              >
+                {/* ── Timeline rail (desktop only) ── */}
+                <div className="hidden shrink-0 flex-col items-center md:flex">
                   {/* Circle */}
                   <div
-                    ref={(node) => {
-                      stepRefs.current[index] = node;
-                    }}
                     className={`relative z-10 flex h-[52px] w-[52px] shrink-0 items-center justify-center rounded-full border-2 bg-[#f5f5f4] transition-all duration-500 ${
                       isActive
                         ? "border-black shadow-[0_0_0_5px_rgba(0,0,0,0.07)]"
@@ -105,18 +108,37 @@ export default function CaseStudySteps({ steps }: CaseStudyStepsProps) {
                   )}
                 </div>
 
-                {/* ── Content ── */}
+                {/* ── Content (centered on mobile, row on desktop) ── */}
                 <div
-                  className={`flex flex-1 flex-col gap-3 py-3 pl-5 transition-[filter,opacity] duration-500 md:flex-row md:items-center md:gap-[18px] md:py-4 md:pl-8 ${
-                    isLast ? "pb-0" : "pb-16 md:pb-24"
+                  className={`flex w-full flex-col items-center gap-3 pt-3 text-center transition-[filter,opacity] duration-500 md:w-auto md:flex-1 md:flex-row md:items-start md:gap-[18px] md:pb-4 md:pl-8 md:pt-[5px] md:text-left ${
+                    isLast ? "pb-0" : "pb-14 md:pb-24"
                   }`}
                   style={{
                     filter: isActive ? "blur(0px)" : "blur(3.5px)",
                     opacity: isActive ? 1 : 0.38,
                   }}
                 >
+                  {/* Mobile-only number circle on top */}
+                  <div
+                    className={`mb-1 flex h-[44px] w-[44px] shrink-0 items-center justify-center rounded-full border-2 bg-[#f5f5f4] transition-all duration-500 md:hidden ${
+                      isActive
+                        ? "border-black shadow-[0_0_0_5px_rgba(0,0,0,0.07)]"
+                        : isPast
+                          ? "border-black"
+                          : "border-[#d8d8d8]"
+                    }`}
+                  >
+                    <span
+                      className={`text-[18px] font-medium leading-none transition-colors duration-500 ${
+                        isActive || isPast ? "text-black" : "text-[#cacaca]"
+                      }`}
+                    >
+                      {index + 1}
+                    </span>
+                  </div>
+
                   <p
-                    className={`w-full text-[22px] font-medium leading-[30px] transition-colors duration-500 md:w-[540px] md:text-[33px] md:leading-[43.2px] ${
+                    className={`w-full text-[26px] font-medium leading-[32px] transition-colors duration-500 md:w-[540px] md:text-[33px] md:leading-[43.2px] ${
                       isActive ? "text-black" : "text-[#555]"
                     }`}
                   >

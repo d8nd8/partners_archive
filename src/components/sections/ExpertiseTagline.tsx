@@ -12,7 +12,7 @@ export default function ExpertiseTagline() {
 
   return (
     <section
-      className="w-full bg-[#f5f5f5] px-4 py-[75px] sm:px-6 min-[1440px]:px-[120px]"
+      className="w-full bg-[#f5f5f5] px-4 py-[60px] sm:px-6 md:py-[75px] min-[1440px]:px-[120px]"
       aria-label="Экспертиза команды"
     >
       <div className="mx-auto max-w-[1200px]">
