@@ -1,6 +1,7 @@
 import type { CaseStudyContent, CaseStudyImage } from "@/types/case-study";
 import { CASES_CONTENT } from "@/lib/constants";
 import { alvaCase } from "@/lib/cases/alva";
+import { finoCase } from "@/lib/cases/fino";
 import { ifeelgoodCase } from "@/lib/cases/ifeelgood";
 import { ruqiCase } from "@/lib/cases/ruqi";
 import { rzdCase } from "@/lib/cases/rzd";
@@ -8,6 +9,7 @@ import { MACBOOK_SCREEN_AREA_LANDSCAPE } from "@/components/case-study/CaseStudy
 
 const CASE_REGISTRY: Record<string, CaseStudyContent> = {
   alva: alvaCase,
+  fino: finoCase,
   ifeelgood: ifeelgoodCase,
   ruqi: ruqiCase,
   rzd: rzdCase,
@@ -26,12 +28,11 @@ const CASE_HERO_OVERRIDES: Record<string, Omit<CaseStudyImage, "alt">> = {
     objectPosition: "top center",
   },
   rzd: {
-    src: "/cases/rzd/mockup/screen-content.png",
+    src: "/cases/rzd/mockup/screen-rzhd.webp",
     variant: "macbook",
     mockupDir: "/cases/rzd/mockup",
     screenArea: MACBOOK_SCREEN_AREA_LANDSCAPE,
-    objectFit: "cover",
-    objectPosition: "top center",
+    objectFit: "fill",
   },
   alva: {
     src: "/cases/alva/mockup/screen-content.png",
@@ -39,11 +40,11 @@ const CASE_HERO_OVERRIDES: Record<string, Omit<CaseStudyImage, "alt">> = {
     mockupDir: "/cases/alva/mockup",
   },
   fino: {
-    src: "/cases/fino.png",
+    src: "/cases/fino/mockup/screen-fino.webp",
     variant: "macbook",
     mockupDir: "/cases/fino/mockup",
     screenArea: MACBOOK_SCREEN_AREA_LANDSCAPE,
-    objectPosition: "center",
+    objectFit: "fill",
   },
   astrakh: {
     src: "/cases/astrakh/mockup/screen-content.png",

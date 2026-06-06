@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import type { CaseStudyAbout as CaseStudyAboutContent } from "@/types/case-study";
 import { fadeInUp, VIEWPORT } from "@/lib/motion";
 import CaseBadge from "@/components/case-study/ui/CaseBadge";
+import SectionHeading from "@/components/ui/SectionHeading";
 
 type CaseStudyAboutProps = {
   about: CaseStudyAboutContent;
@@ -18,19 +19,21 @@ export default function CaseStudyAbout({ about }: CaseStudyAboutProps) {
   if (items.length === 0 && paragraphs.length === 0) return null;
 
   return (
-    <section className="bg-[#f5f5f4] px-4 pt-10 pb-6 md:px-5 md:pt-14 md:pb-8 min-[1440px]:px-[120px]">
+    <section className="bg-[#f5f5f4] px-[10px] md:px-5 min-[1440px]:px-[120px]">
       <motion.div
-        className="mx-auto flex max-w-[1368px] flex-col items-center gap-10"
+        className="mx-auto flex max-w-[1368px] flex-col items-center"
         variants={fadeInUp}
         initial="hidden"
         whileInView="visible"
         viewport={VIEWPORT}
       >
-        <h2 className="text-center text-[32px] font-light leading-[40px] tracking-[-0.64px] text-black md:text-[45px] md:leading-[50px]">
-          {title}
-        </h2>
+        <SectionHeading>
+          <h2 className="text-center text-[32px] font-light leading-[40px] tracking-[-0.64px] text-black md:text-[45px] md:leading-[50px]">
+            {title}
+          </h2>
+        </SectionHeading>
 
-        <div className="flex w-full flex-col items-center gap-10 lg:flex-row lg:items-center lg:gap-10 lg:p-10">
+        <div className="flex w-full flex-col items-center gap-10 pb-10 md:pb-14 lg:flex-row lg:items-center lg:gap-10 lg:p-10">
           {items.length > 0 && (
             <div className="w-full shrink-0 overflow-hidden rounded-[20px] bg-[#565656] lg:max-w-[591px]">
               <div className="rounded-[20px] bg-[#464646] p-px">

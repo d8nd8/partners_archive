@@ -19,7 +19,7 @@ export default function CaseStudyCta() {
   return (
     <section className="bg-[#f5f5f4] px-4 pb-16 pt-4 md:px-5 md:pb-20 min-[1440px]:px-[120px]">
       <motion.div
-        className="mx-auto flex max-w-[1200px] flex-col items-center gap-[5px] rounded-[20px] border border-[#e6e6e5] border-b-2 px-[17px] pb-[18px] pt-[24px] text-center"
+        className="relative mx-auto flex max-w-[1200px] flex-col items-center gap-[5px] overflow-hidden rounded-[20px] border border-[#e6e6e5] border-b-2 px-[17px] pb-[18px] pt-[24px] text-center"
         style={{
           backgroundImage: CTA_BACKGROUND,
           backgroundSize: "100% 100%",
@@ -29,14 +29,24 @@ export default function CaseStudyCta() {
         whileInView="visible"
         viewport={VIEWPORT}
       >
-        <h2 className="max-w-[556px] pb-[10px] text-[28px] font-medium leading-[36px] text-black md:text-[33px] md:leading-[43.2px]">
+        <motion.div
+          className="pointer-events-none absolute inset-0"
+          style={{
+            background:
+              "radial-gradient(ellipse at 50% 50%, rgba(255,255,255,0.7) 0%, rgba(255,200,170,0.4) 40%, transparent 70%)",
+            transformOrigin: "center",
+          }}
+          animate={{ opacity: [0, 1, 0], scale: [0.6, 1.2, 0.6] }}
+          transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
+        />
+        <h2 className="relative z-10 max-w-[556px] pb-[10px] text-[28px] font-medium leading-[36px] text-black md:text-[33px] md:leading-[43.2px]">
           Создадим проект мечты вместе
         </h2>
-        <p className="max-w-[890px] pb-[10px] text-[16px] font-medium leading-[22.95px] tracking-[-0.17px] text-black">
+        <p className="relative z-10 max-w-[890px] pb-[10px] text-[16px] font-medium leading-[22.95px] tracking-[-0.17px] text-black">
           Напишите нам в Telegram о подробностях вашего проекта, и мы проведём
           бесплатную консультацию по автоматизации вашего бизнеса
         </p>
-        <div className="flex flex-col gap-3 sm:flex-row sm:gap-5">
+        <div className="relative z-10 flex flex-col gap-3 sm:flex-row sm:gap-5">
           <a
             href={HEADER_CONTENT.ctaHref}
             target="_blank"

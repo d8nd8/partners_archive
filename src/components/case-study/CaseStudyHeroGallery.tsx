@@ -75,13 +75,14 @@ function IphoneLayeredHeroGallery({ image }: { image: MockupLayeredImage }) {
   const sectionRef = useRef<HTMLElement>(null);
   const screenObjectPosition = image.objectPosition ?? "top";
   const screenObjectFit = image.objectFit ?? "cover";
+  const slideFromRight = image.slideFromRight ?? false;
   const [scrollTarget, setScrollTarget] = useState<
     RefObject<HTMLElement | null> | undefined
   >(undefined);
 
   useEffect(() => {
-    setScrollTarget(sectionRef);
-  }, []);
+    if (!slideFromRight) setScrollTarget(sectionRef);
+  }, [slideFromRight]);
 
   const { scrollYProgress } = useScroll({
     target: scrollTarget,
@@ -92,16 +93,17 @@ function IphoneLayeredHeroGallery({ image }: { image: MockupLayeredImage }) {
   return (
     <section
       ref={sectionRef}
-      className="overflow-hidden border-b border-[#e6e6e5] bg-[#f5f5f4] h-[48vw] max-h-[690px] min-h-[300px]"
+      className="overflow-hidden border-b border-[#e6e6e5] bg-[#f5f5f4] h-[90vw] max-h-[690px] min-h-[300px] md:h-[48vw]"
     >
       <motion.div className="flex h-full w-full justify-center">
         <motion.div
-          className="relative w-[80vw] min-w-[260px] max-w-[439px] mt-7 min-[768px]:w-[30.5vw]"
-          initial={{ opacity: 0, y: 48 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={VIEWPORT}
+          className="relative w-[55vw] max-w-[439px] mt-7 md:w-[30.5vw]"
+          initial={{ opacity: 0, ...(slideFromRight ? { x: "60vw" } : { y: 48 }) }}
+          animate={slideFromRight ? { opacity: 1, x: 0 } : undefined}
+          whileInView={slideFromRight ? undefined : { opacity: 1, y: 0 }}
+          viewport={slideFromRight ? undefined : VIEWPORT}
           transition={{ duration: 1.8, ease: EASE_EXPO }}
-          style={{ y: parallaxY }}
+          style={slideFromRight ? undefined : { y: parallaxY }}
         >
           <img
             aria-hidden
@@ -152,6 +154,25 @@ function IphoneLayeredHeroGallery({ image }: { image: MockupLayeredImage }) {
   );
 }
 
+const macbookContainerVariants = {
+  hidden: { opacity: 0, x: "50vw" },
+  visible: {
+    opacity: 1,
+    x: 0,
+    transition: { duration: 2, ease: EASE_EXPO },
+  },
+} as const;
+
+const macbookScreenVariants = {
+  hidden: { opacity: 0, scale: 0.98, filter: "blur(8px)" },
+  visible: {
+    opacity: 1,
+    scale: 1,
+    filter: "blur(0px)",
+    transition: { duration: 1.4, ease: EASE_EXPO, delay: 1.1 },
+  },
+} as const;
+
 /**
  * MacBook hero with layered mockup assets and scroll-linked parallax.
  */
@@ -182,10 +203,10 @@ function MacbookLayeredHeroGallery({ image }: { image: MockupLayeredImage }) {
       <motion.div className="w-full">
         <motion.div
           className="relative -mt-[10%] mb-[-16%] w-[136%] -ml-[18%] md:-mt-[11%] min-[1440px]:-mt-[12%]"
-          initial={{ opacity: 0, x: "50vw" }}
-          whileInView={{ opacity: 1, x: 0 }}
+          variants={macbookContainerVariants}
+          initial="hidden"
+          whileInView="visible"
           viewport={VIEWPORT}
-          transition={{ duration: 2, ease: EASE_EXPO }}
           style={{ y: parallaxY }}
         >
           <img
@@ -239,10 +260,7 @@ function MacbookLayeredHeroGallery({ image }: { image: MockupLayeredImage }) {
           <motion.div
             aria-hidden
             className="pointer-events-none absolute inset-0"
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={VIEWPORT}
-            transition={{ duration: 0.7, ease: "easeOut", delay: 0.9 }}
+            variants={macbookScreenVariants}
             style={{
               WebkitMaskImage: `url(${image.mockupDir}/screen-mask.png)`,
               maskImage: `url(${image.mockupDir}/screen-mask.png)`,

@@ -83,6 +83,8 @@ export const COLORS = {
   },
 } as const;
 
+export const ASTRAKH_EXTERNAL_URL = "https://www.alfastrah.ru/" as const;
+
 export const HEADER_CONTENT = {
   logo: {
     left: "АР",
@@ -97,7 +99,7 @@ export const HEADER_CONTENT = {
   casesDropdown: [
     { label: "ifeelgood", href: "/cases/ifeelgood" },
     { label: "RUQI", href: "/cases/ruqi" },
-    { label: "АСтрахование", href: "/cases/astrakh" },
+    { label: "АСтрахование", href: ASTRAKH_EXTERNAL_URL },
     { label: "FINO+", href: "/cases/fino" },
     { label: "Альва", href: "/cases/alva" },
     { label: "РЖД", href: "/cases/rzd" },
@@ -184,36 +186,42 @@ export const CASES_CONTENT = {
     {
       id: "ruqi",
       title: "RUQI",
+      subtitle: "Личный кабинет клиента",
       description:
         "B2B-платформа для поиска и найма самозанятых, аналогичная платформам вроде YouDo",
     },
     {
       id: "fino",
       title: "FINO+",
+      subtitle: "Система управленческого учёта",
       description:
         "Внутренний финпродукт для аутсорсинговой компании с большим штатом и множеством постоянных расходов — поток заявок постоянно растёт.",
     },
     {
       id: "ifeelgood",
       title: "ifeelgood",
+      subtitle: "Wellness приложение",
       description:
         "Мобильное приложение, ИИ-ассистент и редизайн платформы — портал о ЗОЖ, переосмысленный как полноценный продукт",
     },
     {
       id: "rzd",
-      title: "РЖД / ПАК «Точность»",
+      title: "РЖД",
+      subtitle: "ПАК «Точность»",
       description:
         "Промышленная система цифрового контроля качества рельсошпальной решётки в реальном времени",
     },
     {
       id: "alva",
       title: "Альва",
+      subtitle: "Цифровая платформа управления",
       description:
         "Автоматизация полного цикла приёма и учёта вторсырья — от въезда на территорию до счёта клиенту без диспетчера",
     },
     {
       id: "astrakh",
       title: "АСтрахование",
+      subtitle: "Дизайн-система",
       description:
         "Для страховщика собрали дизайн-систему с единой библиотекой компонентов и правилами оформления сайта, лендингов и личных кабинетов.",
     },

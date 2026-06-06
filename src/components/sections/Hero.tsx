@@ -145,7 +145,7 @@ export default function Hero() {
             <motion.button
               type="button"
               onClick={openModal}
-              className="inline-flex items-center gap-[6.4px] overflow-hidden rounded-[7.29px] bg-black px-[13.6px] pb-[7.15px] pt-[7.2px] text-[12.8px] font-medium leading-[18.36px] tracking-[-0.136px] text-white shadow-[0px_4px_6px_-1px_rgba(0,0,0,0.1),0px_2px_4px_-2px_rgba(0,0,0,0.1)] md:gap-2 md:rounded-[9.113px] md:px-[17px] md:pb-[8.94px] md:pt-[9px] md:text-[16px] md:leading-[22.95px] md:tracking-[-0.17px]"
+              className="inline-flex cursor-pointer items-center gap-[6.4px] overflow-hidden rounded-[7.29px] bg-black px-[13.6px] pb-[7.15px] pt-[7.2px] text-[12.8px] font-medium leading-[18.36px] tracking-[-0.136px] text-white shadow-[0px_4px_6px_-1px_rgba(0,0,0,0.1),0px_2px_4px_-2px_rgba(0,0,0,0.1)] md:gap-2 md:rounded-[9.113px] md:px-[17px] md:pb-[8.94px] md:pt-[9px] md:text-[16px] md:leading-[22.95px] md:tracking-[-0.17px]"
               variants={fadeInHeroPhraseChild}
               whileTap={{ scale: 0.97 }}
               onAnimationStart={() => {
@@ -177,7 +177,7 @@ export default function Hero() {
               className="pointer-events-none absolute bottom-[145px] left-0 right-0 h-[132px] overflow-hidden rounded-[14px] border border-[#e5e5e5] bg-white shadow-[0px_-4px_15px_-3px_rgba(0,0,0,0.1)] [filter:blur(4px)] [will-change:transform]"
             >
               <Image
-                src="/images/hero/contracts-1.png"
+                src="/images/hero/hero-fino.png"
                 alt=""
                 fill
                 priority
@@ -194,7 +194,7 @@ export default function Hero() {
               className="pointer-events-none absolute bottom-[98px] left-0 right-0 h-[156px] overflow-hidden rounded-[14px] border border-[#e5e5e5] bg-white shadow-[0px_-4px_15px_-3px_rgba(0,0,0,0.1)] [filter:blur(2.5px)] [will-change:transform]"
             >
               <Image
-                src="/images/hero/photo3.png"
+                src="/images/hero/hero-ruqi.png"
                 alt=""
                 fill
                 priority
@@ -211,10 +211,11 @@ export default function Hero() {
               className="pointer-events-none absolute bottom-[56px] left-0 right-0 h-[177px] overflow-hidden rounded-[14px] border border-[#e5e5e5] bg-white shadow-[0px_-4px_15px_-3px_rgba(0,0,0,0.1)] [filter:blur(1px)] [will-change:transform]"
             >
               <Image
-                src="/images/hero/photo2.png"
+                src="/images/hero/hero-rzhd.webp"
                 alt=""
                 fill
                 priority
+                unoptimized
                 sizes="340px"
                 placeholder="blur"
                 blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8z8BQDwADhQGAWjR9awAAAABJRU5ErkJggg=="
@@ -278,7 +279,7 @@ export default function Hero() {
               className="pointer-events-none absolute left-[116px] top-[392.72px] h-[472.02px] w-[968px] overflow-hidden rounded-[14px] border-[0.852px] border-[#e5e5e5] bg-white shadow-[0px_-4px_15px_-3px_rgba(0,0,0,0.1)] [filter:blur(4.5px)] [will-change:transform]"
             >
               <Image
-                src="/images/hero/contracts-1.png"
+                src="/images/hero/hero-fino.png"
                 alt=""
                 fill
                 priority
@@ -296,7 +297,7 @@ export default function Hero() {
               className="pointer-events-none absolute left-[91px] top-[431.79px] h-[496.89px] w-[1019px] overflow-hidden rounded-[14px] border-[0.852px] border-[#e5e5e5] bg-white shadow-[0px_-4px_15px_-3px_rgba(0,0,0,0.1)] [filter:blur(3px)] [will-change:transform]"
             >
               <Image
-                src="/images/hero/photo3.png"
+                src="/images/hero/hero-ruqi.png"
                 alt=""
                 fill
                 priority
@@ -314,10 +315,11 @@ export default function Hero() {
               className="pointer-events-none absolute left-[63px] top-[475.24px] h-[523.71px] w-[1074px] overflow-hidden rounded-[14px] border-[0.852px] border-[#e5e5e5] bg-white shadow-[0px_-4px_15px_-3px_rgba(0,0,0,0.1)] [filter:blur(1px)] [will-change:transform]"
             >
               <Image
-                src="/images/hero/photo2.png"
+                src="/images/hero/hero-rzhd.webp"
                 alt=""
                 fill
                 priority
+                unoptimized
                 sizes="1074px"
                 placeholder="blur"
                 blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8z8BQDwADhQGAWjR9awAAAABJRU5ErkJggg=="
@@ -344,7 +346,7 @@ export default function Hero() {
                   height={630}
                   priority
                   aria-hidden="true"
-                  className="pointer-events-none absolute left-0 top-[-22.08px] [filter:blur(0.8px)]"
+                  className="pointer-events-none absolute left-0 top-[-22.08px]"
                 />
                 <Image
                   src="/images/hero/phone2.png"
@@ -353,7 +355,7 @@ export default function Hero() {
                   height={630}
                   priority
                   aria-hidden="true"
-                  className="pointer-events-none absolute left-[323.64px] top-[-22.08px] [filter:blur(0.8px)]"
+                  className="pointer-events-none absolute left-[323.64px] top-[-22.08px]"
                 />
                 <Image
                   src="/images/hero/phone3.png"
@@ -362,7 +364,7 @@ export default function Hero() {
                   height={630}
                   priority
                   aria-hidden="true"
-                  className="pointer-events-none absolute left-[647.28px] top-[-22.08px] [filter:blur(0.8px)]"
+                  className="pointer-events-none absolute left-[647.28px] top-[-22.08px]"
                 />
               </div>
               <div className="pointer-events-none absolute inset-0 bg-[var(--color-text-primary2)] mix-blend-color" />

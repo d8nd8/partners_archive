@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import type { CaseStudyContent } from "@/types/case-study";
 import { fadeInUp, VIEWPORT } from "@/lib/motion";
 import CaseBadge from "@/components/case-study/ui/CaseBadge";
+import SectionHeading from "@/components/ui/SectionHeading";
 
 type CaseStudyWorkDoneProps = {
   workDone: CaseStudyContent["workDone"];
@@ -103,7 +104,7 @@ export default function CaseStudyWorkDone({ workDone }: CaseStudyWorkDoneProps) 
     highlights?.find((highlight) => highlight.align === "left") ?? highlights?.[0];
 
   return (
-    <section className="bg-[#f5f5f4] px-4 py-10 md:px-5 md:py-14 min-[1440px]:px-[120px]">
+    <section className="bg-[#f5f5f4] px-4 md:px-5 min-[1440px]:px-[120px]">
       <motion.div
         className="mx-auto max-w-[1200px]"
         variants={fadeInUp}
@@ -111,18 +112,20 @@ export default function CaseStudyWorkDone({ workDone }: CaseStudyWorkDoneProps) 
         whileInView="visible"
         viewport={VIEWPORT}
       >
-        <h2 className="mb-10 text-center text-[32px] font-light leading-[40px] tracking-[-0.64px] text-black md:text-[45px] md:leading-[50px]">
-          Проделанная работа
-        </h2>
+        <SectionHeading>
+          <h2 className="text-center text-[32px] font-light leading-[40px] tracking-[-0.64px] text-black md:text-[45px] md:leading-[50px]">
+            Проделанная работа
+          </h2>
+        </SectionHeading>
 
-        <div className="flex flex-col gap-6 md:gap-10">
+        <div className="flex flex-col gap-6 pb-10 md:gap-10 md:pb-14">
           <div className="relative flex flex-col gap-4">
             {wideImage && (
               <WorkDoneImage
                 src={wideImage.src}
                 alt={wideImage.alt}
                 aspectClass="aspect-[783/498]"
-                sizes="(max-width: 767px) 100vw, 783px"
+                sizes="(max-width: 767px) 100vw, (max-width: 1200px) 100vw, 1200px"
               />
             )}
 

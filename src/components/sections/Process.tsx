@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import SectionHeading from "@/components/ui/SectionHeading";
 import { PROCESS_CONTENT } from "@/lib/constants";
 import { fadeInUp, staggerContainer, VIEWPORT } from "@/lib/motion";
 
@@ -45,19 +46,21 @@ export default function Process() {
 
   return (
     <section
-      className="w-full overflow-hidden bg-[#f5f5f5] px-4 py-[60px] md:px-[36px] md:py-[90px]"
+      className="w-full overflow-hidden bg-[#f5f5f5] px-4 pb-[60px] md:px-[36px] md:pb-[90px]"
       aria-label="Как мы работаем"
     >
-      <div className="mx-auto flex max-w-[1200px] flex-col gap-[40px]">
-        <motion.h2
-          className="text-center text-[28px] font-light leading-[34px] tracking-[-0.5px] text-black md:text-[45px] md:leading-[50px] md:tracking-[-0.64px]"
-          variants={fadeInUp}
-          initial="hidden"
-          whileInView="visible"
-          viewport={VIEWPORT}
-        >
-          {PROCESS_CONTENT.heading}
-        </motion.h2>
+      <div className="mx-auto flex max-w-[1200px] flex-col">
+        <SectionHeading>
+          <motion.h2
+            className="text-center text-[28px] font-light leading-[34px] tracking-[-0.5px] text-black md:text-[45px] md:leading-[50px] md:tracking-[-0.64px]"
+            variants={fadeInUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={VIEWPORT}
+          >
+            {PROCESS_CONTENT.heading}
+          </motion.h2>
+        </SectionHeading>
 
         <motion.div
           className="flex flex-col gap-[15px]"

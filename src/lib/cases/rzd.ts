@@ -3,19 +3,19 @@ import { MACBOOK_SCREEN_AREA_LANDSCAPE } from "@/components/case-study/CaseStudy
 
 export const rzdCase: CaseStudyContent = {
   slug: "rzd",
-  title: "РЖД / ПАК «Точность»",
+  title: "РЖД",
+  subtitle: "ПАК «Точность»",
   description:
     "Промышленная система цифрового контроля качества рельсошпальной решётки в реальном времени",
   metaDescription:
     "Кейс РЖД / ПАК «Точность»: промышленная система непрерывного цифрового контроля качества рельсошпальной решётки с централизованной аналитикой.",
   heroImage: {
-    src: "/cases/rzd/mockup/screen-content.png",
+    src: "/cases/rzd/mockup/screen-rzhd.webp",
     alt: "РЖД / ПАК «Точность» — панель мониторинга",
     variant: "macbook",
     mockupDir: "/cases/rzd/mockup",
     screenArea: MACBOOK_SCREEN_AREA_LANDSCAPE,
-    objectFit: "cover",
-    objectPosition: "top center",
+    objectFit: "fill",
   },
   about: {
     items: [
@@ -34,7 +34,7 @@ export const rzdCase: CaseStudyContent = {
     ],
   },
   quote:
-    "Ключевым в проекте было не «выявить дефект вручную», а сделать контроль сквозным, доказуемым и централизованным — чтобы головной офис видел качество производства напрямую, без ожидания локальной отчётности.",
+    "Ключевым в проекте было не «выявить дефект вручную», а **сделать контроль сквозным, доказуемым и централизованным** — чтобы головной офис видел качество производства напрямую, без ожидания локальной отчётности.",
   steps: [
     {
       title: "Аудит производственного процесса и архитектура системы",
@@ -75,19 +75,25 @@ export const rzdCase: CaseStudyContent = {
     {
       label: "Hardware",
       description:
-        "Датчики сопротивления, лазерно-оптические датчики, энкодеры, частотники, промышленный ПК.",
-      logos: [],
+        "Программируемое реле ПР-200, датчики сопротивления, гайковерты с частотниками, лазерные датчики, IP-камеры, промышленный ПК.",
+      logos: [{ id: "plc" }, { id: "sensor" }, { id: "laser" }, { id: "camera" }],
     },
     {
       label: "Frontend",
-      description: "Веб-интерфейс цеха для мастеров: мониторинг, алерты, фото и видеофиксация.",
-      logos: [{ id: "react" }, { id: "redis" }],
+      description: "Веб-интерфейс цеха в реальном времени: мониторинг, алерты, фото и видеофиксация.",
+      logos: [{ id: "react" }, { id: "javascript" }, { id: "websocket" }],
     },
     {
       label: "Backend",
       description:
-        "Сбор телеметрии, обработка CV и OCR, интеграция с промышленным оборудованием по Modbus.",
-      logos: [{ id: "python" }, { id: "fastapi" }],
+        "Сбор телеметрии, CV/OCR обработка изображений, pub-sub шина для трансляции данных на клиент.",
+      logos: [{ id: "python" }, { id: "fastapi" }, { id: "redis" }],
+    },
+    {
+      label: "Обработка данных",
+      description:
+        "Высокоскоростная обработка потока с датчиков, распознавание номеров шпал и рельсов в реальном времени.",
+      logos: [{ id: "cpp" }, { id: "modbus" }],
     },
   ],
   workDone: {
@@ -108,22 +114,6 @@ export const rzdCase: CaseStudyContent = {
         align: "right",
       },
     ],
-    images: [
-      {
-        src: "/cases/rzd/mockup/body.png",
-        alt: "РЖД / ПАК «Точность» — мониторинг качества",
-        variant: "wide",
-      },
-      {
-        src: "/cases/rzd/mockup/screen-content.png",
-        alt: "РЖД / ПАК «Точность» — панель контроля",
-        variant: "feature",
-      },
-      {
-        src: "/cases/rzd/mockup/body.png",
-        alt: "РЖД / ПАК «Точность» — аналитика смены",
-        variant: "compact",
-      },
-    ],
+    images: [],
   },
 };

@@ -1,8 +1,6 @@
 "use client";
 
 import { motion, type Variants } from "framer-motion";
-import { WHY_CONTENT } from "@/lib/constants";
-import { fadeInUp, VIEWPORT } from "@/lib/motion";
 import {
   WhyIconClipboardList,
   WhyIconEyeOff,
@@ -13,6 +11,9 @@ import {
   WhyIconUserRoundMinus,
   WhyIconUserRoundPlus,
 } from "@/components/icons/why-section";
+import SectionHeading from "@/components/ui/SectionHeading";
+import { WHY_CONTENT } from "@/lib/constants";
+import { fadeInUp, VIEWPORT } from "@/lib/motion";
 
 const ICON_MAP = {
   FileX: WhyIconFileX,
@@ -106,22 +107,25 @@ function SolutionCard({ icon, title }: { icon: string; title: string }) {
 export default function Why() {
   return (
     <section
-      className="w-full border-t border-[#e6e6e5] bg-[#f5f5f5] px-5 py-[50px] md:pb-[75px] md:pt-[35px] min-[1440px]:px-[120px]"
+      className="w-full border-t border-[#e6e6e5] bg-[#f5f5f5] px-5 min-[1440px]:px-[120px]"
       aria-label="Почему к нам приходят"
     >
-      <div className="mx-auto flex w-full max-w-[1200px] flex-col gap-[40px]">
-        <motion.h2
-          className="text-center text-[28px] font-light leading-[34px] tracking-[-0.5px] text-black md:text-[45px] md:leading-[50px] md:tracking-[-0.64px]"
-          variants={fadeInUp}
-          initial="hidden"
-          whileInView="visible"
-          viewport={VIEWPORT}
-        >
-          {WHY_CONTENT.heading}
-        </motion.h2>
+      <div className="mx-auto flex w-full max-w-[1200px] flex-col">
+        <SectionHeading>
+          <motion.h2
+            className="text-center text-[28px] font-light leading-[34px] tracking-[-0.5px] text-black md:text-[45px] md:leading-[50px] md:tracking-[-0.64px]"
+            variants={fadeInUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={VIEWPORT}
+          >
+            {WHY_CONTENT.heading}
+          </motion.h2>
+        </SectionHeading>
 
+        <div className="flex flex-col gap-[40px] pb-[60px] md:pb-[75px]">
         <motion.div
-          className="md:hidden -mx-5 overflow-x-auto pt-6"
+          className="md:hidden -mx-5 overflow-x-auto"
           initial="visible"
           animate="visible"
         >
@@ -136,7 +140,7 @@ export default function Why() {
 
         {/* Desktop: grid */}
         <motion.div
-          className="hidden md:grid md:grid-cols-2 lg:grid-cols-4 items-start gap-[20px] pt-[30px]"
+          className="hidden md:grid md:grid-cols-2 lg:grid-cols-4 items-start gap-[20px]"
           variants={SLOW_STAGGER_CONTAINER}
           initial="hidden"
           whileInView="visible"
@@ -177,6 +181,7 @@ export default function Why() {
             <SolutionCard key={card.title} {...card} />
           ))}
         </motion.div>
+        </div>
       </div>
     </section>
   );

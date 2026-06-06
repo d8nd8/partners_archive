@@ -6,6 +6,7 @@ import type { CaseStudyTechCategory } from "@/types/case-study";
 import { fadeInUp, staggerContainer, VIEWPORT } from "@/lib/motion";
 import { getTechIcon } from "@/lib/tech-icons";
 import CaseBadge from "@/components/case-study/ui/CaseBadge";
+import SectionHeading from "@/components/ui/SectionHeading";
 
 type CaseStudyTechStackProps = {
   categories: CaseStudyTechCategory[];
@@ -18,22 +19,24 @@ export default function CaseStudyTechStack({ categories }: CaseStudyTechStackPro
   if (categories.length === 0) return null;
 
   return (
-    <section className="bg-[#f5f5f4] px-4 py-10 md:px-5 md:py-14 min-[1440px]:px-[120px]">
+    <section className="bg-[#f5f5f4] px-4 md:px-5 min-[1440px]:px-[120px]">
       <motion.div
-        className="mx-auto flex max-w-[1200px] flex-col gap-10"
+        className="mx-auto flex max-w-[1200px] flex-col"
         variants={staggerContainer}
         initial="hidden"
         whileInView="visible"
         viewport={VIEWPORT}
       >
-        <motion.h2
-          variants={fadeInUp}
-          className="text-center text-[32px] font-light leading-[40px] tracking-[-0.64px] text-black md:text-[45px] md:leading-[50px]"
-        >
-          Технологический стек
-        </motion.h2>
+        <SectionHeading>
+          <motion.h2
+            variants={fadeInUp}
+            className="text-center text-[32px] font-light leading-[40px] tracking-[-0.64px] text-black md:text-[45px] md:leading-[50px]"
+          >
+            Технологический стек
+          </motion.h2>
+        </SectionHeading>
 
-        <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
+        <div className="grid grid-cols-1 gap-5 pb-10 md:grid-cols-2 md:pb-14">
           {categories.map((category) => (
             <motion.article
               key={category.label}
@@ -44,7 +47,14 @@ export default function CaseStudyTechStack({ categories }: CaseStudyTechStackPro
               <p className="text-[16px] font-medium leading-[24px] tracking-[-0.2px] text-black md:text-[19px] md:leading-[27px]">
                 {category.description}
               </p>
-              <div className="mt-auto flex flex-wrap gap-[10px]">
+              <div
+                className="mt-auto flex flex-wrap gap-[10px] md:grid md:[grid-template-columns:var(--tech-cols)]"
+                style={
+                  {
+                    "--tech-cols": `repeat(${category.logos.filter((l) => getTechIcon(l.id)).length}, minmax(0, 1fr))`,
+                  } as React.CSSProperties
+                }
+              >
                 {category.logos.map((logo) => {
                   const icon = getTechIcon(logo.id);
                   if (!icon) return null;
@@ -52,17 +62,19 @@ export default function CaseStudyTechStack({ categories }: CaseStudyTechStackPro
                   return (
                     <div
                       key={logo.id}
-                      className="flex size-[108px] flex-col items-center justify-center gap-2 overflow-hidden rounded-[20px] border border-[#d9d9d9] bg-[#e6e6e5] px-2"
+                      className="flex h-[108px] w-[112px] flex-col items-center overflow-hidden rounded-[20px] border border-[#d9d9d9] bg-[#e6e6e5] px-2 pt-3 pb-3 md:w-full"
                     >
-                      <Image
-                        src={icon.src}
-                        alt=""
-                        width={32}
-                        height={32}
-                        aria-hidden
-                        className="size-8 object-contain"
-                      />
-                      <span className="text-center text-[14px] font-medium leading-none tracking-[-0.07px] text-[#242424]">
+                      <div className="flex flex-1 items-center justify-center">
+                        <Image
+                          src={icon.src}
+                          alt=""
+                          width={48}
+                          height={48}
+                          aria-hidden
+                          className={`object-contain ${"iconClassName" in icon ? (icon as { iconClassName: string }).iconClassName : "size-8"}`}
+                        />
+                      </div>
+                      <span className="text-center text-[13px] font-medium leading-none tracking-[-0.07px] text-[#242424] break-words md:text-[14px]">
                         {icon.label}
                       </span>
                     </div>

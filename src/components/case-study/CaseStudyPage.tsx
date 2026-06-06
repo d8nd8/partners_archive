@@ -34,12 +34,22 @@ export default function CaseStudyPage({ content }: CaseStudyPageProps) {
         ? MACBOOK_SCREEN_VIEWPORT_WIDTH
         : undefined;
 
+  // Delay before description typewriter starts — matches the hero image reveal delay exactly.
+  const descriptionDelay =
+    content.heroImage.variant === "macbook" && content.heroImage.mockupDir
+      ? 1100  // matches macbookScreenVariants delay: 1.1
+      : content.heroImage.variant === "iphone" && content.heroImage.mockupDir
+        ? 400   // matches iPhone screen transition delay: 0.4
+        : 500;  // flat hero image fades in ~0.5s
+
   return (
     <main className="flex flex-1 flex-col bg-[#f5f5f4]">
       <CaseStudyHero
         title={content.title}
+        subtitle={content.subtitle}
         description={content.description}
         descriptionMaxWidth={descriptionMaxWidth}
+        descriptionDelay={descriptionDelay}
       />
       <CaseStudyHeroGallery image={content.heroImage} />
       {content.about && <CaseStudyAbout about={content.about} />}
