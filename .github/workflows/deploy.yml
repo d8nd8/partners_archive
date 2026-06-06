@@ -28,6 +28,9 @@ jobs:
             echo "==> git pull"
             git pull
 
+            echo "==> npm install"
+            npm install
+
             echo "==> npm run build"
             BUILD_LOG=$(mktemp)
             npm run build 2>&1 | tee "$BUILD_LOG"
