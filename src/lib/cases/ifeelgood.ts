@@ -120,6 +120,27 @@ export const ifeelgoodCase: CaseStudyContent = {
         variant: "solid",
       },
     ],
-    images: [],
+    images: [
+      {
+        src: "/cases/ifeelgood/ifg-result5.webp",
+        alt: "ifeelgood — редизайн платформы",
+        variant: "wide",
+      },
+      {
+        src: "/cases/ifeelgood/ifg-result1.webp",
+        alt: "ifeelgood — персональный план и трекинг привычек",
+        variant: "phone",
+      },
+      {
+        src: "/cases/ifeelgood/ifg-result3.webp",
+        alt: "ifeelgood — распознавание еды и подсчёт калорий по фото",
+        variant: "phone",
+      },
+      {
+        src: "/cases/ifeelgood/ifg-result4.webp",
+        alt: "ifeelgood — ИИ-ассистент Смузя",
+        variant: "phone",
+      },
+    ],
   },
 };

@@ -55,7 +55,11 @@ export type CaseStudyWorkHighlight = {
 export type CaseStudyWorkImage = {
   src: string;
   alt: string;
-  variant: "wide" | "compact" | "feature";
+  variant: "wide" | "compact" | "feature" | "tall" | "phone";
+  /** Exact CSS aspect ratio (e.g. "45/32") to show the full image with no crop. */
+  aspect?: string;
+  /** Serve the original file untouched — skip Next.js image optimization. */
+  unoptimized?: boolean;
 };
 
 export type CaseStudyProgress = {

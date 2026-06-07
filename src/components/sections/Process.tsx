@@ -80,7 +80,7 @@ export default function Process() {
               >
                 <button
                   type="button"
-                  className="grid w-full grid-cols-[1fr_auto] grid-rows-[auto_auto] gap-x-3 gap-y-[9px] px-[27px] pb-5 pt-6 text-left md:grid-cols-[auto_1fr_auto] md:grid-rows-1 md:items-center md:gap-x-5 md:gap-y-0 md:px-8 md:pb-6 md:pt-8 md:pr-[30px]"
+                  className="grid w-full cursor-pointer grid-cols-[1fr_auto] grid-rows-[auto_auto] gap-x-3 gap-y-[9px] px-[27px] pb-5 pt-6 text-left md:grid-cols-[auto_1fr_auto] md:grid-rows-1 md:items-center md:gap-x-5 md:gap-y-0 md:px-8 md:pb-6 md:pt-8 md:pr-[30px]"
                   onClick={() => setOpenIndex(isOpen ? null : i)}
                   aria-expanded={isOpen}
                   aria-controls={`process-panel-${i}`}

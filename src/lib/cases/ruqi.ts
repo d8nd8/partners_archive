@@ -117,6 +117,35 @@ export const ruqiCase: CaseStudyContent = {
         variant: "solid",
       },
     ],
-    images: [],
+    images: [
+      {
+        src: "/cases/ruqi/ruqi-result2.webp",
+        alt: "RUQI — личный кабинет клиента, управление объектами и сменами",
+        variant: "wide",
+        aspect: "45/32",
+        unoptimized: true,
+      },
+      {
+        src: "/cases/ruqi/ruqi-result1.webp",
+        alt: "RUQI — мобильное приложение исполнителя",
+        variant: "tall",
+        aspect: "480/551",
+        unoptimized: true,
+      },
+      {
+        src: "/cases/ruqi/ruqi-result3.webp",
+        alt: "RUQI — дашборды и аналитика по объектам и сменам",
+        variant: "compact",
+        aspect: "45/32",
+        unoptimized: true,
+      },
+      {
+        src: "/cases/ruqi/ruqi-result4.webp",
+        alt: "RUQI — состав смены и статусы исполнителей",
+        variant: "feature",
+        aspect: "45/32",
+        unoptimized: true,
+      },
+    ],
   },
 };

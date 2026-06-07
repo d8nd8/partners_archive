@@ -59,7 +59,7 @@ export default function CaseStudyCta() {
           <button
             type="button"
             onClick={openModal}
-            className="inline-flex items-center justify-center gap-2 rounded-[14px] border border-[#242424] bg-transparent px-[17px] pb-[8.94px] pt-[9px] text-[16px] font-medium leading-[22.95px] tracking-[-0.17px] text-[#242424] shadow-[0_4px_6px_0px_rgba(0,0,0,0.1),0_2px_4px_0px_rgba(0,0,0,0.1)] transition-colors hover:bg-black/5"
+            className="inline-flex cursor-pointer items-center justify-center gap-2 rounded-[14px] border border-[#242424] bg-transparent px-[17px] pb-[8.94px] pt-[9px] text-[16px] font-medium leading-[22.95px] tracking-[-0.17px] text-[#242424] shadow-[0_4px_6px_0px_rgba(0,0,0,0.1),0_2px_4px_0px_rgba(0,0,0,0.1)] transition-colors hover:bg-black/5"
           >
             Оставить заявку
             <CaseArrowIcon />

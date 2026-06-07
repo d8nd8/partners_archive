@@ -83,7 +83,7 @@ export const COLORS = {
   },
 } as const;
 
-export const ASTRAKH_EXTERNAL_URL = "https://www.alfastrah.ru/" as const;
+export const ASTRAKH_EXTERNAL_URL = "https://astrahovanie.ru/" as const;
 
 export const HEADER_CONTENT = {
   logo: {
@@ -102,7 +102,7 @@ export const HEADER_CONTENT = {
     { label: "АСтрахование", href: ASTRAKH_EXTERNAL_URL },
     { label: "FINO+", href: "/cases/fino" },
     { label: "Альва", href: "/cases/alva" },
-    { label: "РЖД", href: "/cases/rzd" },
+    { label: "РЖД", href: "/cases/rzhd" },
   ] as const,
   cta: "Узнать больше",
   ctaHref: "https://t.me/archive_case",
@@ -205,7 +205,7 @@ export const CASES_CONTENT = {
         "Мобильное приложение, ИИ-ассистент и редизайн платформы — портал о ЗОЖ, переосмысленный как полноценный продукт",
     },
     {
-      id: "rzd",
+      id: "rzhd",
       title: "РЖД",
       subtitle: "ПАК «Точность»",
       description:
@@ -224,6 +224,7 @@ export const CASES_CONTENT = {
       subtitle: "Дизайн-система",
       description:
         "Для страховщика собрали дизайн-систему с единой библиотекой компонентов и правилами оформления сайта, лендингов и личных кабинетов.",
+      externalUrl: "https://astrahovanie.ru/",
     },
   ],
 } as const;
@@ -293,7 +294,7 @@ export const FOOTER_CONTENT = {
   companyInfo: ['ООО "АРХИВ"', "ИНН 9703210801"],
   privacyPolicy: {
     label: "Политика конфиденциальности и обработки персональных данных",
-    href: "/documents/privacy.docx",
+    href: "/privacy",
   },
 } as const;
 

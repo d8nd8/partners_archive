@@ -1,8 +1,8 @@
 import type { CaseStudyContent } from "@/types/case-study";
 import { MACBOOK_SCREEN_AREA_LANDSCAPE } from "@/components/case-study/CaseStudyHeroGallery";
 
-export const rzdCase: CaseStudyContent = {
-  slug: "rzd",
+export const rzhdCase: CaseStudyContent = {
+  slug: "rzhd",
   title: "РЖД",
   subtitle: "ПАК «Точность»",
   description:
@@ -10,10 +10,10 @@ export const rzdCase: CaseStudyContent = {
   metaDescription:
     "Кейс РЖД / ПАК «Точность»: промышленная система непрерывного цифрового контроля качества рельсошпальной решётки с централизованной аналитикой.",
   heroImage: {
-    src: "/cases/rzd/mockup/screen-rzhd.webp",
+    src: "/cases/rzhd/mockup/screen-rzhd.webp",
     alt: "РЖД / ПАК «Точность» — панель мониторинга",
     variant: "macbook",
-    mockupDir: "/cases/rzd/mockup",
+    mockupDir: "/cases/rzhd/mockup",
     screenArea: MACBOOK_SCREEN_AREA_LANDSCAPE,
     objectFit: "fill",
   },
@@ -114,6 +114,22 @@ export const rzdCase: CaseStudyContent = {
         align: "right",
       },
     ],
-    images: [],
+    images: [
+      {
+        src: "/cases/rzhd/mockup/rzhd-result2.webp",
+        alt: "РЖД / ПАК «Точность» — контроль качества РШР в реальном времени",
+        variant: "wide",
+      },
+      {
+        src: "/cases/rzhd/mockup/rzhd-result1.webp",
+        alt: "РЖД / ПАК «Точность» — сквозная прослеживаемость по всей цепочке производства",
+        variant: "compact",
+      },
+      {
+        src: "/cases/rzhd/mockup/rzhd-result3.webp",
+        alt: "РЖД / ПАК «Точность» — снижение брака в 11,5 раз",
+        variant: "feature",
+      },
+    ],
   },
 };

@@ -120,6 +120,28 @@ export const finoCase: CaseStudyContent = {
         variant: "solid",
       },
     ],
-    images: [],
+    images: [
+      {
+        src: "/cases/fino/fino-result1.webp",
+        alt: "FINO — система заявок с многоуровневым согласованием",
+        variant: "wide",
+        aspect: "36/23",
+        unoptimized: true,
+      },
+      {
+        src: "/cases/fino/fino-result2.webp",
+        alt: "FINO — контроль дебиторской задолженности",
+        variant: "compact",
+        aspect: "36/23",
+        unoptimized: true,
+      },
+      {
+        src: "/cases/fino/fino-result3.webp",
+        alt: "FINO — отчёт о движении денежных средств в реальном времени",
+        variant: "feature",
+        aspect: "36/23",
+        unoptimized: true,
+      },
+    ],
   },
 };

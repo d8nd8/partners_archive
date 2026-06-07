@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { FOOTER_CONTENT, HEADER_CONTENT } from "@/lib/constants";
+import FooterNav from "@/components/layout/FooterNav";
 
 /**
  * Site-wide footer with logo, navigation, and contacts.
@@ -21,23 +22,7 @@ export default function Footer() {
           </Link>
         </div>
 
-        <nav
-          aria-label="Footer navigation"
-          className="shrink-0 md:pt-[1px]"
-        >
-          <ul className="flex flex-col gap-5 md:gap-[8px]">
-            {FOOTER_CONTENT.nav.map((link) => (
-              <li key={link.label}>
-                <a
-                  href={link.href}
-                  className="text-[16px] font-light leading-[23px] tracking-[-0.17px] text-[#303030]"
-                >
-                  {link.label}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </nav>
+        <FooterNav />
 
         <ul
           id="contacts"

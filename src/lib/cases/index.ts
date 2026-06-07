@@ -4,7 +4,7 @@ import { alvaCase } from "@/lib/cases/alva";
 import { finoCase } from "@/lib/cases/fino";
 import { ifeelgoodCase } from "@/lib/cases/ifeelgood";
 import { ruqiCase } from "@/lib/cases/ruqi";
-import { rzdCase } from "@/lib/cases/rzd";
+import { rzhdCase } from "@/lib/cases/rzhd";
 import { MACBOOK_SCREEN_AREA_LANDSCAPE } from "@/components/case-study/CaseStudyHeroGallery";
 
 const CASE_REGISTRY: Record<string, CaseStudyContent> = {
@@ -12,7 +12,7 @@ const CASE_REGISTRY: Record<string, CaseStudyContent> = {
   fino: finoCase,
   ifeelgood: ifeelgoodCase,
   ruqi: ruqiCase,
-  rzd: rzdCase,
+  rzhd: rzhdCase,
 };
 
 /**
@@ -27,10 +27,10 @@ const CASE_HERO_OVERRIDES: Record<string, Omit<CaseStudyImage, "alt">> = {
     objectFit: "cover",
     objectPosition: "top center",
   },
-  rzd: {
-    src: "/cases/rzd/mockup/screen-rzhd.webp",
+  rzhd: {
+    src: "/cases/rzhd/mockup/screen-rzhd.webp",
     variant: "macbook",
-    mockupDir: "/cases/rzd/mockup",
+    mockupDir: "/cases/rzhd/mockup",
     screenArea: MACBOOK_SCREEN_AREA_LANDSCAPE,
     objectFit: "fill",
   },
@@ -46,18 +46,34 @@ const CASE_HERO_OVERRIDES: Record<string, Omit<CaseStudyImage, "alt">> = {
     screenArea: MACBOOK_SCREEN_AREA_LANDSCAPE,
     objectFit: "fill",
   },
-  astrakh: {
-    src: "/cases/astrakh/mockup/screen-content.png",
-    variant: "macbook",
-    mockupDir: "/cases/astrakh/mockup",
-  },
 };
+
+/**
+ * Returns true when a homepage case card links externally instead of a local case page.
+ */
+export function isExternalCase(slug: string): boolean {
+  const card = CASES_CONTENT.items.find((item) => item.id === slug);
+  return Boolean(card && "externalUrl" in card && card.externalUrl);
+}
+
+/**
+ * Resolves the href for a homepage case card.
+ */
+export function getCaseCardHref(slug: string): string {
+  const card = CASES_CONTENT.items.find((item) => item.id === slug);
+  if (card && "externalUrl" in card && card.externalUrl) {
+    return card.externalUrl;
+  }
+  return `/cases/${slug}`;
+}
 
 /**
  * Returns all case slugs known to the site for static generation.
  */
 export function getAllCaseSlugs(): string[] {
-  const homepageSlugs = CASES_CONTENT.items.map((item) => item.id);
+  const homepageSlugs = CASES_CONTENT.items
+    .filter((item) => !("externalUrl" in item && item.externalUrl))
+    .map((item) => item.id);
   return [...new Set([...Object.keys(CASE_REGISTRY), ...homepageSlugs])];
 }
 
@@ -72,6 +88,8 @@ export function getCaseBySlug(slug: string): CaseStudyContent | undefined {
  * Builds a minimal case stub from homepage card data for cases without a full page yet.
  */
 export function getCaseStub(slug: string): CaseStudyContent | undefined {
+  if (isExternalCase(slug)) return undefined;
+
   const card = CASES_CONTENT.items.find((item) => item.id === slug);
   if (!card) return undefined;
 

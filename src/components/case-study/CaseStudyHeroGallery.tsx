@@ -36,6 +36,21 @@ export const MACBOOK_SCREEN_AREA_LANDSCAPE = {
 
 const MACBOOK_FRAME_SCALE = 1.36;
 
+/**
+ * Shared MacBook frame layers (macbook-pro / body / shadow / screen-mask).
+ * Byte-identical across all MacBook cases, so they live in one directory to be
+ * cached once and preloaded from the homepage. See {@link MACBOOK_FRAME_ASSETS}.
+ */
+export const MACBOOK_FRAME_DIR = "/cases/_macbook";
+
+/** Frame layer URLs, exported so the homepage can warm them ahead of navigation. */
+export const MACBOOK_FRAME_ASSETS = [
+  `${MACBOOK_FRAME_DIR}/macbook-pro.png`,
+  `${MACBOOK_FRAME_DIR}/body.png`,
+  `${MACBOOK_FRAME_DIR}/shadow.png`,
+  `${MACBOOK_FRAME_DIR}/screen-mask.png`,
+] as const;
+
 /** MacBook screen width as a viewport share: frame scale × screen area width. */
 export const MACBOOK_SCREEN_VIEWPORT_WIDTH =
   `${MACBOOK_FRAME_SCALE * parseFloat(MACBOOK_SCREEN_AREA.width)}vw` as const;
@@ -211,7 +226,7 @@ function MacbookLayeredHeroGallery({ image }: { image: MockupLayeredImage }) {
         >
           <img
             aria-hidden
-            src={`${image.mockupDir}/shadow.png`}
+            src={`${MACBOOK_FRAME_DIR}/shadow.png`}
             className="pointer-events-none absolute inset-0 h-full w-full object-fill opacity-70 mix-blend-multiply"
           />
 
@@ -219,8 +234,8 @@ function MacbookLayeredHeroGallery({ image }: { image: MockupLayeredImage }) {
             aria-hidden
             className="pointer-events-none absolute inset-0 bg-[#f5f5f4]"
             style={{
-              WebkitMaskImage: `url(${image.mockupDir}/screen-mask.png)`,
-              maskImage: `url(${image.mockupDir}/screen-mask.png)`,
+              WebkitMaskImage: `url(${MACBOOK_FRAME_DIR}/screen-mask.png)`,
+              maskImage: `url(${MACBOOK_FRAME_DIR}/screen-mask.png)`,
               WebkitMaskSize: "100% 100%",
               maskSize: "100% 100%",
               WebkitMaskRepeat: "no-repeat",
@@ -228,19 +243,17 @@ function MacbookLayeredHeroGallery({ image }: { image: MockupLayeredImage }) {
             }}
           />
 
-          <Image
-            src={`${image.mockupDir}/macbook-pro.png`}
-            alt={image.alt}
-            width={4096}
-            height={2731}
-            priority
-            sizes="(max-width: 767px) 100vw, 1440px"
+          {/* Plain <img> (not next/image) so the bytes match the homepage preload
+              exactly and skip the on-demand optimizer round-trip on first open. */}
+          <img
+            aria-hidden
+            src={`${MACBOOK_FRAME_DIR}/macbook-pro.png`}
             className="relative h-auto w-full"
           />
 
           <img
             aria-hidden
-            src={`${image.mockupDir}/body.png`}
+            src={`${MACBOOK_FRAME_DIR}/body.png`}
             className="pointer-events-none absolute inset-0 h-full w-full object-fill"
           />
 
@@ -248,8 +261,8 @@ function MacbookLayeredHeroGallery({ image }: { image: MockupLayeredImage }) {
             aria-hidden
             className="pointer-events-none absolute inset-0 bg-[#6a6a6a] mix-blend-multiply"
             style={{
-              WebkitMaskImage: `url(${image.mockupDir}/body.png)`,
-              maskImage: `url(${image.mockupDir}/body.png)`,
+              WebkitMaskImage: `url(${MACBOOK_FRAME_DIR}/body.png)`,
+              maskImage: `url(${MACBOOK_FRAME_DIR}/body.png)`,
               WebkitMaskSize: "100% 100%",
               maskSize: "100% 100%",
               WebkitMaskRepeat: "no-repeat",
@@ -262,8 +275,8 @@ function MacbookLayeredHeroGallery({ image }: { image: MockupLayeredImage }) {
             className="pointer-events-none absolute inset-0"
             variants={macbookScreenVariants}
             style={{
-              WebkitMaskImage: `url(${image.mockupDir}/screen-mask.png)`,
-              maskImage: `url(${image.mockupDir}/screen-mask.png)`,
+              WebkitMaskImage: `url(${MACBOOK_FRAME_DIR}/screen-mask.png)`,
+              maskImage: `url(${MACBOOK_FRAME_DIR}/screen-mask.png)`,
               WebkitMaskSize: "100% 100%",
               maskSize: "100% 100%",
               WebkitMaskRepeat: "no-repeat",

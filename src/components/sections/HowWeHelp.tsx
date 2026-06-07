@@ -466,7 +466,7 @@ function MobileHelpCardDeck() {
               key={c.title}
               type="button"
               onClick={() => goToIndex(i)}
-              className={`rounded-full transition-all duration-300 ${
+              className={`cursor-pointer rounded-full transition-all duration-300 ${
                 i === currentIndex ? "h-[7px] w-[22px] bg-[#e37952]" : "h-[7px] w-[7px] bg-[#464646]"
               }`}
               aria-label={`Перейти к карточке ${i + 1}`}
@@ -514,7 +514,7 @@ export default function HowWeHelp() {
               <motion.button
                 type="button"
                 onClick={openModal}
-                className="rounded-[14px] border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.04)] px-[17px] pb-[8.94px] pt-[9px] text-[16px] font-medium leading-[22.95px] tracking-[-0.17px] text-white"
+                className="cursor-pointer rounded-[14px] border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.04)] px-[17px] pb-[8.94px] pt-[9px] text-[16px] font-medium leading-[22.95px] tracking-[-0.17px] text-white"
                 whileTap={{ scale: 0.97 }}
               >
                 {HOW_WE_HELP_CONTENT.cta.ask}

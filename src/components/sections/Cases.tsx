@@ -5,7 +5,8 @@ import Link from "next/link";
 import { motion, useReducedMotion, type Variants } from "framer-motion";
 import CaseArrowIcon from "@/components/case-study/ui/CaseArrowIcon";
 import SectionHeading from "@/components/ui/SectionHeading";
-import { ASTRAKH_EXTERNAL_URL, CASES_CONTENT } from "@/lib/constants";
+import { getCaseCardHref } from "@/lib/cases";
+import { CASES_CONTENT } from "@/lib/constants";
 
 const CASES_VIEWPORT = { once: true, amount: 0, margin: "0px 0px 18% 0px" } as const;
 
@@ -410,7 +411,7 @@ function CaseAlva({
   );
 }
 
-function RzdErrorsShot() {
+function RzhdErrorsShot() {
   return (
     <Image
       src="/main/main-rzhderror.png"
@@ -422,7 +423,7 @@ function RzdErrorsShot() {
   );
 }
 
-function RzdHomeShot() {
+function RzhdHomeShot() {
   return (
     <Image
       src="/main/main-rzhd.webp"
@@ -435,7 +436,7 @@ function RzdHomeShot() {
   );
 }
 
-function CaseRzd({
+function CaseRzhd({
   title,
   subtitle,
   description,
@@ -446,7 +447,7 @@ function CaseRzd({
 }) {
   return (
     <CaseCardShell
-      href="/cases/rzd"
+      href="/cases/rzhd"
       title={title}
       subtitle={subtitle}
       description={description}
@@ -456,19 +457,19 @@ function CaseRzd({
         shotVariants={shotFullBleedFloat}
         className="bottom-0 left-[28px] right-[-32px] top-[225px] shadow-[-5px_10px_15px_0px_rgba(0,0,0,0.08)] md:hidden"
       >
-        <RzdErrorsShot />
+        <RzhdErrorsShot />
       </ScreenshotFrame>
       <ScreenshotFrame
         shotVariants={shotRuqiMain}
         className="bottom-0 left-[28px] right-[28px] top-[207px] hidden shadow-[-5px_10px_15px_0px_rgba(0,0,0,0.08)] md:block"
       >
-        <RzdErrorsShot />
+        <RzhdErrorsShot />
       </ScreenshotFrame>
       <ScreenshotFrame
         shotVariants={shotRuqiForm}
         className="bottom-0 left-[620px] right-[28px] top-[107px] hidden shadow-[-5px_10px_15px_-3px_rgba(0,0,0,0.08)] md:block"
       >
-        <RzdHomeShot />
+        <RzhdHomeShot />
       </ScreenshotFrame>
     </CaseCardShell>
   );
@@ -498,7 +499,7 @@ function CaseAstrakh({
 }) {
   return (
     <CaseCardShell
-      href={ASTRAKH_EXTERNAL_URL}
+      href={getCaseCardHref("astrakh")}
       title={title}
       subtitle={subtitle}
       description={description}
@@ -518,7 +519,7 @@ function CaseAstrakh({
  * Cases section — grid of client case study cards.
  */
 export default function Cases() {
-  const [ruqi, fino, ifeelgood, rzd, alva, astrakh] = CASES_CONTENT.items;
+  const [ruqi, fino, ifeelgood, rzhd, alva, astrakh] = CASES_CONTENT.items;
   const reduceMotion = useReducedMotion();
 
   return (
@@ -554,8 +555,8 @@ export default function Cases() {
           <CaseAstrakh title={astrakh.title} subtitle={"subtitle" in astrakh ? astrakh.subtitle : undefined} description={astrakh.description} />
         </motion.div>
 
-        <motion.div id="case-rzd" variants={casesRevealItem} custom={-1} className="col-span-full">
-          <CaseRzd title={rzd.title} subtitle={"subtitle" in rzd ? rzd.subtitle : undefined} description={rzd.description} />
+        <motion.div id="case-rzhd" variants={casesRevealItem} custom={-1} className="col-span-full">
+          <CaseRzhd title={rzhd.title} subtitle={"subtitle" in rzhd ? rzhd.subtitle : undefined} description={rzhd.description} />
         </motion.div>
 
         <motion.div id="case-ifeelgood" variants={casesRevealItem} custom={1}>

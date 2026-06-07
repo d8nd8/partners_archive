@@ -294,7 +294,7 @@ function FormState({
           type="button"
           onClick={onClose}
           aria-label="Закрыть"
-          className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-[#8f8f8f] transition-colors duration-150 hover:bg-white/8 hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-white/40"
+          className="flex h-8 w-8 shrink-0 cursor-pointer items-center justify-center rounded-full text-[#8f8f8f] transition-colors duration-150 hover:bg-white/8 hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-white/40"
         >
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
             <path
@@ -313,7 +313,7 @@ function FormState({
             htmlFor={nameId}
             className="text-[13px] font-light leading-[18px] tracking-[-0.07px] text-[#8f8f8f]"
           >
-            Имя
+            Как к вам обращаться?
           </label>
           <input
             ref={firstInputRef}
@@ -338,7 +338,7 @@ function FormState({
                 key={opt.id}
                 type="button"
                 onClick={() => setContactMethod(opt.id)}
-                className={`flex flex-1 items-center justify-center gap-[7px] rounded-[10px] border py-[10px] text-[13px] font-medium leading-[18px] tracking-[-0.07px] transition-all duration-150 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/40 ${
+                className={`flex flex-1 cursor-pointer items-center justify-center gap-[7px] rounded-[10px] border py-[10px] text-[13px] font-medium leading-[18px] tracking-[-0.07px] transition-all duration-150 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/40 ${
                   contactMethod === opt.id
                     ? "border-[#e37952]/40 bg-[#e37952]/12 text-[#e37952] shadow-[inset_0_0_0_1px_rgba(227,121,82,0.3)]"
                     : "border-white/8 bg-white/[0.04] text-[#8f8f8f] hover:border-white/16 hover:bg-white/8 hover:text-[#cfcfcf]"
@@ -374,7 +374,7 @@ function FormState({
         <motion.button
           type="submit"
           disabled={!isValid || status === "submitting"}
-          className="mt-[4px] flex h-[48px] w-full items-center justify-center rounded-[14px] bg-white text-[15px] font-medium leading-[22px] tracking-[-0.1px] text-black transition-opacity duration-150 disabled:opacity-40"
+          className="mt-[4px] flex h-[48px] w-full cursor-pointer items-center justify-center rounded-[14px] bg-white text-[15px] font-medium leading-[22px] tracking-[-0.1px] text-black transition-opacity duration-150 disabled:cursor-not-allowed disabled:opacity-40"
           whileTap={isValid ? { scale: 0.98 } : {}}
         >
           {status === "submitting" ? (
@@ -418,7 +418,7 @@ function SuccessState({ onClose }: { onClose: () => void }) {
       <button
         type="button"
         onClick={onClose}
-        className="mt-[28px] h-[44px] rounded-[12px] bg-white/[0.06] px-[24px] text-[14px] font-medium text-white transition-colors duration-150 hover:bg-white/10"
+        className="mt-[28px] h-[44px] cursor-pointer rounded-[12px] bg-white/[0.06] px-[24px] text-[14px] font-medium text-white transition-colors duration-150 hover:bg-white/10"
       >
         Закрыть
       </button>

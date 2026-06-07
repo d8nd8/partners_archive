@@ -1,9 +1,12 @@
 "use client";
 
 import { useCallback, useState, type FocusEvent, type MouseEvent } from "react";
+import { usePathname, useRouter } from "next/navigation";
+import { useLenis } from "lenis/react";
 import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
 import { HEADER_CONTENT } from "@/lib/constants";
+import { setPendingScroll } from "@/lib/pendingScroll";
 
 const CURVE = 22;
 
@@ -15,6 +18,10 @@ const MOBILE_NAV_LINK_CLASS =
 
 const MOBILE_CASE_LINK_CLASS =
   "block rounded-xl px-4 py-2.5 text-[15px] font-light tracking-[-0.07px] text-[#CECECE] transition-colors duration-150 ease-out hover:bg-[#e37952]/10 hover:text-[#e37952] focus:outline-none focus-visible:ring-2 focus-visible:ring-white/70 active:bg-[#e37952]/10 active:text-[#e37952]";
+
+function isExternalHref(href: string): boolean {
+  return href.startsWith("http://") || href.startsWith("https://");
+}
 
 /** Returns true when focus/pointer moved to a descendant of container. */
 function relatedIsInside(container: HTMLElement, related: EventTarget | null): boolean {
@@ -28,6 +35,38 @@ function relatedIsInside(container: HTMLElement, related: EventTarget | null): b
 export default function NavigationPill() {
   const [open, setOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const pathname = usePathname();
+  const router = useRouter();
+  const lenis = useLenis();
+  const isPrivacy = pathname === "/privacy";
+  const logoHref = isPrivacy ? "/" : "#";
+  const aboutHref = isPrivacy ? "/#about-us" : "#about-us";
+
+  // Client-side navigation for the logo when off the home page (e.g. /privacy):
+  // avoids a full page reload.
+  const handleNav = useCallback((e: MouseEvent<HTMLAnchorElement>, href: string) => {
+    if (href.startsWith("/")) {
+      e.preventDefault();
+      router.push(href, { scroll: false });
+      setMobileMenuOpen(false);
+    }
+  }, [router]);
+
+  // Section anchors ("О нас", "Контакты"). If the target exists on the current
+  // page (contacts always; about only on the home page) we smoothly scroll there
+  // from the current position. Otherwise we navigate home and hand the target to
+  // LenisRouteSync, which scrolls to it once the page mounts.
+  const handleSectionNav = useCallback((e: MouseEvent<HTMLAnchorElement>, hash: string) => {
+    e.preventDefault();
+    setMobileMenuOpen(false);
+
+    if (typeof document !== "undefined" && document.querySelector(hash)) {
+      lenis?.scrollTo(hash, { duration: 1.2 });
+    } else {
+      setPendingScroll(hash);
+      router.push(`/${hash}`, { scroll: false });
+    }
+  }, [router, lenis]);
 
   const handleBlur = useCallback((e: FocusEvent<HTMLDivElement>) => {
     if (!relatedIsInside(e.currentTarget, e.relatedTarget)) {
@@ -54,7 +93,8 @@ export default function NavigationPill() {
         <div className="relative z-20 w-full overflow-clip rounded-[11.533px] border-[0.721px] border-solid border-[#505050] bg-[#242424] p-[3.604px] shadow-[0px_14.416px_18.02px_-3.604px_rgba(0,0,0,0.1),0px_5.766px_7.208px_-4.325px_rgba(0,0,0,0.1)] md:flex md:h-[46px] md:items-center md:gap-4 md:overflow-visible md:rounded-2xl md:border-0 md:bg-[#1a1a1a] md:p-0 md:px-[15px] md:shadow-[0_10px_30px_rgba(0,0,0,0.22)]">
           <div className="relative h-[36px] w-full shrink-0 md:contents md:h-auto">
           <a
-            href="#"
+            href={logoHref}
+            onClick={(e) => handleNav(e, logoHref)}
             className="absolute left-[10.81px] top-1/2 z-10 inline-flex -translate-y-1/2 items-center focus:outline-none focus-visible:ring-2 focus-visible:ring-white/70 md:static md:z-auto md:translate-y-0 md:px-1"
           >
             <Image
@@ -70,7 +110,8 @@ export default function NavigationPill() {
           {/* Desktop nav links */}
           <div className="hidden md:flex flex-1 items-center justify-center gap-5 text-[14px] font-light tracking-[-0.07px] text-[#CECECE]">
             <a
-              href="#about-us"
+              href={aboutHref}
+              onClick={(e) => handleSectionNav(e, "#about-us")}
               className="rounded-full px-2 py-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/70"
             >
               {HEADER_CONTENT.nav.about}
@@ -82,7 +123,7 @@ export default function NavigationPill() {
               onClick={() => setOpen((v) => !v)}
               aria-haspopup="menu"
               aria-expanded={open}
-              className="inline-flex items-center gap-2 rounded-full px-2 py-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/70"
+              className="inline-flex cursor-pointer items-center gap-2 rounded-full px-2 py-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/70"
             >
               <span>{HEADER_CONTENT.nav.cases}</span>
               <svg
@@ -105,6 +146,7 @@ export default function NavigationPill() {
 
             <a
               href="#contacts"
+              onClick={(e) => handleSectionNav(e, "#contacts")}
               className="rounded-full px-2 py-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/70"
             >
               {HEADER_CONTENT.nav.contacts}
@@ -124,7 +166,7 @@ export default function NavigationPill() {
           {/* Mobile menu trigger — Figma bars #CECECE */}
           <button
             type="button"
-            className="absolute right-[10.81px] top-1/2 z-10 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-md text-[#cecece] focus:outline-none focus-visible:ring-2 focus-visible:ring-white/70 md:hidden"
+            className="absolute right-[10.81px] top-1/2 z-10 flex h-8 w-8 -translate-y-1/2 cursor-pointer items-center justify-center rounded-md text-[#cecece] focus:outline-none focus-visible:ring-2 focus-visible:ring-white/70 md:hidden"
             onClick={() => setMobileMenuOpen((v) => !v)}
             aria-expanded={mobileMenuOpen}
             aria-label="Меню"
@@ -217,7 +259,7 @@ export default function NavigationPill() {
                         href={item.href}
                         tabIndex={open ? 0 : -1}
                         className={DESKTOP_DROPDOWN_LINK_CLASS}
-                        {...(item.href.startsWith("http")
+                        {...(isExternalHref(item.href)
                           ? { target: "_blank", rel: "noopener noreferrer" }
                           : {})}
                       >
@@ -244,8 +286,8 @@ export default function NavigationPill() {
             >
               <div className="flex flex-col gap-1 p-3">
                 <a
-                  href="#about-us"
-                  onClick={() => setMobileMenuOpen(false)}
+                  href={aboutHref}
+                  onClick={(e) => handleSectionNav(e, "#about-us")}
                   className={MOBILE_NAV_LINK_CLASS}
                   style={{ animation: "nav-item-in 0.22s ease-out 0.06s both" }}
                 >
@@ -254,7 +296,7 @@ export default function NavigationPill() {
 
                 <a
                   href="#contacts"
-                  onClick={() => setMobileMenuOpen(false)}
+                  onClick={(e) => handleSectionNav(e, "#contacts")}
                   className={MOBILE_NAV_LINK_CLASS}
                   style={{ animation: "nav-item-in 0.22s ease-out 0.105s both" }}
                 >
@@ -275,12 +317,12 @@ export default function NavigationPill() {
                     href={item.href}
                     onClick={() => setMobileMenuOpen(false)}
                     className={MOBILE_CASE_LINK_CLASS}
+                    {...(isExternalHref(item.href)
+                      ? { target: "_blank", rel: "noopener noreferrer" }
+                      : {})}
                     style={{
                       animation: `nav-item-in 0.22s ease-out ${0.195 + i * 0.045}s both`,
                     }}
-                    {...(item.href.startsWith("http")
-                      ? { target: "_blank", rel: "noopener noreferrer" }
-                      : {})}
                   >
                     {item.label}
                   </a>

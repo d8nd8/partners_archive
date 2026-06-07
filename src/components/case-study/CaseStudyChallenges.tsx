@@ -213,7 +213,7 @@ export default function CaseStudyChallenges({ pairs }: CaseStudyChallengesProps)
             <button
               type="button"
               onClick={openModal}
-              className="inline-flex h-[41px] w-fit items-center rounded-[14px] border border-white/8 bg-white/4 px-[17px] text-[16px] font-medium tracking-[-0.17px] text-white transition-colors hover:bg-white/8"
+              className="inline-flex h-[41px] w-fit cursor-pointer items-center rounded-[14px] border border-white/8 bg-white/4 px-[17px] text-[16px] font-medium tracking-[-0.17px] text-white transition-colors hover:bg-white/8"
             >
               Хочу также!
             </button>
