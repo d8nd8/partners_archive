@@ -127,6 +127,7 @@ export const finoCase: CaseStudyContent = {
         variant: "wide",
         aspect: "36/23",
         unoptimized: true,
+        objectPosition: "center top",
       },
       {
         src: "/cases/fino/fino-result2.webp",

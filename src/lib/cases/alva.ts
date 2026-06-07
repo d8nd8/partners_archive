@@ -116,6 +116,31 @@ export const alvaCase: CaseStudyContent = {
         variant: "solid",
       },
     ],
-    images: [],
+    images: [
+      {
+        src: "/cases/alva/alva-result1.webp",
+        alt: "Альва — цифровая платформа управления приёмом вторсырья",
+        variant: "wide",
+        aspect: "8/5",
+      },
+      {
+        src: "/cases/alva/alva-result2.webp",
+        alt: "Альва — распознавание номеров и весовой контроль",
+        variant: "gallery",
+        aspect: "8/5",
+      },
+      {
+        src: "/cases/alva/alva-result3.webp",
+        alt: "Альва — личный кабинет клиента и история операций",
+        variant: "gallery",
+        aspect: "8/5",
+      },
+      {
+        src: "/cases/alva/alva-result4.webp",
+        alt: "Альва — отчётность и интеграция с 1С",
+        variant: "gallery",
+        aspect: "8/5",
+      },
+    ],
   },
 };

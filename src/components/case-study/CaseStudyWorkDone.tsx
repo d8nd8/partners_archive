@@ -58,6 +58,7 @@ function WorkDoneImage({
   alt,
   aspectClass,
   aspect,
+  objectPosition = "left top",
   sizes,
   roundedClass = "rounded-[16px]",
   shadowClass = "shadow-[-4px_8px_6px_rgba(0,0,0,0.22)]",
@@ -68,6 +69,8 @@ function WorkDoneImage({
   aspectClass?: string;
   /** Exact CSS aspect ratio (e.g. "45/32"); shows the full image with no crop. */
   aspect?: string;
+  /** CSS object-position (default: "left top"). */
+  objectPosition?: string;
   sizes: string;
   roundedClass?: string;
   shadowClass?: string;
@@ -88,7 +91,8 @@ function WorkDoneImage({
           unoptimized
           quality={100}
           sizes={sizes}
-          className="object-cover object-left-top"
+          className="object-cover"
+          style={{ objectPosition }}
         />
       </div>
     </div>
@@ -108,7 +112,12 @@ export default function CaseStudyWorkDone({ workDone }: CaseStudyWorkDoneProps) 
   const compactImage = images.find((image) => image.variant === "compact");
   const tallImage = images.find((image) => image.variant === "tall");
   const phoneImages = images.filter((image) => image.variant === "phone");
+  const galleryImages = images.filter((image) => image.variant === "gallery");
   const highlight = highlights?.[0];
+  // Non-hero images, used for the side-by-side mobile gallery.
+  const bottomImages = [tallImage, compactImage, featureImage].filter(
+    (image): image is NonNullable<typeof image> => Boolean(image),
+  );
 
   return (
     <section className="bg-[#f5f5f4] px-4 md:px-5 min-[1440px]:px-[120px]">
@@ -125,40 +134,133 @@ export default function CaseStudyWorkDone({ workDone }: CaseStudyWorkDoneProps) 
           </h2>
         </SectionHeading>
 
-        {phoneImages.length > 0 ? (
-          <div className="grid gap-6 pb-10 md:grid-cols-2 md:items-start md:gap-8 md:pb-14">
-            {/* Left: first note with the wide photo beneath it */}
-            <div className="flex flex-col gap-4">
-              {notes[0] && <WorkDoneNote note={notes[0]} />}
+        {galleryImages.length > 0 ? (
+          <div className="flex flex-col gap-6 pb-10 md:gap-10 md:pb-14">
+            {/* Hero with the glass note overlaid on top of it */}
+            <div className="relative flex flex-col gap-4">
+              {wideImage && (
+                <WorkDoneImage
+                  src={wideImage.src}
+                  alt={wideImage.alt}
+                  aspect={wideImage.aspect}
+                  aspectClass="aspect-[8/5]"
+                  sizes="(max-width: 767px) 100vw, (max-width: 1200px) 100vw, 1200px"
+                  roundedClass="rounded-[20px]"
+                />
+              )}
 
+              {notes[0] && (
+                <div className="absolute inset-x-3 bottom-3 z-10 md:inset-x-auto md:bottom-auto md:right-6 md:top-6 md:w-[min(349px,45%)]">
+                  <WorkDoneNote note={notes[0]} />
+                </div>
+              )}
+            </div>
+
+            {/* Desktop: 3-col grid — col1 (note + 2 small images), cols2-3 (1 large image) */}
+            <div className="hidden md:grid md:grid-cols-3 md:items-start md:gap-8">
+              <div className="flex flex-col gap-4">
+                {notes[1] && <WorkDoneNote note={notes[1]} />}
+                {galleryImages.slice(0, 2).map((image) => (
+                  <WorkDoneImage
+                    key={image.src}
+                    src={image.src}
+                    alt={image.alt}
+                    aspect={image.aspect}
+                    aspectClass="aspect-[8/5]"
+                    sizes="(max-width: 1200px) 33vw, 378px"
+                    roundedClass="rounded-[16px]"
+                  />
+                ))}
+              </div>
+
+              {galleryImages[2] && (
+                <div className="col-span-2">
+                  <WorkDoneImage
+                    src={galleryImages[2].src}
+                    alt={galleryImages[2].alt}
+                    aspect={galleryImages[2].aspect}
+                    aspectClass="aspect-[8/5]"
+                    sizes="(max-width: 1200px) 66vw, 789px"
+                    roundedClass="rounded-[20px]"
+                  />
+                </div>
+              )}
+            </div>
+
+            {/* Mobile: note full-width, then 2 images side-by-side, then 1 full-width */}
+            <div className="flex flex-col gap-3 md:hidden">
+              {notes[1] && <WorkDoneNote note={notes[1]} />}
+              {galleryImages.length > 0 && (
+                <div className="grid grid-cols-2 gap-3">
+                  {galleryImages.slice(0, 2).map((image) => (
+                    <WorkDoneImage
+                      key={image.src}
+                      src={image.src}
+                      alt={image.alt}
+                      aspect={image.aspect}
+                      aspectClass="aspect-[8/5]"
+                      sizes="50vw"
+                      roundedClass="rounded-[16px]"
+                    />
+                  ))}
+                </div>
+              )}
+              {galleryImages[2] && (
+                <WorkDoneImage
+                  src={galleryImages[2].src}
+                  alt={galleryImages[2].alt}
+                  aspect={galleryImages[2].aspect}
+                  aspectClass="aspect-[8/5]"
+                  sizes="100vw"
+                  roundedClass="rounded-[16px]"
+                />
+              )}
+            </div>
+          </div>
+        ) : phoneImages.length > 0 ? (
+          <div className="flex flex-col gap-6 pb-10 md:gap-12 md:pb-14">
+            {/* Hero: wide photo with the glass note overlaid on top of it */}
+            <div className="relative flex flex-col gap-4">
               {wideImage && (
                 <WorkDoneImage
                   src={wideImage.src}
                   alt={wideImage.alt}
                   aspect={wideImage.aspect}
                   aspectClass="aspect-[3840/2668]"
-                  sizes="(max-width: 767px) 100vw, 588px"
+                  sizes="(max-width: 767px) 100vw, (max-width: 1200px) 100vw, 1200px"
                   roundedClass="rounded-[20px]"
-                  shadowClass="shadow-[-5px_10px_15px_-3px_rgba(0,0,0,0.22)]"
                 />
+              )}
+
+              {notes[0] && (
+                <div className="absolute inset-x-3 bottom-3 z-10 md:inset-x-auto md:bottom-auto md:right-6 md:top-6 md:w-[min(349px,40%)]">
+                  <WorkDoneNote note={notes[0]} />
+                </div>
               )}
             </div>
 
-            {/* Right: second note with the three app screens beneath it */}
-            <div className="flex flex-col gap-4">
-              {notes[1] && <WorkDoneNote note={notes[1]} />}
+            {/* The remaining screens, staggered, with the solid note alongside */}
+            <div className="flex flex-col gap-6 md:flex-row md:items-center md:gap-12">
+              {notes[1] && (
+                <div className="md:w-[349px] md:shrink-0">
+                  <WorkDoneNote note={notes[1]} />
+                </div>
+              )}
 
-              <div className="grid grid-cols-3 gap-3 md:gap-4">
-                {phoneImages.slice(0, 3).map((image) => (
+              <div className="flex flex-1 justify-center gap-4 md:gap-6">
+                {phoneImages.slice(0, 3).map((image, index) => (
                   <WorkDoneImage
                     key={image.src}
                     src={image.src}
                     alt={image.alt}
                     aspect={image.aspect}
                     aspectClass="aspect-[1125/2436]"
-                    sizes="(max-width: 767px) 30vw, 185px"
-                    roundedClass="rounded-[18px]"
-                    shadowClass="shadow-[-4px_8px_12px_-3px_rgba(0,0,0,0.2)]"
+                    sizes="(max-width: 767px) 30vw, 180px"
+                    roundedClass="rounded-[20px]"
+                    shadowClass="shadow-[-5px_10px_15px_-3px_rgba(0,0,0,0.22)]"
+                    className={`w-[30%] max-w-[180px] md:w-[180px] ${
+                      index === 1 ? "md:-translate-y-6" : "md:translate-y-3"
+                    }`}
                   />
                 ))}
               </div>
@@ -173,21 +275,22 @@ export default function CaseStudyWorkDone({ workDone }: CaseStudyWorkDoneProps) 
                 src={wideImage.src}
                 alt={wideImage.alt}
                 aspect={wideImage.aspect}
+                objectPosition={wideImage.objectPosition}
                 aspectClass="aspect-[783/498]"
                 sizes="(max-width: 767px) 100vw, (max-width: 1200px) 100vw, 1200px"
               />
             )}
 
             {notes[0] && (
-              <div className="md:absolute md:right-6 md:top-6 md:z-10 md:w-[min(349px,45%)]">
+              <div className="absolute inset-x-3 bottom-3 z-10 md:inset-x-auto md:bottom-auto md:right-6 md:top-6 md:w-[min(349px,45%)]">
                 <WorkDoneNote note={notes[0]} />
               </div>
             )}
           </div>
 
-          {/* Two paired columns. With a tall image: note + tall on the left,
-              two stacked results on the right (keeps both columns balanced). */}
-          <div className="grid gap-6 md:grid-cols-2 md:items-start md:gap-8">
+          {/* Desktop: two paired columns. With a tall image: note + tall on the
+              left, two stacked results on the right (keeps both columns balanced). */}
+          <div className="hidden md:grid md:grid-cols-2 md:items-start md:gap-8">
             <div className="flex flex-col gap-4">
               {notes[1] && <WorkDoneNote note={notes[1]} />}
 
@@ -241,6 +344,72 @@ export default function CaseStudyWorkDone({ workDone }: CaseStudyWorkDoneProps) 
                 </div>
               )}
             </div>
+          </div>
+
+          {/* Mobile: solid note, then photos side-by-side (never stacked) */}
+          <div className="flex flex-col gap-4 md:hidden">
+            {notes[1] && <WorkDoneNote note={notes[1]} />}
+
+            {tallImage ? (
+              /* Tall app screen on the left, the two dashboards stacked on the
+                 right — fills both columns instead of a half-empty 2×2 grid. */
+              <div className="grid grid-cols-[1.25fr_1fr] items-start gap-3">
+                <WorkDoneImage
+                  src={tallImage.src}
+                  alt={tallImage.alt}
+                  aspect={tallImage.aspect}
+                  aspectClass="aspect-[3/2]"
+                  sizes="55vw"
+                  roundedClass="rounded-[16px]"
+                />
+
+                <div className="flex flex-col gap-3">
+                  {compactImage && (
+                    <WorkDoneImage
+                      src={compactImage.src}
+                      alt={compactImage.alt}
+                      aspect={compactImage.aspect}
+                      aspectClass="aspect-[3/2]"
+                      sizes="42vw"
+                      roundedClass="rounded-[16px]"
+                    />
+                  )}
+
+                  {featureImage && (
+                    <WorkDoneImage
+                      src={featureImage.src}
+                      alt={featureImage.alt}
+                      aspect={featureImage.aspect}
+                      aspectClass="aspect-[3/2]"
+                      sizes="42vw"
+                      roundedClass="rounded-[16px]"
+                    />
+                  )}
+                </div>
+              </div>
+            ) : (
+              bottomImages.length > 0 && (
+                <div className="grid grid-cols-2 gap-3">
+                  {bottomImages.map((image) => (
+                    <WorkDoneImage
+                      key={image.src}
+                      src={image.src}
+                      alt={image.alt}
+                      aspect={image.aspect}
+                      aspectClass="aspect-[3/2]"
+                      sizes="50vw"
+                      roundedClass="rounded-[16px]"
+                    />
+                  ))}
+                </div>
+              )
+            )}
+
+            {highlight && (
+              <div className="text-center">
+                <WorkDoneHighlight highlight={highlight} />
+              </div>
+            )}
           </div>
         </div>
         )}
