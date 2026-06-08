@@ -202,7 +202,7 @@ export default function Hero() {
                 placeholder="blur"
                 blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8z8BQDwADhQGAWjR9awAAAABJRU5ErkJggg=="
                 aria-hidden="true"
-                className="pointer-events-none object-contain object-top"
+                className="pointer-events-none object-cover object-top"
               />
               <div className="absolute inset-0 bg-[var(--color-text-primary2)] mix-blend-color" />
             </motion.div>
@@ -220,7 +220,7 @@ export default function Hero() {
                 placeholder="blur"
                 blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8z8BQDwADhQGAWjR9awAAAABJRU5ErkJggg=="
                 aria-hidden="true"
-                className="pointer-events-none object-contain object-top"
+                className="pointer-events-none object-cover object-top"
               />
               <div className="absolute inset-0 bg-[var(--color-text-primary2)] mix-blend-color" />
             </motion.div>
