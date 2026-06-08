@@ -48,7 +48,7 @@ export default function CaseStudyTechStack({ categories }: CaseStudyTechStackPro
                 {category.description}
               </p>
               <div
-                className="mt-auto flex flex-wrap gap-[10px] md:grid md:[grid-template-columns:var(--tech-cols)]"
+                className="mt-auto grid grid-cols-2 gap-[10px] md:[grid-template-columns:var(--tech-cols)]"
                 style={
                   {
                     "--tech-cols": `repeat(${category.logos.filter((l) => getTechIcon(l.id)).length}, minmax(0, 1fr))`,
@@ -62,7 +62,7 @@ export default function CaseStudyTechStack({ categories }: CaseStudyTechStackPro
                   return (
                     <div
                       key={logo.id}
-                      className="flex h-[108px] w-[112px] flex-col items-center overflow-hidden rounded-[20px] border border-[#d9d9d9] bg-[#e6e6e5] px-2 pt-3 pb-3 md:w-full"
+                      className="flex h-[108px] w-full flex-col items-center overflow-hidden rounded-[20px] border border-[#d9d9d9] bg-[#e6e6e5] px-2 pt-3 pb-3"
                     >
                       <div className="flex flex-1 items-center justify-center">
                         <Image

@@ -149,7 +149,7 @@ function CaseArrow() {
         rest: { scale: 1 },
         hover: { scale: 1.08, transition: springPop },
       }}
-      className="absolute right-[8px] top-[8px] z-10 flex h-[36px] w-[36px] items-center justify-center rounded-full border border-[rgba(0,0,0,0.08)] bg-white"
+      className="absolute right-[8px] top-[8px] z-10 flex h-[36px] w-[36px] items-center justify-center rounded-full border border-[rgba(0,0,0,0.08)] bg-white text-[#171717]"
     >
       <CaseArrowIcon className="size-4" />
     </motion.div>
@@ -329,7 +329,7 @@ function CaseFino({
     >
       <ScreenshotFrame
         shotVariants={shotFullBleedFloat}
-        className="bottom-0 left-[28px] right-[-32px] top-[225px] shadow-[-5px_10px_15px_-3px_rgba(0,0,0,0.08)]"
+        className="bottom-0 left-[28px] right-[-32px] top-[245px] lg:top-[225px] shadow-[-5px_10px_15px_-3px_rgba(0,0,0,0.08)]"
       >
         <FinoCaseShot />
       </ScreenshotFrame>
@@ -356,7 +356,7 @@ function CaseIfeelgood({
     >
       <ScreenshotFrame
         shotVariants={shotFullBleedFloat}
-        className="bottom-0 left-[28px] right-[-32px] top-[206px] shadow-[-5px_10px_15px_0px_rgba(0,0,0,0.08)]"
+        className="bottom-0 left-[28px] right-[-32px] top-[245px] lg:top-[206px] shadow-[-5px_10px_15px_0px_rgba(0,0,0,0.08)]"
       >
         <Image
           src="/main/main-ifg.webp"
@@ -403,7 +403,7 @@ function CaseAlva({
     >
       <ScreenshotFrame
         shotVariants={shotFullBleedFloat}
-        className="bottom-0 left-[28px] right-[-32px] top-[185px] md:top-[225px] shadow-[-5px_10px_15px_-3px_rgba(0,0,0,0.08)]"
+        className="bottom-0 left-[28px] right-[-32px] top-[245px] lg:top-[225px] shadow-[-5px_10px_15px_-3px_rgba(0,0,0,0.08)]"
       >
         <AlvaCaseShot />
       </ScreenshotFrame>
@@ -507,7 +507,7 @@ function CaseAstrakh({
     >
       <ScreenshotFrame
         shotVariants={shotFullBleedFloat}
-        className="bottom-0 left-[28px] right-[-32px] top-[206px] shadow-[-5px_10px_15px_0px_rgba(0,0,0,0.08)] md:right-[28px]"
+        className="bottom-0 left-[28px] right-[-32px] top-[245px] lg:top-[206px] shadow-[-5px_10px_15px_0px_rgba(0,0,0,0.08)] md:right-[28px]"
       >
         <AstrakhCaseShot />
       </ScreenshotFrame>

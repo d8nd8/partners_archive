@@ -174,7 +174,7 @@ export default function Hero() {
             >
             <motion.div
               variants={heroCardReveal}
-              className="pointer-events-none absolute bottom-[145px] left-0 right-0 h-[132px] overflow-hidden rounded-[14px] border border-[#e5e5e5] bg-white shadow-[0px_-4px_15px_-3px_rgba(0,0,0,0.1)] [filter:blur(4px)] [will-change:transform]"
+              className="pointer-events-none absolute bottom-[145px] left-0 right-0 isolate h-[132px] overflow-hidden rounded-[14px] border border-[#e5e5e5] bg-white shadow-[0px_-4px_15px_-3px_rgba(0,0,0,0.1)] [filter:blur(4px)] [will-change:opacity,transform]"
             >
               <Image
                 src="/images/hero/hero-fino.png"
@@ -191,7 +191,7 @@ export default function Hero() {
             </motion.div>
             <motion.div
               variants={heroCardReveal}
-              className="pointer-events-none absolute bottom-[98px] left-0 right-0 h-[156px] overflow-hidden rounded-[14px] border border-[#e5e5e5] bg-white shadow-[0px_-4px_15px_-3px_rgba(0,0,0,0.1)] [filter:blur(2.5px)] [will-change:transform]"
+              className="pointer-events-none absolute bottom-[98px] left-0 right-0 isolate h-[156px] overflow-hidden rounded-[14px] border border-[#e5e5e5] bg-white shadow-[0px_-4px_15px_-3px_rgba(0,0,0,0.1)] [filter:blur(2.5px)] [will-change:opacity,transform]"
             >
               <Image
                 src="/images/hero/hero-ruqi.png"
@@ -208,7 +208,7 @@ export default function Hero() {
             </motion.div>
             <motion.div
               variants={heroCardReveal}
-              className="pointer-events-none absolute bottom-[56px] left-0 right-0 h-[177px] overflow-hidden rounded-[14px] border border-[#e5e5e5] bg-white shadow-[0px_-4px_15px_-3px_rgba(0,0,0,0.1)] [filter:blur(1px)] [will-change:transform]"
+              className="pointer-events-none absolute bottom-[56px] left-0 right-0 isolate h-[177px] overflow-hidden rounded-[14px] border border-[#e5e5e5] bg-white shadow-[0px_-4px_15px_-3px_rgba(0,0,0,0.1)] [filter:blur(1px)] [will-change:opacity,transform]"
             >
               <Image
                 src="/images/hero/hero-rzhd.webp"
@@ -233,7 +233,7 @@ export default function Hero() {
                 setHeroStackRevealDone(true);
               }}
             >
-              <div className="absolute inset-x-[40px] bottom-6 top-0 flex items-end justify-center gap-2">
+              <div className="absolute inset-x-[14px] top-[14px] bottom-0 flex items-start justify-center gap-1.5">
                 <Image
                   src="/images/hero/phone1.png"
                   alt=""
@@ -241,7 +241,7 @@ export default function Hero() {
                   height={364}
                   priority
                   aria-hidden="true"
-                  className="relative z-0 h-[166px] w-auto shrink-0 object-contain"
+                  className="relative z-0 h-[196px] w-auto shrink-0 object-contain object-top"
                 />
                 <Image
                   src="/images/hero/phone2.png"
@@ -250,7 +250,7 @@ export default function Hero() {
                   height={364}
                   priority
                   aria-hidden="true"
-                  className="relative z-0 h-[166px] w-auto shrink-0 object-contain"
+                  className="relative z-0 h-[196px] w-auto shrink-0 object-contain object-top"
                 />
                 <Image
                   src="/images/hero/phone3.png"
@@ -259,7 +259,7 @@ export default function Hero() {
                   height={364}
                   priority
                   aria-hidden="true"
-                  className="relative z-0 h-[166px] w-auto shrink-0 object-contain"
+                  className="relative z-0 h-[196px] w-auto shrink-0 object-contain object-top"
                 />
               </div>
               <div className="pointer-events-none absolute inset-0 z-[1] bg-[var(--color-text-primary2)] mix-blend-color" />
@@ -276,7 +276,7 @@ export default function Hero() {
           >
             <motion.div
               variants={heroCardReveal}
-              className="pointer-events-none absolute left-[116px] top-[392.72px] h-[472.02px] w-[968px] overflow-hidden rounded-[14px] border-[0.852px] border-[#e5e5e5] bg-white shadow-[0px_-4px_15px_-3px_rgba(0,0,0,0.1)] [filter:blur(4.5px)] [will-change:transform]"
+              className="pointer-events-none absolute left-[116px] top-[392.72px] isolate h-[472.02px] w-[968px] overflow-hidden rounded-[14px] border-[0.852px] border-[#e5e5e5] bg-white shadow-[0px_-4px_15px_-3px_rgba(0,0,0,0.1)] [filter:blur(4.5px)] [will-change:opacity,transform]"
             >
               <Image
                 src="/images/hero/hero-fino.png"
@@ -289,12 +289,12 @@ export default function Hero() {
                 aria-hidden="true"
                 className="pointer-events-none object-cover object-top"
               />
-              <div className="absolute left-[-9.59px] top-[-26.12px] h-[311px] w-[1112px] bg-[var(--color-text-primary2)] mix-blend-color" />
+              <div className="absolute inset-0 bg-[var(--color-text-primary2)] mix-blend-color" />
             </motion.div>
 
             <motion.div
               variants={heroCardReveal}
-              className="pointer-events-none absolute left-[91px] top-[431.79px] h-[496.89px] w-[1019px] overflow-hidden rounded-[14px] border-[0.852px] border-[#e5e5e5] bg-white shadow-[0px_-4px_15px_-3px_rgba(0,0,0,0.1)] [filter:blur(3px)] [will-change:transform]"
+              className="pointer-events-none absolute left-[91px] top-[431.79px] isolate h-[496.89px] w-[1019px] overflow-hidden rounded-[14px] border-[0.852px] border-[#e5e5e5] bg-white shadow-[0px_-4px_15px_-3px_rgba(0,0,0,0.1)] [filter:blur(3px)] [will-change:opacity,transform]"
             >
               <Image
                 src="/images/hero/hero-ruqi.png"
@@ -307,12 +307,12 @@ export default function Hero() {
                 aria-hidden="true"
                 className="pointer-events-none object-cover object-top"
               />
-              <div className="absolute left-[-9.59px] top-[-26.19px] h-[311px] w-[1112px] bg-[var(--color-text-primary2)] mix-blend-color" />
+              <div className="absolute inset-0 bg-[var(--color-text-primary2)] mix-blend-color" />
             </motion.div>
 
             <motion.div
               variants={heroCardReveal}
-              className="pointer-events-none absolute left-[63px] top-[475.24px] h-[523.71px] w-[1074px] overflow-hidden rounded-[14px] border-[0.852px] border-[#e5e5e5] bg-white shadow-[0px_-4px_15px_-3px_rgba(0,0,0,0.1)] [filter:blur(1px)] [will-change:transform]"
+              className="pointer-events-none absolute left-[63px] top-[475.24px] isolate h-[523.71px] w-[1074px] overflow-hidden rounded-[14px] border-[0.852px] border-[#e5e5e5] bg-white shadow-[0px_-4px_15px_-3px_rgba(0,0,0,0.1)] [filter:blur(1px)] [will-change:opacity,transform]"
             >
               <Image
                 src="/images/hero/hero-rzhd.webp"
@@ -326,7 +326,7 @@ export default function Hero() {
                 aria-hidden="true"
                 className="pointer-events-none object-cover object-top"
               />
-              <div className="absolute left-[-8.74px] top-[-25.79px] h-[311px] w-[1112px] bg-[var(--color-text-primary2)] mix-blend-color" />
+              <div className="absolute inset-0 bg-[var(--color-text-primary2)] mix-blend-color" />
             </motion.div>
 
             <motion.div

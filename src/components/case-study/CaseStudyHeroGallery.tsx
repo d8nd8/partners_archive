@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState, type RefObject } from "react";
 import Image from "next/image";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useScroll, useTransform, useInView } from "framer-motion";
 import type { CaseStudyImage } from "@/types/case-study";
 import { fadeInUp, VIEWPORT } from "@/lib/motion";
 
@@ -54,6 +54,33 @@ export const MACBOOK_FRAME_ASSETS = [
 /** MacBook screen width as a viewport share: frame scale × screen area width. */
 export const MACBOOK_SCREEN_VIEWPORT_WIDTH =
   `${MACBOOK_FRAME_SCALE * parseFloat(MACBOOK_SCREEN_AREA.width)}vw` as const;
+
+/**
+ * Warms an image into cache and resolves once it has fully downloaded, so a
+ * caller can hold a layered mockup hidden until every layer is present (the
+ * "assembles in parts" / wrong-color flash on first open comes from layers
+ * arriving at different times). Decoding is kicked off best-effort but never
+ * awaited — `img.decode()` can hang indefinitely in some engines, and a stalled
+ * decode must never be able to block the reveal. Resolves on error too, so
+ * callers never hang. No-op outside the browser.
+ */
+export function preloadAndDecode(src: string): Promise<void> {
+  if (typeof window === "undefined") return Promise.resolve();
+  return new Promise((resolve) => {
+    const img = new window.Image();
+    img.decoding = "async";
+    const ready = () => {
+      // Fire-and-forget decode so the cached copy is render-ready; don't await.
+      void img.decode?.().catch(() => undefined);
+      resolve();
+    };
+    img.onload = ready;
+    img.onerror = () => resolve();
+    img.src = src;
+    // A cached image may already be complete before the handlers attach.
+    if (img.complete && img.naturalWidth > 0) ready();
+  });
+}
 
 /**
  * Screen clip area within the Phone frame (448 × 916 logical px).
@@ -200,9 +227,27 @@ function MacbookLayeredHeroGallery({ image }: { image: MockupLayeredImage }) {
     RefObject<HTMLElement | null> | undefined
   >(undefined);
 
+  // Hold the reveal until every layer (frame + screen) is downloaded *and*
+  // decoded, so the whole MacBook appears at once instead of assembling piece
+  // by piece. The homepage usually warms the shared frame layers ahead of time
+  // (see MacbookFramePrefetch), leaving only the per-case screen to decode here.
+  const [assetsReady, setAssetsReady] = useState(false);
+  const inView = useInView(sectionRef, VIEWPORT);
+
   useEffect(() => {
     setScrollTarget(sectionRef);
   }, []);
+
+  useEffect(() => {
+    let cancelled = false;
+    const layers = [...MACBOOK_FRAME_ASSETS, image.src];
+    Promise.all(layers.map(preloadAndDecode)).then(() => {
+      if (!cancelled) setAssetsReady(true);
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, [image.src]);
 
   const { scrollYProgress } = useScroll({
     target: scrollTarget,
@@ -220,8 +265,7 @@ function MacbookLayeredHeroGallery({ image }: { image: MockupLayeredImage }) {
           className="relative -mt-[10%] mb-[-16%] w-[136%] -ml-[18%] md:-mt-[11%] min-[1440px]:-mt-[12%]"
           variants={macbookContainerVariants}
           initial="hidden"
-          whileInView="visible"
-          viewport={VIEWPORT}
+          animate={assetsReady && inView ? "visible" : "hidden"}
           style={{ y: parallaxY }}
         >
           <img
