@@ -80,7 +80,7 @@ export default function CaseStudySteps({ steps }: CaseStudyStepsProps) {
                   <div
                     className={`relative z-10 flex h-[52px] w-[52px] shrink-0 items-center justify-center rounded-full border-2 bg-[#f5f5f4] transition-all duration-500 ${
                       isActive
-                        ? "border-black shadow-[0_0_0_5px_rgba(0,0,0,0.07)]"
+                        ? "border-[#e37952] shadow-[0_0_0_5px_rgba(227,121,82,0.15)]"
                         : isPast
                           ? "border-black"
                           : "border-[#d8d8d8]"
@@ -88,7 +88,11 @@ export default function CaseStudySteps({ steps }: CaseStudyStepsProps) {
                   >
                     <span
                       className={`text-[20px] font-medium leading-none transition-colors duration-500 ${
-                        isActive || isPast ? "text-black" : "text-[#cacaca]"
+                        isActive
+                          ? "text-[#e37952]"
+                          : isPast
+                            ? "text-black"
+                            : "text-[#cacaca]"
                       }`}
                     >
                       {index + 1}
@@ -122,7 +126,7 @@ export default function CaseStudySteps({ steps }: CaseStudyStepsProps) {
                   <div
                     className={`mb-1 flex h-[44px] w-[44px] shrink-0 items-center justify-center rounded-full border-2 bg-[#f5f5f4] transition-all duration-500 md:hidden ${
                       isActive
-                        ? "border-black shadow-[0_0_0_5px_rgba(0,0,0,0.07)]"
+                        ? "border-[#e37952] shadow-[0_0_0_5px_rgba(227,121,82,0.15)]"
                         : isPast
                           ? "border-black"
                           : "border-[#d8d8d8]"
@@ -130,7 +134,11 @@ export default function CaseStudySteps({ steps }: CaseStudyStepsProps) {
                   >
                     <span
                       className={`text-[18px] font-medium leading-none transition-colors duration-500 ${
-                        isActive || isPast ? "text-black" : "text-[#cacaca]"
+                        isActive
+                          ? "text-[#e37952]"
+                          : isPast
+                            ? "text-black"
+                            : "text-[#cacaca]"
                       }`}
                     >
                       {index + 1}

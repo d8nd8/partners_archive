@@ -114,7 +114,7 @@ export default function CaseStudyChallenges({ pairs }: CaseStudyChallengesProps)
     offset: ["start end", "end start"],
   });
 
-  const rawBlobY = useTransform(scrollYProgress, [0, 1], ["40px", "-140px"]);
+  const rawBlobY = useTransform(scrollYProgress, [0, 1], ["-30px", "300px"]);
   const rawBlobRotate = useTransform(scrollYProgress, [0, 1], [174, 210]);
   const rawBlobScale = useTransform(scrollYProgress, [0, 0.5, 1], [0.88, 1.06, 0.92]);
 
@@ -185,22 +185,32 @@ export default function CaseStudyChallenges({ pairs }: CaseStudyChallengesProps)
         whileInView="visible"
         viewport={VIEWPORT}
       >
-        {/* Ambient glow orb */}
-        <motion.div
-          aria-hidden
-          className="pointer-events-none absolute left-[60px] top-[180px] hidden size-[520px] rounded-full lg:block"
-          style={{
-            opacity: glowOpacity,
-            background: activeIsSolution
-              ? "radial-gradient(circle, rgba(227,121,82,0.12) 0%, transparent 70%)"
-              : "radial-gradient(circle, rgba(180,180,180,0.07) 0%, transparent 70%)",
-            transition: "background 0.8s ease",
-          }}
-        />
-
         <div className="grid grid-cols-1 lg:grid-cols-[613px_1fr]">
-          <div className="flex flex-col gap-6 px-6 py-10 md:px-[55px] md:py-10 lg:sticky lg:top-20 lg:self-start">
-            <div>
+          <div className="relative flex flex-col gap-6 px-6 py-10 md:px-[55px] md:py-10 lg:sticky lg:top-20 lg:self-start">
+            {/* Ambient glow orb — pinned with the left column, trails the blob */}
+            <motion.div
+              aria-hidden
+              className="pointer-events-none absolute left-[-40px] top-[150px] hidden size-[520px] rounded-full lg:block"
+              style={{
+                y: blobY,
+                opacity: glowOpacity,
+                background: activeIsSolution
+                  ? "radial-gradient(circle, rgba(227,121,82,0.12) 0%, transparent 70%)"
+                  : "radial-gradient(circle, rgba(180,180,180,0.07) 0%, transparent 70%)",
+                transition: "background 0.8s ease",
+              }}
+            />
+            {/* Parallax blob — descends with scroll to fill the left space */}
+            <motion.div
+              aria-hidden
+              className="pointer-events-none absolute left-[150px] top-[200px] hidden size-[404px] lg:block"
+              style={{ y: blobY, rotate: blobRotate, scale: blobScale }}
+            >
+              <div className="relative size-full">
+                <Image src="/union2.svg" alt="" fill className="object-contain opacity-90" />
+              </div>
+            </motion.div>
+            <div className="relative z-10">
               <h2 className="text-[32px] font-light leading-[40px] tracking-[-0.64px] text-white md:text-[45px] md:leading-[50px]">
                 Вызовы
                 <br />
@@ -213,7 +223,7 @@ export default function CaseStudyChallenges({ pairs }: CaseStudyChallengesProps)
             <button
               type="button"
               onClick={openModal}
-              className="inline-flex h-[41px] w-fit cursor-pointer items-center rounded-[14px] border border-white/8 bg-white/4 px-[17px] text-[16px] font-medium tracking-[-0.17px] text-white transition-colors hover:bg-white/8"
+              className="relative z-10 inline-flex h-[41px] w-fit cursor-pointer items-center rounded-[14px] border border-white/8 bg-white/4 px-[17px] text-[16px] font-medium tracking-[-0.17px] text-white transition-colors hover:bg-white/8"
             >
               Хочу также!
             </button>
@@ -253,17 +263,6 @@ export default function CaseStudyChallenges({ pairs }: CaseStudyChallengesProps)
             </div>
           </div>
         </div>
-
-        {/* Parallax blob */}
-        <motion.div
-          aria-hidden
-          className="pointer-events-none absolute left-[187px] top-[233px] hidden size-[404px] lg:block"
-          style={{ y: blobY, rotate: blobRotate, scale: blobScale }}
-        >
-          <div className="relative size-full">
-            <Image src="/union2.svg" alt="" fill className="object-contain opacity-90" />
-          </div>
-        </motion.div>
       </motion.div>
     </section>
   );
